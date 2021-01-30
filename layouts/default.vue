@@ -25,7 +25,7 @@
         </v-col>
       </v-row>
     </div>
-    <login-form :dialog="showDialog" v-on:dialogChange="showLoginDialog" />
+    <login-form :dialogprop="showDialog" v-on:dialogChange="showLoginDialog" />
   </v-app>
 </template>
 
@@ -33,18 +33,18 @@
 import LoginForm from "~/components/LoginForm";
 export default {
   components: {
-    LoginForm,
+    LoginForm
   },
   data() {
     return {
-      showDialog: false,
+      showDialog: false
     };
   },
   methods: {
     showLoginDialog() {
       this.showDialog = !this.showDialog;
-    },
-  },
+    }
+  }
 };
 </script>
 

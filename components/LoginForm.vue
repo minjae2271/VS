@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="dialog" width="500">
+    <v-dialog v-model="dialogprop" @click:outside="showLoginDialog" width="500">
       <!-- <template v-slot:activator="{ on, attrs }">
         <v-btn
           color="red lighten-2"
@@ -43,10 +43,10 @@
 <script>
 export default {
   props: {
-    dialog: {
+    dialogprop: {
       type: Boolean,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {};
@@ -54,10 +54,9 @@ export default {
   methods: {
     showLoginDialog() {
       this.$emit("dialogChange");
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style>
-</style>
+<style></style>
