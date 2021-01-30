@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     showLoginDialog() {
-      this.$emit("dialogChange", false);
+      this.$emit("dialogChange");
     },
   },
 };

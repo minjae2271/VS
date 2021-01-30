@@ -25,7 +25,7 @@
         </v-col>
       </v-row>
     </div>
-    <login-form :dialog="dialog" v-on:dialogChange="showLoginDialog" gi />
+    <login-form :dialog="showDialog" v-on:dialogChange="showLoginDialog" />
   </v-app>
 </template>
 
@@ -37,20 +37,21 @@ export default {
   },
   data() {
     return {
-      dialog: false,
+      showDialog: false,
     };
   },
   methods: {
     showLoginDialog() {
-      this.dialog = !this.dialog;
+      this.showDialog = !this.showDialog;
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 a {
-  color: white;
+  color: inherit;
   text-decoration: none;
+  display: block;
 }
 </style>
