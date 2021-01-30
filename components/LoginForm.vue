@@ -43,7 +43,6 @@
 
 <script>
 export default {
-    name: LoginDialog,
     props: {
         dialog: {
             type: Boolean,

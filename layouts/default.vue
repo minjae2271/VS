@@ -13,11 +13,9 @@
             prepend-icon="mdi-magnify"
             :style="{ display: 'flex', alignItems: 'center' }"
           />
-          <v-dialog>
-            <v-btn text @click="showLoginDialog">
-              <div>로그인</div>
-            </v-btn>
-          </v-dialog>
+          <v-btn text @click="showLoginDialog">
+            <div>로그인</div>
+          </v-btn>
         </v-toolbar-items>
       </v-toolbar>
       <v-row no-gutters>
@@ -27,23 +25,25 @@
         </v-col>
       </v-row>
     </div>
+    <login-form 
+      :dialog="true"/>
   </v-app>
 </template>
 
 <script>
-// import LoginForm from '../components/LoginForm';
+ import LoginForm from '~/components/LoginForm';
 export default {
-  // components: {
-  //     LoginForm,
-  // }
+  components: {
+      LoginForm,
+  },
   data() {
     return {
-      loginDialog: false,
+      dialog: false,
     };
   },
   methods: {
     showLoginDialog() {
-      this.loginDialog = true;
+      this.dialog = !this.dialog;
     },
   },
 };
