@@ -55,7 +55,7 @@ export default {
     showLoginDialog() {
       console.log("TEST");
       console.log("TEST");
-      console.log("test");
+      console.log("oh");
       this.$emit("dialogChange");
     },
   },
