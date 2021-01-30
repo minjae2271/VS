@@ -25,16 +25,15 @@
         </v-col>
       </v-row>
     </div>
-    <login-form 
-      :dialog="true"/>
+    <login-form :dialog="dialog" v-on:dialogChange="showLoginDialog" gi />
   </v-app>
 </template>
 
 <script>
- import LoginForm from '~/components/LoginForm';
+import LoginForm from "~/components/LoginForm";
 export default {
   components: {
-      LoginForm,
+    LoginForm,
   },
   data() {
     return {
