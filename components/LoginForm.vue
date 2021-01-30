@@ -56,7 +56,7 @@ export default {
       console.log("TEST");
       console.log("TEST");
 
-      console.log("master");
+      console.log("oh");
 
       this.$emit("dialogChange");
     },
