@@ -13,8 +13,11 @@
             prepend-icon="mdi-magnify"
             :style="{ display: 'flex', alignItems: 'center' }"
           />
-          <v-btn text @click="showLoginDialog">
+          <v-btn v-if="!me" text @click="showLoginDialog">
             <div>로그인</div>
+          </v-btn>
+          <v-btn v-else text @click="logOut">
+            <div>로그아웃</div>
           </v-btn>
         </v-toolbar-items>
       </v-toolbar>
@@ -43,7 +46,17 @@ export default {
   methods: {
     showLoginDialog() {
       this.showDialog = !this.showDialog;
+    },
+    logOut() {
+      this.$store.dispatch("users/logOut");
+      alert("다음에 봐요!");
     }
+
+  },
+  computed: {
+    me(){
+        return this.$store.state.users.me
+    },
   }
 };
 </script>
