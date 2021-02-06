@@ -25,7 +25,8 @@
                 required
                 solo
                 clearable
-                :rules="emailRules"/>
+                :rules="emailRules"
+                :success="success"/>
                 <v-text-field 
                 label="Password"
                 v-model="pw"
@@ -58,7 +59,7 @@ export default {
   props: {
     dialogprop: {
       type: Boolean,
-      required: true
+      required: true,
     }
   },
   data() {
@@ -66,6 +67,7 @@ export default {
         valid: false,
         email: '',
         pw: '',
+        success: true,
         emailRules: [
             v => !!v || "이메일을 입력해주세요",
             v => /.+@.+\..+/.test(v) || '이메일 형식을 지켜주세요.',
@@ -90,6 +92,14 @@ export default {
         }
     }
   },
+  watch: {
+    dialogprop: function(val) {
+      if(val) {
+        this.email = '';
+        this.pw = '';
+      }
+    }
+  }
 };
 </script>
 
