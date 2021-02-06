@@ -48,7 +48,7 @@
               color="primary"
               type="submit"
               :disabled="!valid"
-              @click="showLoginDialog"
+              @click="onSubmitForm"
             >
               로그인!
             </v-btn>
@@ -90,6 +90,8 @@ export default {
           email: this.email,
           nickname: "VS"
         });
+        this.$emit("dialogChange");
+        this.$refs.form.reset();
       } else {
         alert("로그인 실패! ㅠㅠ");
       }
