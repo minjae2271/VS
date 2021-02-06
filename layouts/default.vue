@@ -13,12 +13,26 @@
             prepend-icon="mdi-magnify"
             :style="{ display: 'flex', alignItems: 'center' }"
           />
-          <v-btn v-if="!me" text @click="showLoginDialog">
-            <div>로그인</div>
-          </v-btn>
-          <v-btn v-else text @click="logOut">
-            <div>로그아웃</div>
-          </v-btn>
+          <v-container
+            v-if="!me"
+            :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
+          >
+            <v-btn text @click="showLoginDialog">
+              <div>로그인</div>
+            </v-btn>
+            <v-btn text :style="{ display: 'flex', alignItems: 'center' }">
+              회원가입
+            </v-btn>
+          </v-container>
+          <v-container
+            v-else
+            :style="{ display: 'flex', alignItems: 'center' }"
+          >
+            <div>{{ me.nickname }}님, 반가워요.</div>
+            <v-btn text @click="logOut">
+              로그아웃
+            </v-btn>
+          </v-container>
         </v-toolbar-items>
       </v-toolbar>
       <v-row no-gutters>
@@ -43,6 +57,11 @@ export default {
       showDialog: false
     };
   },
+  computed: {
+    me() {
+      return this.$store.state.users.me;
+    }
+  },
   methods: {
     showLoginDialog() {
       this.showDialog = !this.showDialog;
@@ -51,12 +70,11 @@ export default {
       this.$store.dispatch("users/logOut");
       alert("다음에 봐요!");
     }
-
   },
   computed: {
-    me(){
-        return this.$store.state.users.me
-    },
+    me() {
+      return this.$store.state.users.me;
+    }
   }
 };
 </script>
