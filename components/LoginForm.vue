@@ -13,28 +13,41 @@
       </template> -->
 
       <v-card>
-        <v-card-title class="headline grey lighten-2">
-          Privacy Policy
+        <v-card-title class="headline grey lighten-1">
+            로그인
         </v-card-title>
+        <v-form ref="form" v-model="valid" @submit.prevent="onSubmitForm">
+            <v-container>
+                <v-text-field 
+                label="Email"
+                v-model="email"
+                type="email"
+                required
+                solo
+                clearable
+                :rules="emailRules"/>
+                <v-text-field 
+                label="Password"
+                v-model="pw"
+                type="password"
+                required
+                solo
+                :rules="pwRules"
+                />
+            </v-container>
+            <v-card-text>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            </v-card-text>
 
-        <v-card-text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </v-card-text>
+            <v-divider></v-divider>
 
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="showLoginDialog">
-            I accept
-          </v-btn>
-        </v-card-actions>
+            <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" type="submit" :disabled="!valid" @click="showLoginDialog">
+                로그인!
+            </v-btn>
+            </v-card-actions>
+        </v-form>
       </v-card>
     </v-dialog>
   </div>
@@ -49,13 +62,34 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+        valid: false,
+        email: '',
+        pw: '',
+        emailRules: [
+            v => !!v || "이메일을 입력해주세요",
+            v => /.+@.+\..+/.test(v) || '이메일 형식을 지켜주세요.',
+        ],
+        pwRules: [
+            v => !!v || "비밀번호를 입력해주세요"
+        ],
+    };
   },
   methods: {
     showLoginDialog() {
       this.$emit("dialogChange");
+    },
+    onSubmitForm() {
+        if(this.$refs.form.validate()){
+            this.$store.dispatch('users/logIn', {
+                email: this.email,
+                nickname: "VS"
+            });
+        } else {
+            alert("로그인 실패! ㅠㅠ");
+        }
     }
-  }
+  },
 };
 </script>
 
