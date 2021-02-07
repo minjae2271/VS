@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <div>
-        <v-app-bar dark color="green" fixed>
+        <v-app-bar fixed>
           <v-toolbar-title>
             <nuxt-link to="/">Versus</nuxt-link>
           </v-toolbar-title>
