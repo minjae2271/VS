@@ -13,7 +13,7 @@
             label="search"
             prepend-icon="mdi-magnify"
             :style="{ display: 'flex', alignItems: 'center' }"
-          /> -->
+            /> -->
             <v-container
               v-if="!me"
               :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
