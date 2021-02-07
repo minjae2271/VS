@@ -1,9 +1,9 @@
 <template>
-  <v-container>
+  <div class="main">
     <main-carousel></main-carousel>
     <item-list />
     <item-list />
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -21,5 +21,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.main
+{
+    margin: 0;
+    padding: 0;
+}
 </style>

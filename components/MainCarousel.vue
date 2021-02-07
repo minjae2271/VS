@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <div>
         <v-carousel v-model="model" cycle show-arrows-on-hover hide-delimiter-background>
             <v-carousel-item
             v-for="(color, i) in colors"
@@ -22,7 +22,7 @@
             </v-sheet>
             </v-carousel-item>
         </v-carousel>
-    </v-container>
+    </div>
 </template>
 <script>
 export default {
