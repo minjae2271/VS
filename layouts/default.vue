@@ -38,7 +38,7 @@
               <v-menu v-model="profileMenu" offset-y :rounded="rounded">
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn icon x-large v-bind="attrs" v-on="on">
-                    <v-avatar color="brown" size="48">
+                    <v-avatar color="blue" size="48">
                       <span class="white--text headline">{{
                         me.nickname
                       }}</span>
@@ -46,6 +46,13 @@
                   </v-btn>
                 </template>
                 <v-list>
+                  <v-list-item class="profile-menu-avatar">
+                    <v-avatar color="blue">
+                      <span class="white--text headline">{{
+                        me.nickname
+                      }}</span>
+                    </v-avatar>
+                  </v-list-item>
                   <v-list-item>
                     <v-list-item-title>
                       {{ me.email }}
