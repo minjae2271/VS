@@ -4,7 +4,7 @@
       v-model="model"
       class="pa-4"
       active-class="success"
-      show-arrows="false"
+      show-arrows
     >
       <v-slide-item v-for="n in 15" :key="n" v-slot="{ active, toggle }">
         <v-card
