@@ -43,7 +43,7 @@
         </v-toolbar-items>
       </v-toolbar>
       <v-row no-gutters justify="center">
-        <v-col cols="12" md="8">
+        <v-col>
           <nuxt />
         </v-col>
       </v-row>

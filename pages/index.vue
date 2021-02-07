@@ -1,8 +1,23 @@
-<template></template>
+<template>
+    <main-carousel></main-carousel>
+</template>
 
 <script>
-export default {};
+import MainCarousel from '~/components/MainCarousel'
+
+export default {
+    components: {
+        MainCarousel
+    },
+    data(){
+        return {
+
+        }
+    }
+};
+
 </script>
 
 <style>
+
 </style>
