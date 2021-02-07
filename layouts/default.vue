@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <div>
-      <v-toolbar dark color="green" :style="{ position: 'sticky' }">
+      <v-app-bar dark color="green" fixed>
         <v-toolbar-title>
           <nuxt-link to="/">Versus</nuxt-link>
         </v-toolbar-title>
@@ -87,7 +87,7 @@
         </v-menu>
           </v-container>
         </v-toolbar-items>
-      </v-toolbar>
+      </v-app-bar>
       <v-row no-gutters justify="center">
         <v-col>
           <nuxt />
