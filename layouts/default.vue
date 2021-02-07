@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <v-main>
-      <div></div>
       <div>
         <v-app-bar dark color="green" fixed>
           <v-toolbar-title>
@@ -35,7 +34,7 @@
               v-else
               :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
             >
-              <v-menu v-model="profileMenu" offset-y :rounded="rounded">
+              <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn icon x-large v-bind="attrs" v-on="on">
                     <v-avatar color="blue" size="48">
