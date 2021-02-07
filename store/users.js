@@ -8,6 +8,9 @@ export const mutations = {
     },
     unsetMe(state){
         state.me = null;
+    },
+    signUp(state){
+        
     }
 };
 
@@ -15,7 +18,10 @@ export const actions = {
     logIn({commit}, payload){
         commit('setMe', payload);
     },
-    logOut({commit}, payload){
+    logOut({commit}){
         commit('unsetMe');
+    },
+    signUp({commit}, payload){
+        commit('setMe', payload);
     }
 }
