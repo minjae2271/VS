@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <div>
-      <v-toolbar dark color="green">
+      <v-toolbar dark color="green" :style="{ position: 'sticky' }">
         <v-toolbar-title>
           <nuxt-link to="/">Versus</nuxt-link>
         </v-toolbar-title>
@@ -20,7 +20,12 @@
             <v-btn text @click="showLoginDialog">
               <div>로그인</div>
             </v-btn>
-            <v-btn text nuxt to="/signup" :style="{ display: 'flex', alignItems: 'center' }">
+            <v-btn
+              text
+              nuxt
+              to="/signup"
+              :style="{ display: 'flex', alignItems: 'center' }"
+            >
               회원가입
             </v-btn>
           </v-container>
@@ -49,14 +54,17 @@
       </v-row>
     </div>
     <login-form :dialogprop="showDialog" v-on:dialogChange="showLoginDialog" />
+    <versus-footer />
   </v-app>
 </template>
 
 <script>
 import LoginForm from "~/components/LoginForm";
+import VersusFooter from "~/components/VersusFooter";
 export default {
   components: {
     LoginForm,
+    VersusFooter,
   },
   data() {
     return {
