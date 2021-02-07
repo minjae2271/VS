@@ -132,4 +132,8 @@ a {
   text-decoration: none;
   display: block;
 }
+
+.profile-menu-avatar {
+  justify-content: center;
+}
 </style>
