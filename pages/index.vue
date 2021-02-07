@@ -1,7 +1,17 @@
-<template></template>
+<template>
+  <v-container>
+    <item-list />
+  </v-container>
+</template>
 
 <script>
-export default {};
+import ItemList from "~/components/ItemList";
+
+export default {
+  components: {
+    ItemList,
+  },
+};
 </script>
 
 <style>
