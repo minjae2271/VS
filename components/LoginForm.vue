@@ -64,7 +64,7 @@ export default {
   props: {
     dialogprop: {
       type: Boolean,
-      required: true
+      required: true,
     }
   },
   data() {

@@ -20,7 +20,7 @@
             <v-btn text @click="showLoginDialog">
               <div>로그인</div>
             </v-btn>
-            <v-btn text :style="{ display: 'flex', alignItems: 'center' }">
+            <v-btn text nuxt to="/signup" :style="{ display: 'flex', alignItems: 'center' }">
               회원가입
             </v-btn>
           </v-container>
