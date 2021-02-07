@@ -26,17 +26,23 @@
           </v-container>
           <v-container
             v-else
-            :style="{ display: 'flex', alignItems: 'center' }"
+            :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
           >
-            <div>{{ me.nickname }}님, 반가워요.</div>
+            <v-btn
+              text
+              nuxt
+              to="/profile"
+              :style="{ display: 'flex', alignItems: 'center' }"
+            >
+              <div>프로필</div>
+            </v-btn>
             <v-btn text @click="logOut">
-              로그아웃
+              <div>로그아웃</div>
             </v-btn>
           </v-container>
         </v-toolbar-items>
       </v-toolbar>
       <v-row no-gutters>
-        <v-col cols="12" md="4"> </v-col>
         <v-col cols="12" md="8">
           <nuxt />
         </v-col>
