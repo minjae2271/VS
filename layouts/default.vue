@@ -88,6 +88,17 @@
           </v-col>
         </v-row>
       </div>
+      <v-btn
+        color="blue darken-2"
+        dark
+        fab
+        bottom
+        right
+        fixed
+        @click="$vuetify.goTo(0)"
+      >
+        <v-icon>mdi-chevron-up</v-icon>
+      </v-btn>
       <login-form
         :dialogprop="showDialog"
         v-on:dialogChange="showLoginDialog"
