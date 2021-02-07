@@ -42,7 +42,7 @@
           </v-container>
         </v-toolbar-items>
       </v-toolbar>
-      <v-row no-gutters>
+      <v-row no-gutters justify="center">
         <v-col cols="12" md="8">
           <nuxt />
         </v-col>
@@ -56,17 +56,17 @@
 import LoginForm from "~/components/LoginForm";
 export default {
   components: {
-    LoginForm
+    LoginForm,
   },
   data() {
     return {
-      showDialog: false
+      showDialog: false,
     };
   },
   computed: {
     me() {
       return this.$store.state.users.me;
-    }
+    },
   },
   methods: {
     showLoginDialog() {
@@ -74,14 +74,15 @@ export default {
     },
     logOut() {
       this.$store.dispatch("users/logOut");
+      this.$router.push({ path: "/" });
       alert("다음에 봐요!");
-    }
+    },
   },
   computed: {
     me() {
       return this.$store.state.users.me;
-    }
-  }
+    },
+  },
 };
 </script>
 
