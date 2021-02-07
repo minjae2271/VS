@@ -45,13 +45,19 @@
               v-on="on"
             >
               <v-avatar
-              color="brown"
+              color="blue"
               size="48">
               <span class="white--text headline">{{me.nickname}}</span>
               </v-avatar>
             </v-btn>
           </template>
           <v-list>
+            <v-list-item class="profile-menu-avatar">
+              <v-avatar
+              color="blue">
+                <span class="white--text headline">{{me.nickname}}</span>
+              </v-avatar>
+            </v-list-item>
             <v-list-item>
               <v-list-item-title>
                 {{me.email}}
@@ -134,5 +140,10 @@ a {
   color: inherit;
   text-decoration: none;
   display: block;
+}
+
+.profile-menu-avatar
+{
+  justify-content: center;
 }
 </style>
