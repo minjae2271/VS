@@ -34,51 +34,56 @@
               v-else
               :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
             >
-              <v-menu offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn icon x-large v-bind="attrs" v-on="on">
-                    <v-avatar color="blue" size="48">
-                      <span class="white--text headline">{{
-                        me.nickname
-                      }}</span>
-                    </v-avatar>
-                  </v-btn>
-                </template>
-                <v-list>
-                  <v-list-item class="profile-menu-avatar">
-                    <v-avatar color="blue">
-                      <span class="white--text headline">{{
-                        me.nickname
-                      }}</span>
-                    </v-avatar>
-                  </v-list-item>
-                  <v-list-item>
-                    <v-list-item-title>
-                      {{ me.email }}
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-divider></v-divider>
-                  <v-list-item>
-                    <v-list-item-content>
-                      <v-btn
-                        text
-                        nuxt
-                        to="/profile"
-                        :style="{ display: 'flex', alignItems: 'center' }"
-                      >
-                        <div>프로필</div>
-                      </v-btn>
-                    </v-list-item-content>
-                  </v-list-item>
-                  <v-list-item>
-                    <v-list-item-content>
-                      <v-btn text @click="logOut">
-                        <div>로그아웃</div>
-                      </v-btn>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
+              <div>
+                <v-menu offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon x-large v-bind="attrs" v-on="on">
+                      <v-avatar color="blue" size="48">
+                        <span class="white--text headline">{{
+                          me.nickname
+                        }}</span>
+                      </v-avatar>
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item class="profile-menu-avatar">
+                      <v-avatar color="blue">
+                        <span class="white--text headline">{{
+                          me.nickname
+                        }}</span>
+                      </v-avatar>
+                    </v-list-item>
+                    <v-list-item>
+                      <v-list-item-title>
+                        {{ me.email }}
+                      </v-list-item-title>
+                    </v-list-item>
+                    <v-divider></v-divider>
+                    <v-list-item>
+                      <v-list-item-content>
+                        <v-btn
+                          text
+                          nuxt
+                          to="/profile"
+                          :style="{ display: 'flex', alignItems: 'center' }"
+                        >
+                          <div>프로필</div>
+                        </v-btn>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item>
+                      <v-list-item-content>
+                        <v-btn text @click="logOut">
+                          <div>로그아웃</div>
+                        </v-btn>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </div>
+              <v-btn nuxt to="/createpost">
+                글쓰기
+              </v-btn>
             </v-container>
           </v-toolbar-items>
         </v-app-bar>
@@ -154,4 +159,5 @@ a {
 .profile-menu-avatar {
   justify-content: center;
 }
+
 </style>

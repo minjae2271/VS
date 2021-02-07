@@ -1,4 +1,5 @@
 <template>
+<div>
   <v-sheet class="mx-auto" max-width="100%" :style="{ padding: '100px 0 0 0' }">
     <v-slide-group
       v-model="model"
@@ -28,6 +29,8 @@
       </v-slide-item>
     </v-slide-group>
   </v-sheet>
+</div>
+
 </template>
 
 <script>

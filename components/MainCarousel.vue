@@ -1,6 +1,6 @@
 <template>
-    <div class="main-carousel">
-        <v-carousel v-model="model">
+    <div>
+        <v-carousel v-model="model" cycle show-arrows-on-hover hide-delimiter-background>
             <v-carousel-item
             v-for="(color, i) in colors"
             :key="color"
@@ -40,8 +40,5 @@ export default {
 </script>
 
 <style>
-.main-carousel
-{
-    width: 100%
-}
+
 </style>
