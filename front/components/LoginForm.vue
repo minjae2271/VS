@@ -40,6 +40,12 @@
             Lorem ipsum dolor sit amet, consectetur adipiscing elit,
           </v-card-text>
 
+          <div>
+            <v-container>
+              <v-btn>네이버 로그인</v-btn>
+            </v-container>
+          </div>
+
           <v-divider></v-divider>
 
           <v-card-actions>
@@ -64,7 +70,7 @@ export default {
   props: {
     dialogprop: {
       type: Boolean,
-      required: true,
+      required: true
     }
   },
   data() {
