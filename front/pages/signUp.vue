@@ -36,9 +36,7 @@
             <v-btn type="submit">가입</v-btn>
         </v-form>
       </v-card>
-      <div>
-          <v-btn @click="kakaoLogin">카카오로그인</v-btn>
-      </div>
+      <div id="kakaoIdLogin" @click="kakaoLogin">카카오 로그인</div>
   </v-container>
 </template>
 
@@ -67,9 +65,19 @@ export default {
             ],
         }
     },
-    mouted() {
-        Kakao.init('5bb891c05f068896313c14f58efd8d5e')
-        Kakao.isInitialized()
+    mounted(){
+        Kakao.init('69b08c096cea52c0d39b7fb5fab9d569');
+        Kakao.isInitialized();
+        // Kakao.Auth.setAccessToken(this.$route.params.accessToken)
+        // Kakao.API.request({
+        //     url: '/v2/user/me',
+        //     success(response) {
+        //         console.log(response)
+        //     },
+        //     fail(error) {
+        //         console.log(error)
+        //     }
+        // });
     },
     computed: {
         me(){
@@ -92,7 +100,7 @@ export default {
                     await this.$store.dispatch('users/signUp', {
                         email: this.email,
                         password: this.password,
-                        nickname: this.nickname,
+                        nickname: this.nickname, 
                     })
                 }
                 catch{
@@ -102,11 +110,11 @@ export default {
                 alert('회원가입 양식을 확인해주세요')
             }
         },
-        kakaoLogin() {
+        kakaoLogin(){
             Kakao.Auth.authorize({
-            redirectUri: `${window.location.origin}`
-      })
-    }
+                redirectUri: 'http://localhost:3000/login_callback_kakao'
+            })
+        },
     }
 }
 </script>

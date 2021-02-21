@@ -26,16 +26,16 @@ export default {
     return {
       valid: false,
       nickname: "",
-      nicknameRules: [(v) => !!v || "닉네임을 입력하세요."],
+      nicknameRules: [v => !!v || "닉네임을 입력하세요."]
     };
   },
   computed: {},
   head() {
     return {
-      title: "프로필",
+      title: "프로필"
     };
   },
-  methods: {},
+  methods: {}
 };
 </script>
 
