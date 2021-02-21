@@ -36,13 +36,18 @@
               :rules="pwRules"
             />
           </v-container>
-          <v-card-text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          </v-card-text>
 
-          <div>
-            <social-login />
-          </div>
+          <v-container>
+            <v-card-text>
+              소셜 로그인으로 간편하게 로그인 하세요.
+            </v-card-text>
+          </v-container>
+
+          <v-container>
+            <v-row justify="center">
+              <social-login @closeModal="onSocialLogin" />
+            </v-row>
+          </v-container>
 
           <v-divider></v-divider>
 
@@ -101,6 +106,13 @@ export default {
       } else {
         alert("로그인 실패! ㅠㅠ");
       }
+    },
+    onSocialLogin(payload) {
+      this.$store.dispatch("users/logIn", {
+        email: payload.email,
+        nickname: payload.nickname
+      });
+      this.$emit("dialogChange");
     }
   }
 };

@@ -1,38 +1,47 @@
 <template>
-  <div id="naverIdLogin">네이버 로그인</div>
+  <div id="naverIdLogin" @click="onClickNaverLogin"></div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      naverLogin: {}
+    };
+  },
   mounted() {
-    const naverLogin = new naver.LoginWithNaverId({
+    this.naverLogin = new naver.LoginWithNaverId({
       clientId: "AgLMoPpLVWI4wuTDo22X",
       callbackUrl: `http://localhost:3000/loginCallback`,
-      isPopup: true /* 팝업을 통한 연동처리 여부 */,
+      isPopup: true,
       callbackHandle: true,
       loginButton: {
+        /* 로그인 버튼의 타입을 지정 */
         color: "green",
         type: 3,
-        height: 60
-      } /* 로그인 버튼의 타입을 지정 */
-    });
-
-    /* 설정정보를 초기화하고 연동을 준비 */
-    naverLogin.init();
-
-    naverLogin.getLoginStatus(function(status) {
-      if (status) {
-        var email = naverLogin.user.getEmail();
-        var name = naverLogin.user.getNickName();
-        // var profileImage = naverLogin.user.getProfileImage();
-        // var birthday = naverLogin.user.getBirthday();
-        // var age = naverLogin.user.getAge();
-        // var uniqId = naverLogin.user.getId();
-        console.log(email, name);
-      } else {
-        console.log("AccessToken이 올바르지 않습니다.");
+        height: 50
       }
     });
+    this.naverLogin.init();
+  },
+  methods: {
+    onClickNaverLogin() {
+      const that = this;
+      this.naverLogin.getLoginStatus(function(status) {
+        if (status) {
+          const email = that.naverLogin.user.getEmail();
+          const nickname = that.naverLogin.user.getNickName();
+          // var profileImage = naverLogin.user.getProfileImage();
+          // var birthday = naverLogin.user.getBirthday();
+          // var age = naverLogin.user.getAge();
+          // var uniqId = naverLogin.user.getId();
+          console.log(email, nickname);
+          that.$emit("closeModal", { email, nickname });
+        } else {
+          console.log("AccessToken이 올바르지 않습니다.");
+        }
+      });
+    }
   }
 };
 </script>

@@ -14,8 +14,7 @@ import ItemList from "~/components/ItemList";
 export default {
   components: {
     MainCarousel,
-    ItemList,
-    Login
+    ItemList
   },
   data() {
     return {};

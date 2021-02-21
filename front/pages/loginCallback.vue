@@ -29,14 +29,6 @@ export default {
             return;
           }
 
-          //   window.location.replace(
-          //     "http://" +
-          //       window.location.hostname +
-          //       (location.port == "" || location.port == undefined
-          //         ? ""
-          //         : ":" + location.port) +
-          //       "/sample/main.html"
-          //   );
           window.self.close();
         } else {
           console.log("callback 처리에 실패하였습니다.");
