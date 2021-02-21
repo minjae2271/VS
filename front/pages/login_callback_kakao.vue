@@ -8,6 +8,8 @@
 <script>
 export default {
     mounted(){
+        const that = this;
+        
         Kakao.init('69b08c096cea52c0d39b7fb5fab9d569');
         Kakao.Auth.login({
         scope: 'profile, account_email, gender',
@@ -17,12 +19,23 @@ export default {
                 url: '/v2/user/me',
                 success(res){
                     const kakao_account = res.kakao_account;
-                    console.log(kakao_account);
+                    // console.log(kakao_account);
                     Kakao.Auth.setAccessToken(authObj.access_token);
-                    console.log(authObj.access_token);
-                    console.log(this)
+                    // console.log(authObj.access_token);
+                    // console.log(this)
                     let email = res.kakao_account.email
-                    console.log(email)
+                    let nickname = res.kakao_account.profile.nickname
+                    let profile_image_url = res.kakao_account.profile.profile_image_url
+
+                    try {
+                        that.$store.dispatch('users/logIn', {
+                            id: email,
+                            nickname: nickname,
+                            profile_image_url: profile_image_url
+                        });
+                    } catch(err){
+                        console.error(err)
+                    }
                 },
                 fail(err){
                     console.error(err);
@@ -33,21 +46,10 @@ export default {
             console.error(err);
         }
         });
-        // try {
-        //     this.$store.dispatch('users/logIn', {
-        //         id: this.id,
-        //         nickname: this.nickname,
-        //         profile_image_url: this.profile_image_url
-        //     });
-        // } catch(err){
-        //     console.error(err)
-        // }
     },
     data(){
         return {
-            id: '',
-            nickname: '',
-            profile_image_url: ''
+          
         }
     }
 //   mounted() {

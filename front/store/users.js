@@ -1,27 +1,22 @@
-export const state =() => ({
-    me: null
+export const state = () => ({
+  me: null
 });
 
 export const mutations = {
-    setMe(state, payload){
-        state.me = payload;
-    },
-    unsetMe(state){
-        state.me = null;
-    },
-    signUp(state){
-        
-    }
+  setMe(state, payload) {
+    state.me = payload;
+  },
+  signUp(state) {}
 };
 
 export const actions = {
-    logIn({commit}, payload){
-        commit('setMe', payload);
-    },
-    logOut({commit}){
-        commit('unsetMe');
-    },
-    signUp({commit}, payload){
-        commit('setMe', payload);
-    }
-}
+  logIn({ commit }, payload) {
+    commit("setMe", payload);
+  },
+  logOut({ commit }) {
+    commit("setMe", null);
+  },
+  signUp({ commit }, payload) {
+    commit("setMe", payload);
+  }
+};

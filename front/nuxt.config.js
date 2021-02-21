@@ -15,8 +15,13 @@ export default {
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     script: [
+      {
+        type: "text/javascript",
+        src: "https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js",
+        charset: "utf-8"
+      },
       { src: 'https://developers.kakao.com/sdk/js/kakao.min.js' }
-    ],
+    ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

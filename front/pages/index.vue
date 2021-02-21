@@ -4,21 +4,17 @@
     <item-list />
     <item-list />
     <v-spacer />
-
-    <login-test />
   </div>
 </template>
 
 <script>
 import MainCarousel from "~/components/MainCarousel";
 import ItemList from "~/components/ItemList";
-import LoginTest from "~/components/LoginTest.vue";
 
 export default {
   components: {
     MainCarousel,
-    ItemList,
-    LoginTest
+    ItemList
   },
   data() {
     return {};
