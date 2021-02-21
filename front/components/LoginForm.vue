@@ -41,9 +41,7 @@
           </v-card-text>
 
           <div>
-            <v-container>
-              <v-btn>네이버 로그인</v-btn>
-            </v-container>
+            <social-login />
           </div>
 
           <v-divider></v-divider>
@@ -66,7 +64,9 @@
 </template>
 
 <script>
+import SocialLogin from "~/components/SocialLogin.vue";
 export default {
+  components: { SocialLogin },
   props: {
     dialogprop: {
       type: Boolean,
