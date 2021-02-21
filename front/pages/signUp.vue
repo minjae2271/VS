@@ -36,6 +36,9 @@
             <v-btn type="submit">가입</v-btn>
         </v-form>
       </v-card>
+      <div>
+          <v-btn @click="kakaoLogin">카카오로그인</v-btn>
+      </div>
   </v-container>
 </template>
 
@@ -63,6 +66,10 @@ export default {
                 v => !!v || '닉네임을 입력해주세요 ㅠㅠ'
             ],
         }
+    },
+    mouted() {
+        Kakao.init('5bb891c05f068896313c14f58efd8d5e')
+        Kakao.isInitialized()
     },
     computed: {
         me(){
@@ -94,7 +101,12 @@ export default {
             } else {
                 alert('회원가입 양식을 확인해주세요')
             }
-        }
+        },
+        kakaoLogin() {
+            Kakao.Auth.authorize({
+            redirectUri: `${window.location.origin}`
+      })
+    }
     }
 }
 </script>

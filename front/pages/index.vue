@@ -18,6 +18,9 @@ export default {
   data() {
     return {};
   },
+  mounted() {
+    console.log(window.location.origin);
+  }
 };
 </script>
 
