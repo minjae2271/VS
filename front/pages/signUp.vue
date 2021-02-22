@@ -36,12 +36,19 @@
             <v-btn type="submit">가입</v-btn>
         </v-form>
       </v-card>
-      <div id="kakaoIdLogin" @click="kakaoLogin">카카오 로그인</div>
+      <v-container>
+          <social-login />
+      </v-container>
   </v-container>
 </template>
 
 <script>
+import SocialLogin from '~/components/SocialLogin'
+
 export default {
+    components: {
+        SocialLogin,
+    },
     data(){
         return {
             valid: false,
@@ -64,20 +71,6 @@ export default {
                 v => !!v || '닉네임을 입력해주세요 ㅠㅠ'
             ],
         }
-    },
-    mounted(){
-        Kakao.init('69b08c096cea52c0d39b7fb5fab9d569');
-        Kakao.isInitialized();
-        // Kakao.Auth.setAccessToken(this.$route.params.accessToken)
-        // Kakao.API.request({
-        //     url: '/v2/user/me',
-        //     success(response) {
-        //         console.log(response)
-        //     },
-        //     fail(error) {
-        //         console.log(error)
-        //     }
-        // });
     },
     computed: {
         me(){
@@ -109,11 +102,6 @@ export default {
             } else {
                 alert('회원가입 양식을 확인해주세요')
             }
-        },
-        kakaoLogin(){
-            Kakao.Auth.authorize({
-                redirectUri: 'http://localhost:3000/login_callback_kakao'
-            })
         },
     }
 }

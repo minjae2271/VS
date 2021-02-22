@@ -1,5 +1,14 @@
 <template>
+<div>
   <div id="naverIdLogin" @click="onClickNaverLogin"></div>
+  <div id="kakaoIdLogin" @click="kakaoLogin">
+      <img
+        src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+        width="230"
+        height="50"
+      />
+  </div>
+</div>
 </template>
 
 <script>
@@ -41,7 +50,14 @@ export default {
           console.log("AccessToken이 올바르지 않습니다.");
         }
       });
-    }
+    },
+    kakaoLogin(){
+        Kakao.init('69b08c096cea52c0d39b7fb5fab9d569');
+        console.log(Kakao.isInitialized())
+        Kakao.Auth.authorize({
+          redirectUri: 'http://localhost:3000/login_callback_kakao',
+        })
+    },
   }
 };
 </script>
