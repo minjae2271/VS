@@ -1,0 +1,30 @@
+[
+  {
+    "name": "createPost",
+    "path": "/createPost",
+    "component": "/Users/minjae/VS/versusApp/pages/createPost.vue",
+    "chunkName": "pages/createPost",
+    "_name": "_cd488d4c"
+  },
+  {
+    "name": "profile",
+    "path": "/profile",
+    "component": "/Users/minjae/VS/versusApp/pages/profile.vue",
+    "chunkName": "pages/profile",
+    "_name": "_5153587b"
+  },
+  {
+    "name": "signup",
+    "path": "/signup",
+    "component": "/Users/minjae/VS/versusApp/pages/signup.vue",
+    "chunkName": "pages/signup",
+    "_name": "_fea48094"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/Users/minjae/VS/versusApp/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_eac5bcb8"
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "ItemList": {
+    "description": "Auto imported from /components/ItemList.vue"
+  },
+  "LazyItemList": {
+    "description": "Auto imported from /components/ItemList.vue"
+  },
+  "LoginForm": {
+    "description": "Auto imported from /components/LoginForm.vue"
+  },
+  "LazyLoginForm": {
+    "description": "Auto imported from /components/LoginForm.vue"
+  },
+  "MainCarousel": {
+    "description": "Auto imported from /components/MainCarousel.vue"
+  },
+  "LazyMainCarousel": {
+    "description": "Auto imported from /components/MainCarousel.vue"
+  },
+  "VersusFooter": {
+    "description": "Auto imported from /components/VersusFooter.vue"
+  },
+  "LazyVersusFooter": {
+    "description": "Auto imported from /components/VersusFooter.vue"
+  }
+}

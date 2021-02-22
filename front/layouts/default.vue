@@ -8,12 +8,6 @@
           </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <!-- <v-text-field
-            hide-details
-            label="search"
-            prepend-icon="mdi-magnify"
-            :style="{ display: 'flex', alignItems: 'center' }"
-            /> -->
             <v-container
               v-if="!me"
               :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
@@ -39,18 +33,20 @@
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn icon x-large v-bind="attrs" v-on="on">
                       <v-avatar color="blue" size="48">
-                        <span class="white--text headline">{{
-                          me.nickname
-                        }}</span>
+                        <img
+                          :src="me.profile_image_url"
+                          alt="John"
+                        >
                       </v-avatar>
                     </v-btn>
                   </template>
                   <v-list>
                     <v-list-item class="profile-menu-avatar">
                       <v-avatar color="blue">
-                        <span class="white--text headline">{{
-                          me.nickname
-                        }}</span>
+                              <img
+                                :src="me.profile_image_url"
+                                alt="John"
+                              >
                       </v-avatar>
                     </v-list-item>
                     <v-list-item>
@@ -81,9 +77,9 @@
                   </v-list>
                 </v-menu>
               </div>
-              <v-btn nuxt to="/createpost">
+              <!-- <v-btn nuxt to="/createpost">
                 글쓰기
-              </v-btn>
+              </v-btn> -->
             </v-container>
           </v-toolbar-items>
         </v-app-bar>
