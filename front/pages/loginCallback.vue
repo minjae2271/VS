@@ -8,8 +8,6 @@
 export default {
   layout: "empty",
   mounted() {
-    const that = this;
-
     const naverLogin = new naver.LoginWithNaverId({
       clientId: "AgLMoPpLVWI4wuTDo22X",
       isPopup: false /* 팝업을 통한 연동처리 여부 */
