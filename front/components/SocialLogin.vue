@@ -35,7 +35,7 @@ export default {
           // var birthday = naverLogin.user.getBirthday();
           // var age = naverLogin.user.getAge();
           // var uniqId = naverLogin.user.getId();
-          console.log(email, nickname);
+          console.log(that.naverLogin.user);
           that.$emit("closeModal", { email, nickname });
         } else {
           console.log("AccessToken이 올바르지 않습니다.");
