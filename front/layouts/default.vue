@@ -33,20 +33,14 @@
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn icon x-large v-bind="attrs" v-on="on">
                       <v-avatar color="blue" size="48">
-                        <img
-                          :src="me.profile_image_url"
-                          alt="John"
-                        >
+                        <img :src="me.profile_image_url" alt="John" />
                       </v-avatar>
                     </v-btn>
                   </template>
                   <v-list>
                     <v-list-item class="profile-menu-avatar">
                       <v-avatar color="blue">
-                              <img
-                                :src="me.profile_image_url"
-                                alt="John"
-                              >
+                        <img :src="me.profile_image_url" alt="John" />
                       </v-avatar>
                     </v-list-item>
                     <v-list-item>
@@ -115,17 +109,17 @@ import VersusFooter from "~/components/VersusFooter";
 export default {
   components: {
     LoginForm,
-    VersusFooter,
+    VersusFooter
   },
   data() {
     return {
-      showDialog: false,
+      showDialog: false
     };
   },
   computed: {
     me() {
       return this.$store.state.users.me;
-    },
+    }
   },
   methods: {
     showLoginDialog() {
@@ -135,13 +129,13 @@ export default {
       this.$store.dispatch("users/logOut");
       this.$router.push({ path: "/" });
       alert("다음에 봐요!");
-    },
+    }
   },
   computed: {
     me() {
       return this.$store.state.users.me;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -155,5 +149,4 @@ a {
 .profile-menu-avatar {
   justify-content: center;
 }
-
 </style>
