@@ -7,7 +7,6 @@
         </v-container>
       </v-card>
     </v-container>
-
     <v-container>
       <v-tabs color="deep-purple accent-4">
         <v-tabs-slider color="deep-purple accent-4"></v-tabs-slider>
