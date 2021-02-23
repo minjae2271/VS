@@ -1,8 +1,6 @@
 <template>
   <v-app>
-    <v-main>
-      <div>
-        <v-app-bar fixed>
+        <v-app-bar app>
           <v-toolbar-title>
             <nuxt-link to="/">Versus</nuxt-link>
           </v-toolbar-title>
@@ -28,27 +26,22 @@
               v-else
               :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
             >
-              <div>
-                <v-menu offset-y>
+            <v-spacer></v-spacer>
+              <v-avatar color="blue" size="48">
+                <img
+                  :src="me.profile_image_url"
+                  alt="me.nickname"
+                >
+              </v-avatar>
+                <v-menu offset-y bottom center>
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn icon x-large v-bind="attrs" v-on="on">
-                      <v-avatar color="blue" size="48">
-                        <img
-                          :src="me.profile_image_url"
-                          alt="John"
-                        >
-                      </v-avatar>
+                      <v-btn icon>
+                        <v-icon>mdi-dots-vertical</v-icon>
+                      </v-btn>
                     </v-btn>
                   </template>
                   <v-list>
-                    <v-list-item class="profile-menu-avatar">
-                      <v-avatar color="blue">
-                              <img
-                                :src="me.profile_image_url"
-                                alt="John"
-                              >
-                      </v-avatar>
-                    </v-list-item>
                     <v-list-item>
                       <v-list-item-title>
                         {{ me.email }}
@@ -76,19 +69,18 @@
                     </v-list-item>
                   </v-list>
                 </v-menu>
-              </div>
               <!-- <v-btn nuxt to="/createpost">
                 글쓰기
               </v-btn> -->
             </v-container>
           </v-toolbar-items>
         </v-app-bar>
-        <v-row no-gutters justify="center">
+    <v-main>
+        <v-row fluid justify="center">
           <v-col>
             <nuxt />
           </v-col>
         </v-row>
-      </div>
       <v-btn
         color="blue darken-2"
         dark
@@ -105,7 +97,7 @@
         v-on:dialogChange="showLoginDialog"
       />
     </v-main>
-    <versus-footer />
+    <versus-footer app/>
   </v-app>
 </template>
 
