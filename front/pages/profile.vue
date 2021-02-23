@@ -41,8 +41,10 @@ export default {
       return this.$store.state.users.me;
     }
   },
+  middleware: 'authenticated',
+  methods: {
 
-  methods: {}
+  },
 };
 </script>
 

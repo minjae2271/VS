@@ -2,8 +2,8 @@
   <v-container>
       <v-card>
           <v-subheader>글작성</v-subheader>
-          <v-form ref="form" v-model="valid" @submit.prevent="onSubmitForm">
-              
+          <v-form>
+
           </v-form>
       </v-card>
   </v-container>
@@ -11,7 +11,11 @@
 
 <script>
 export default {
-
+    data(){
+        return {
+            vaild: false
+        }
+    }
 }
 </script>
 
