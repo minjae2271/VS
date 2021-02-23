@@ -23,9 +23,7 @@ export default {
       clientId: "AgLMoPpLVWI4wuTDo22X",
       callbackUrl: `http://localhost:3000/loginCallback`,
       isPopup: true,
-      callbackHandle: true,
       loginButton: {
-        /* 로그인 버튼의 타입을 지정 */
         color: "green",
         type: 3,
         height: 50
@@ -40,12 +38,9 @@ export default {
         if (status) {
           const email = that.naverLogin.user.getEmail();
           const nickname = that.naverLogin.user.getNickName();
-          // var profileImage = naverLogin.user.getProfileImage();
-          // var birthday = naverLogin.user.getBirthday();
-          // var age = naverLogin.user.getAge();
-          // var uniqId = naverLogin.user.getId();
+          const profileImage = that.naverLogin.user.getProfileImage();
           console.log(that.naverLogin.user);
-          that.$emit("closeModal", { email, nickname });
+          that.$emit("closeModal", { email, nickname, profileImage });
         } else {
           console.log("AccessToken이 올바르지 않습니다.");
         }

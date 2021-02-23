@@ -110,12 +110,14 @@ export default {
     onSocialLogin(payload) {
       this.$store.dispatch("users/logIn", {
         email: payload.email,
-        nickname: payload.nickname
+        nickname: payload.nickname,
+        profile_image_url: payload.profileImage
       });
       this.$emit("dialogChange");
-    }
+    },
   }
 };
 </script>
 
-<style></style>
+<style>
+</style>
