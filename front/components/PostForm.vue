@@ -1,10 +1,10 @@
 <template>
-  <v-container>
+  <v-container d-flex>
       <v-card>
           <v-subheader>글작성</v-subheader>
-          <v-form>
-
-          </v-form>
+      </v-card>
+      <v-card>
+          gd
       </v-card>
   </v-container>
 </template>
