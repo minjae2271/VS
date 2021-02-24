@@ -22,7 +22,7 @@ export default {
     this.naverLogin = new naver.LoginWithNaverId({
       clientId: "AgLMoPpLVWI4wuTDo22X",
       callbackUrl: `http://localhost:3000/loginCallback`,
-      isPopup: true,
+      isPopup: false,
       loginButton: {
         color: "green",
         type: 3,

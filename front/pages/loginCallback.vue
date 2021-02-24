@@ -13,7 +13,7 @@ export default {
     const naverLogin = new naver.LoginWithNaverId({
       clientId: "AgLMoPpLVWI4wuTDo22X",
       callbackUrl: `http://localhost:3000/loginCallback`,
-      isPopup: false,
+      isPopup: true,
       callbackHandle: true
     });
 
@@ -39,7 +39,7 @@ export default {
             return;
           }
 
-          window.location.replace("http://localhost:3000");
+          that.$router.push({ path: "/profile" });
         } else {
           console.log("callback 처리에 실패하였습니다.");
           console.log("AccessToken이 올바르지 않습니다.");
