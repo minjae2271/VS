@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar app>
       <v-toolbar-title>
-        <nuxt-link to="/">Versus</nuxt-link>
+        <nuxt-link to="/">MURPICK</nuxt-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
