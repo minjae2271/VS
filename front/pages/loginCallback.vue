@@ -1,6 +1,6 @@
 <template>
   <v-layout column>
-    로그인 진행 중입니다. 잠시 후 창이 닫힙니다.
+    네이버 로그인 진행 중입니다. 잠시 후 창이 닫힙니다.
   </v-layout>
 </template>
 
@@ -13,7 +13,7 @@ export default {
     const naverLogin = new naver.LoginWithNaverId({
       clientId: "AgLMoPpLVWI4wuTDo22X",
       callbackUrl: `http://localhost:3000/loginCallback`,
-      isPopup: true,
+      isPopup: false,
       callbackHandle: true
     });
 
