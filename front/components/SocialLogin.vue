@@ -21,7 +21,7 @@ export default {
   mounted() {
     this.naverLogin = new naver.LoginWithNaverId({
       clientId: "AgLMoPpLVWI4wuTDo22X",
-      callbackUrl: `http://localhost:3000/loginCallback`,
+      callbackUrl: `http://localhost:3000/login_callback_naver`,
       isPopup: false,
       loginButton: {
         color: "green",
