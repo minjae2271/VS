@@ -11,7 +11,6 @@
       <v-tabs color="deep-purple accent-4">
         <v-tabs-slider color="deep-purple accent-4"></v-tabs-slider>
         <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
-
         <v-tab-item v-for="item in items" :key="item">
           <v-container fluid>
             <v-row>
@@ -38,13 +37,13 @@ export default {
   },
   computed: {
     me() {
-      return this.$store.state.users.me;
+      return this.$store.state.users.me == null
+        ? ""
+        : this.$store.state.users.me;
     }
   },
-  middleware: 'authenticated',
-  methods: {
-
-  },
+  middleware: "authenticated",
+  methods: {}
 };
 </script>
 
