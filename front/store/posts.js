@@ -81,7 +81,7 @@ export const mutations = {
 };
 
 export const actions = {
-  add({ commit, state }, payload) {
+    addPost({ commit, state }, payload) {
     commit("addMainPost", payload);
   },
 
