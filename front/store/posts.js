@@ -72,6 +72,7 @@ export const mutations = {
     console.log(state.imagePaths);
   },
   removeImagePath(state, payload) {
+     console.log(payload)
     state.imagePaths.splice(payload, 1);
   }
 };
