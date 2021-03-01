@@ -1,16 +1,14 @@
 <template>
-    <post-form></post-form>
+  <post-form></post-form>
 </template>
 
 <script>
-    import PostForm from '~/components/PostForm'
+import PostForm from "~/components/PostForm";
 export default {
-    components: {
-        PostForm
-    }
-}
+  components: {
+    PostForm
+  }
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
