@@ -2,7 +2,16 @@
   <v-container v-if="post">
     <post-card :post="post" />
     <comment-form />
-    <comments-list />
+    <v-container>
+      <v-row>
+        <v-col>
+          <comments-list />
+        </v-col>
+        <v-col>
+          <comments-list />
+        </v-col>
+      </v-row>
+    </v-container>
   </v-container>
   <div v-else>
     해당 아이디의 게시글이 존재하지 않습니다.
