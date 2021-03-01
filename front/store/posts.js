@@ -74,7 +74,11 @@ export const mutations = {
   },
   concatImagesPaths(state, payload) {
     state.imagePaths = state.imagePaths.concat(payload);
+<<<<<<< HEAD
     // console.log(state.imagePaths[0].getAll('image'))
+=======
+    console.log(state.imagePaths);
+>>>>>>> d8221321d9ae92df2348f2acdc1ff2430c20b1e0
   },
   removeImagePath(state, payload) {
      console.log(payload)
@@ -83,7 +87,7 @@ export const mutations = {
 };
 
 export const actions = {
-    addPost({ commit, state }, payload) {
+  addPost({ commit, state }, payload) {
     commit("addMainPost", payload);
   },
 
@@ -104,7 +108,12 @@ export const actions = {
   },
 
   uploadImages({ commit }, payload) {
+<<<<<<< HEAD
     // console.log(payload.getAll('image'))
+=======
+    console.log("actions uploadImage");
+    console.log(payload);
+>>>>>>> d8221321d9ae92df2348f2acdc1ff2430c20b1e0
     commit("concatImagesPaths", payload);
   }
 };
