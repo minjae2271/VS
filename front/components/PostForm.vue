@@ -3,27 +3,6 @@
     <v-card>
       <v-subheader>글작성</v-subheader>
       <v-row>
-<<<<<<< HEAD
-          <v-col cols="12" sm="6">
-              <v-card>
-                  <!-- <h1>{{imagePaths[0]}}</h1> -->
-                  <v-img src='https://yt3.ggpht.com/ytc/AAUvwnjgFBtwlc18lzSGrCZv_T0mUb4Vr-P4c2F2o1l5Eg=s900-c-k-c0x00ffffff-no-rj'>
-                    <v-layout fill-height align-end justify-center>
-                        <h2>{{content1}}</h2>
-                    </v-layout>
-                  </v-img>
-              </v-card>
-          </v-col>
-        <v-col cols="12" sm="6" >
-              <v-card>
-                  <v-img src='https://yt3.ggpht.com/ytc/AAUvwnjgFBtwlc18lzSGrCZv_T0mUb4Vr-P4c2F2o1l5Eg=s900-c-k-c0x00ffffff-no-rj'>
-                    <v-layout fill-height align-end justify-center>
-                        <h2>{{content2}}</h2>
-                    </v-layout>
-                  </v-img>
-              </v-card>
-          </v-col>
-=======
         <v-col cols="12" sm="6">
           <v-card>
             <h1>{{ imagePaths }}</h1>
@@ -47,7 +26,6 @@
             </v-img>
           </v-card>
         </v-col>
->>>>>>> d8221321d9ae92df2348f2acdc1ff2430c20b1e0
       </v-row>
       <!-- <div> -->
       <v-form ref="form" @submit.prevent="onSubmitForm">
@@ -99,16 +77,11 @@ export default {
       [].forEach.call(e.target.files, f => {
         imageFormData.append("image", f); //{ image: [file1, file2]}
       });
-<<<<<<< HEAD
-      //console.log(imageFormData.getAll('image'));
-      this.$store.dispatch('posts/uploadImages', imageFormData);
-=======
       // 	for (var key of imageFormData.entries()) {
       // 	console.log(key[0] + ', ' + key[1])
       // }
       //   console.log(imageFormData)
       this.$store.dispatch("posts/uploadImages", imageFormData);
->>>>>>> d8221321d9ae92df2348f2acdc1ff2430c20b1e0
     },
     onClickImageUpload() {
       this.$refs.imageInput.click();
