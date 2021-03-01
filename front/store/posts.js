@@ -74,8 +74,10 @@ export const mutations = {
   },
   concatImagesPaths(state, payload) {
     state.imagePaths = state.imagePaths.concat(payload);
+    // console.log(state.imagePaths[0].getAll('image'))
   },
   removeImagePath(state, payload) {
+     console.log(payload)
     state.imagePaths.splice(payload, 1);
   }
 };
@@ -102,6 +104,7 @@ export const actions = {
   },
 
   uploadImages({ commit }, payload) {
+    // console.log(payload.getAll('image'))
     commit("concatImagesPaths", payload);
   }
 };
