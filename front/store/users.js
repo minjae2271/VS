@@ -10,13 +10,21 @@ export const mutations = {
 };
 
 export const actions = {
+  async signUp({ commit, state }, payload) {
+    try {
+      const res = await this.$axios("http://localhost:3005/user", {
+        email: payload.email,
+        nickname: payload.nickname,
+        password: payload.password
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  },
   logIn({ commit }, payload) {
     commit("setMe", payload);
   },
   logOut({ commit }) {
     commit("setMe", null);
-  },
-  signUp({ commit }, payload) {
-    commit("setMe", payload);
   }
 };

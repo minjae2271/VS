@@ -28,7 +28,7 @@
     </v-card-title>
 
     <v-card-subtitle class="pb-0">
-      Number 10
+      {{ post[0].contents[0] }} VS {{ post[0].contents[1] }}
     </v-card-subtitle>
 
     <v-card-text class="text--primary">

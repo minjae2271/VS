@@ -7,10 +7,7 @@ export const state = () => ({
         id: 1,
         nickname: "Murpick User1"
       },
-      contents: [
-        { title: "10억", count: 19 },
-        { title: "wjsdur", count: 78 }
-      ],
+      contents: ["10억", "전역"],
       conditions: "1. 현재 전역을 3일 앞둔 말년병장일 때",
       Comments: [
         {
@@ -72,7 +69,7 @@ export const mutations = {
     console.log(state.imagePaths);
   },
   removeImagePath(state, payload) {
-     console.log(payload)
+    console.log(payload);
     state.imagePaths.splice(payload, 1);
   }
 };
