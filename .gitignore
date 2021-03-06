@@ -1,6 +1,8 @@
 node_modules
 .nuxt
 back/config/config.json
+test.vue
+TestComponent.vue
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Node template

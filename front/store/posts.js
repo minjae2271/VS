@@ -2,11 +2,13 @@ export const state = () => ({
   mainPosts: [
     {
       id: 1,
+      title: "군대 현역인 사람 들어와",
       User: {
         id: 1,
         nickname: "Murpick User1"
       },
-      content: "첫번째 임시 게시물",
+      contents: ["10억", "전역"],
+      conditions: "1. 현재 전역을 3일 앞둔 말년병장일 때",
       Comments: [
         {
           id: 1,
@@ -30,16 +32,6 @@ export const state = () => ({
         nickname: "Murpick User2"
       },
       content: "두번째 임시 게시물",
-      Comments: [],
-      Images: []
-    },
-    {
-      id: 3,
-      User: {
-        id: 1,
-        nickname: "Murpick User1"
-      },
-      content: "세번째 임시 게시물",
       Comments: [],
       Images: []
     }
@@ -77,7 +69,7 @@ export const mutations = {
     console.log(state.imagePaths);
   },
   removeImagePath(state, payload) {
-     console.log(payload)
+    console.log(payload);
     state.imagePaths.splice(payload, 1);
   }
 };

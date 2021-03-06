@@ -20,7 +20,7 @@ export default {
         src: "https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js",
         charset: "utf-8"
       },
-      { src: 'https://developers.kakao.com/sdk/js/kakao.min.js' }
+      { src: "https://developers.kakao.com/sdk/js/kakao.min.js" }
     ]
   },
 
@@ -40,9 +40,13 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
+<<<<<<< HEAD
   modules: [
     '@nuxtjs/axios'
   ],
+=======
+  modules: ["@nuxtjs/axios"],
+>>>>>>> 9d415e8f8fdf9b4c77f26b9d37a1955564221aa2
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
