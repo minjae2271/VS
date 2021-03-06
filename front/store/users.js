@@ -35,7 +35,6 @@ export const actions = {
     })
   },
   logOut({ commit }) {
-<<<<<<< HEAD
     this.$axios.post('http://localhost:3005/user/logout', {}, {
       withCredentials: true,
     })
@@ -62,8 +61,5 @@ export const actions = {
       console.error(err);
     })
     
-=======
-    commit("setMe", null);
->>>>>>> 9d415e8f8fdf9b4c77f26b9d37a1955564221aa2
   }
 };

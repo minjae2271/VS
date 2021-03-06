@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
@@ -75,10 +74,3 @@ router.post('/logout', (req, res) => {
 });
 
 module.exports = router; 
-=======
-const express = require("express");
-
-const router = express.Router();
-
-module.exports = router;
->>>>>>> 9d415e8f8fdf9b4c77f26b9d37a1955564221aa2
