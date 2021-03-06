@@ -29,7 +29,7 @@
             />
             <v-text-field
               label="Password"
-              v-model="pw"
+              v-model="password"
               type="password"
               required
               solo
@@ -82,7 +82,7 @@ export default {
     return {
       valid: false,
       email: "",
-      pw: "",
+      password: "",
       emailRules: [
         v => !!v || "이메일을 입력해주세요",
         v => /.+@.+\..+/.test(v) || "이메일 형식을 지켜주세요."
@@ -99,7 +99,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.$store.dispatch("users/logIn", {
           email: this.email,
-          nickname: "VS"
+          password: this.password,
         });
         this.$emit("dialogChange");
         this.$refs.form.reset();

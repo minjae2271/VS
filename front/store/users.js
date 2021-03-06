@@ -6,17 +6,49 @@ export const mutations = {
   setMe(state, payload) {
     state.me = payload;
   },
-  signUp(state) {}
 };
 
 export const actions = {
   logIn({ commit }, payload) {
-    commit("setMe", payload);
+    this.$axios.post('http://localhost:3005/user/login', {
+      email: payload.email,
+      password: payload.password,
+    }, {
+      withCredentials: true,
+    })
+    .then((res) => {
+      commit("setMe", res.data);
+    })
+    .catch((err) => {
+      console.error(err);
+    })
   },
   logOut({ commit }) {
-    commit("setMe", null);
+    this.$axios.post('http://localhost:3005/user/logout', {}, {
+      withCredentials: true,
+    })
+    .then((res) => {
+      console.log(res);
+      commit("setMe", null);
+    })
+    .catch((err) => {
+      console.error(err)
+    })
   },
   signUp({ commit }, payload) {
-    commit("setMe", payload);
+    this.$axios.post('http://localhost:3005/user', {
+      email: payload.email,
+      nickname: payload.nickname,
+      password: payload.password,
+    }, {
+      withCredentials: true,
+    })
+    .then((res) => {
+      commit("setMe", res.data);
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    
   }
 };

@@ -28,7 +28,8 @@
         >
           <v-spacer></v-spacer>
           <v-avatar color="blue" size="48">
-            <img :src="me.profile_image_url" alt="me.nickname" />
+            <img v-if="me.profile_image_url" :src="me.profile_image_url" alt="me.nickname" />
+            <span v-else>{{me.nickname}}</span>
           </v-avatar>
           <v-menu offset-y bottom center>
             <template v-slot:activator="{ on, attrs }">
@@ -122,8 +123,6 @@ export default {
     },
     logOut() {
       this.$store.dispatch("users/logOut");
-      this.$router.push({ path: "/" });
-      alert("다음에 봐요!");
     }
   },
   computed: {
