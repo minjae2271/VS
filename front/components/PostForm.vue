@@ -3,22 +3,23 @@
     <v-card>
       <v-subheader>글작성</v-subheader>
       <v-row>
+        <h1>{{ imagePaths }}</h1>
         <v-col cols="12" sm="6">
           <v-card>
-            <h1>{{ imagePaths }}</h1>
             <v-img
-              src="https://yt3.ggpht.com/ytc/AAUvwnjgFBtwlc18lzSGrCZv_T0mUb4Vr-P4c2F2o1l5Eg=s900-c-k-c0x00ffffff-no-rj"
+              :src="`http://localhost:3005/${imagePaths[0]}`"
             >
               <v-layout fill-height align-end justify-center>
                 <h2>{{ content1 }}</h2>
               </v-layout>
             </v-img>
+            <button @click="onRemoveImage(0)" type="button">제거</button>
           </v-card>
         </v-col>
         <v-col cols="12" sm="6">
           <v-card>
             <v-img
-              src="https://yt3.ggpht.com/ytc/AAUvwnjgFBtwlc18lzSGrCZv_T0mUb4Vr-P4c2F2o1l5Eg=s900-c-k-c0x00ffffff-no-rj"
+              :src="`http://localhost:3005/${imagePaths[1]}`"
             >
               <v-layout fill-height align-end justify-center>
                 <h2>{{ content2 }}</h2>
@@ -86,6 +87,9 @@ export default {
     onClickImageUpload() {
       this.$refs.imageInput.click();
     },
+    onRemoveImage(index) {
+      this.$store.commit('posts/removeImagePath', index);
+    },
     onSubmitForm() {
       this.$store.dispatch("posts/addPost", {
         content1: this.content1,
@@ -94,7 +98,7 @@ export default {
     }
   },
   computed: {
-    ...mapState("posts", ["imagePaths"])
+    ...mapState("posts", ["imagePaths"]), 
   }
 };
 </script>

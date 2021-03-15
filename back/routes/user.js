@@ -3,8 +3,9 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const db = require('../models');
+const { isNotLoggedIn, isLoggedIn } = require('./middlewares');
 
-router.post('/', async (req, res, next) => {
+router.post('/', isNotLoggedIn, async (req, res, next) => {
     try {
         const hash = await bcrypt.hash(req.body.password, 12);
         const exUser = await db.User.findOne({
@@ -46,7 +47,7 @@ router.post('/', async (req, res, next) => {
     }
 });
 
-router.post('/login', (req, res, next) => {
+router.post('/login', isNotLoggedIn, (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
           console.error(err);
@@ -65,7 +66,7 @@ router.post('/login', (req, res, next) => {
       })(req, res, next);
 });
 
-router.post('/logout', (req, res) => {
+router.post('/logout', isLoggedIn, (req, res) => {
     if(req.isAuthenticated()){
         req.logout();
         req.session.destroy();

@@ -96,8 +96,14 @@ export const actions = {
   },
 
   uploadImages({ commit }, payload) {
-    console.log("actions uploadImage");
-    console.log(payload);
-    commit("concatImagesPaths", payload);
+    this.$axios.post('http://localhost:3005/post/images', payload, {
+      withCredentials: true,
+    })
+    .then((res) => {
+      commit("concatImagesPaths", res.data);
+    })
+    .catch((err) => {
+
+    })
   }
 };
