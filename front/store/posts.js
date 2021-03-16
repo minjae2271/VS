@@ -81,6 +81,7 @@ export const actions = {
       title: payload.title,
       content1: payload.content1,
       content2: payload.content2,
+      image: state.imagePaths,
     }, {
       withCredentials: true,
     })
