@@ -3,6 +3,7 @@
     <v-card>
       <v-subheader>글작성</v-subheader>
       <v-row>
+        <v-text-field v-model="title" label="title" shaped outlined />
         <h1>{{ imagePaths }}</h1>
         <v-col cols="12" sm="6">
           <v-card>
@@ -67,8 +68,9 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      title: "",
       content1: "",
-      content2: ""
+      content2: "",
     };
   },
   methods: {
@@ -92,6 +94,8 @@ export default {
     },
     onSubmitForm() {
       this.$store.dispatch("posts/addPost", {
+        postType: 1,
+        title: this.title,
         content1: this.content1,
         content2: this.content2
       });

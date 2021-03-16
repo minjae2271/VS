@@ -76,7 +76,20 @@ export const mutations = {
 
 export const actions = {
   addPost({ commit, state }, payload) {
-    commit("addMainPost", payload);
+    this.$axios.post('http://localhost:3005/post/images', {
+      postType: payload.postType,
+      title: payload.title,
+      content1: payload.content1,
+      content2: payload.content2,
+    }, {
+      withCredentials: true,
+    })
+    .then((res) => {
+      commit("addMainPost", res.data);
+    })
+    .catch((err) => {
+      console.error(err);
+    })
   },
 
   remove({ commit }, payload) {
@@ -103,7 +116,7 @@ export const actions = {
       commit("concatImagesPaths", res.data);
     })
     .catch((err) => {
-
+      console.error(err);
     })
   }
 };
