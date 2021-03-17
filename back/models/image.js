@@ -1,10 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const Image = sequelize.define('Image', {
-        image1 : {
-            type: DataTypes.STRING(200),
-            allowNull: false,
-        },
-        image2 : {
+        src : {
             type: DataTypes.STRING(200),
             allowNull: false,
         }

@@ -3,10 +3,12 @@
     <v-card>
       <v-subheader>글작성</v-subheader>
       <v-row>
+        <v-text-field v-model="title" label="title" shaped outlined />
         <h1>{{ imagePaths }}</h1>
         <v-col cols="12" sm="6">
           <v-card>
             <v-img
+              class="postImg"
               :src="`http://localhost:3005/${imagePaths[0]}`"
             >
               <v-layout fill-height align-end justify-center>
@@ -19,6 +21,7 @@
         <v-col cols="12" sm="6">
           <v-card>
             <v-img
+              class="postImg"
               :src="`http://localhost:3005/${imagePaths[1]}`"
             >
               <v-layout fill-height align-end justify-center>
@@ -56,7 +59,6 @@
           </v-row>
         </v-container>
       </v-form>
-      <!-- </div> -->
     </v-card>
   </v-container>
 </template>
@@ -67,8 +69,9 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      title: "",
       content1: "",
-      content2: ""
+      content2: "",
     };
   },
   methods: {
@@ -78,10 +81,6 @@ export default {
       [].forEach.call(e.target.files, f => {
         imageFormData.append("image", f); //{ image: [file1, file2]}
       });
-      // 	for (var key of imageFormData.entries()) {
-      // 	console.log(key[0] + ', ' + key[1])
-      // }
-      //   console.log(imageFormData)
       this.$store.dispatch("posts/uploadImages", imageFormData);
     },
     onClickImageUpload() {
@@ -92,6 +91,8 @@ export default {
     },
     onSubmitForm() {
       this.$store.dispatch("posts/addPost", {
+        postType: 1,
+        title: this.title,
         content1: this.content1,
         content2: this.content2
       });
@@ -103,4 +104,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.postImg{
+  width: 100px;
+  height: 50;
+}
+</style>
