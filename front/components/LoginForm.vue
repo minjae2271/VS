@@ -25,6 +25,7 @@
               required
               solo
               clearable
+              tabindex="1"
               :rules="emailRules"
             />
             <v-text-field
@@ -33,6 +34,7 @@
               type="password"
               required
               solo
+              tabindex="2"
               :rules="pwRules"
             />
           </v-container>

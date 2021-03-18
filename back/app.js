@@ -11,7 +11,7 @@ const postRouter = require('./routes/post');
 const db = require('./models');
 const app = express(); 
 
-db.sequelize.sync();
+db.sequelize.sync({force:true});
 passportConfig();
 
 app.use(morgan('dev'));

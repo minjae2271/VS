@@ -76,7 +76,7 @@ export const mutations = {
 
 export const actions = {
   addPost({ commit, state }, payload) {
-    this.$axios.post('http://localhost:3005/post/images', {
+    this.$axios.post('http://localhost:3005/post', {
       postType: payload.postType,
       title: payload.title,
       content1: payload.content1,
