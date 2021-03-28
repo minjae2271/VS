@@ -20,14 +20,15 @@ const upload = multer({
 });
 
 router.post('/images', isLoggedIn, upload.array('image'), (req, res) => {
-    console.log(req.files);
     res.json(req.files.map(v => v.filename)); 
 });
 
 router.post('/', isLoggedIn, async (req, res, next) => {
     try{
+        console.log(req.user);
         const newPost = await db.Post.create({
             postType: req.body.postType,
+            postCategory: req.body.postCategory,
             title: req.body.title,
             content1: req.body.content1,
             content2: req.body.content2,
@@ -62,6 +63,63 @@ router.post('/', isLoggedIn, async (req, res, next) => {
         next(err);
     }
 
+});
+
+router.post('/:id/comments', async (req, res, next) => {
+    try {
+        const post = await db.Post.findOne({
+            where : {
+                id: req.params.id,
+            }
+        });
+        if(!post){
+            return res.status(404).send("게시글이 존재하지 않습니다.")
+        }
+        const comments = db.Comment.findAll({
+            where: {
+                PostId: req.params.id,
+            },
+            include: [{
+                model: db.User,
+                attributes: ['id', 'nickname'],
+            }],
+            order: [['createdAt', 'ASC']]
+        });
+        return res.json(comments);
+    } catch(err){
+        console.error(err);
+        next(err);
+    }
+})
+
+router.post('/:id/comment', isLoggedIn, async (req, res, next) => {
+    try {
+        const post = await db.Post.findOne({
+            where : {
+                id: req.params.id,
+            }
+        });
+        if(!post){
+            return res.status(404).send("게시글이 존재하지 않습니다.")
+        }
+        const newComment = db.Comment.create({
+            PostId: req.params.id,
+            UserId: req.user.id,
+            content: req.body.content,
+        });
+        const comment = await db.Comment.findOne({
+            where: {
+                id: newComment.id
+            },
+            include: [{
+                model: db.User,
+                attributes: ['id', 'nickname'],
+            }],
+    });
+    return res.json(comment);
+    } catch(err) {
+
+    }
 });
 
 module.exports = router;

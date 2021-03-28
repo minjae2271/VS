@@ -11,7 +11,7 @@ const postRouter = require('./routes/post');
 const db = require('./models');
 const app = express(); 
 
-db.sequelize.sync({force:true});
+db.sequelize.sync();
 passportConfig();
 
 app.use(morgan('dev'));
@@ -37,6 +37,7 @@ app.use(passport.session());
 
 app.use('/user', userRouter);
 app.use('/post', postRouter);
+app.use('/posts', postRouter);
 
 
 app.listen(3005, () => {

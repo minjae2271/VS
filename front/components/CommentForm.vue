@@ -43,7 +43,9 @@ export default {
         this.successMessages = "";
       }
     },
-    onSubmitForm() {}
+    onSubmitForm() {
+      
+    }
   }
 };
 </script>

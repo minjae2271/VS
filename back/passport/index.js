@@ -9,7 +9,10 @@ module.exports = () => {
     });
     passport.deserializeUser( async (id, done) => {
         try{
-            const user = db.User.findOne({ where: { id } });
+            const user = db.User.findOne({
+                where: { id },
+                attributes: ['id', 'nickname'],
+            });
             return done(null, user); //req.user , req.isAuthenticated === true
         }
         catch(err){

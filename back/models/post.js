@@ -4,6 +4,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        postCategory: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
         title: {
             type: DataTypes.STRING(100),
             allowNull: false,
@@ -15,7 +19,11 @@ module.exports = (sequelize, DataTypes) => {
         content2: {
             type: DataTypes.STRING(100),
             allowNull: false,
-        }
+        },
+        content3: {
+            type: DataTypes.STRING(100),
+            allowNull: true,
+        },
     }, {
         charset: 'utf8mb4',
         collate:  'utf8mb4_general_ci'

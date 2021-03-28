@@ -78,6 +78,7 @@ export const actions = {
   addPost({ commit, state }, payload) {
     this.$axios.post('http://localhost:3005/post', {
       postType: payload.postType,
+      postCategory: payload.postCategory,
       title: payload.title,
       content1: payload.content1,
       content2: payload.content2,

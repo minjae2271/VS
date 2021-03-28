@@ -2,9 +2,8 @@
   <v-container>
     <v-card>
       <v-subheader>글작성</v-subheader>
+      <v-text-field v-model="title" label="title" shaped outlined />
       <v-row>
-        <v-text-field v-model="title" label="title" shaped outlined />
-        <h1>{{ imagePaths }}</h1>
         <v-col cols="12" sm="6" v-for="(image,i) in imagePaths" :key="image">
           <v-card>
             <v-img
@@ -29,7 +28,7 @@
                 hidden
                 @change="onChangeImages"
               />
-              <v-btn type="button" @click="onClickImageUpload"
+              <v-btn type="button" @click.prevent="onClickImageUpload"
                 >이미지 업로드</v-btn
               >
             </v-col>
@@ -39,9 +38,9 @@
             <v-col cols="6">
               <v-text-field v-model="content2" label="2" rounded outlined />
             </v-col>
-              <v-btn type="submit" absolute right>등록</v-btn> 
           </v-row>
         </v-container>
+        <v-btn id="submitBtn" type="submit" absolute right>등록</v-btn> 
       </v-form>
     </v-card>
   </v-container>
@@ -76,9 +75,10 @@ export default {
     async onSubmitForm() {
         this.$store.dispatch("posts/addPost", {
           postType: 1,
+          postCategory: 1,
           title: this.title,
           content1: this.content1,
-          content2: this.content2
+          content2: this.content2,
       })
       .then(() => {
         this.title = '';
@@ -96,9 +96,11 @@ export default {
 };
 </script>
 
-<style>
-.postImg{
+<style scoped>
+.postImg
+{
   width: 100px;
   height: 50;
 }
+
 </style>
