@@ -1,8 +1,7 @@
 <template>
   <div class="main">
     <main-carousel></main-carousel>
-    <item-list />
-    <item-list />
+    <!-- <item-list :posts="mainPosts"/> -->
     <v-spacer />
   </div>
 </template>
@@ -15,9 +14,6 @@ export default {
   components: {
     MainCarousel,
     ItemList
-  },
-  data() {
-    return {};
   },
 };
 </script>

@@ -19,13 +19,13 @@ const upload = multer({
     limit: { fileSize: 20 * 1024 * 1024 }
 });
 
-router.post('/images', isLoggedIn, upload.array('image'), (req, res) => {
+router.post('/images', upload.array('image'), (req, res) => {
     res.json(req.files.map(v => v.filename)); 
 });
 
-router.post('/', isLoggedIn, async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     try{
-        console.log(req.user);
+        const hashtag = req.body.hashtag.match(/#[^\s#]+/g);
         const newPost = await db.Post.create({
             postType: req.body.postType,
             postCategory: req.body.postCategory,
@@ -34,7 +34,12 @@ router.post('/', isLoggedIn, async (req, res, next) => {
             content2: req.body.content2,
             UserId: req.user.id,
         });
-
+        if(hashtag){
+            const result = await Promise.all(hashtag.map(tag => db.Hashtag.findOrCreate({
+                where: { name: tag.slice(1).toLowerCase()}
+            })));
+            await newPost.addHashtags(result.map(r => r[0]));
+        }
         if(req.body.image){
             if(Array.isArray(req.body.image)){
                 await Promise.all(req.body.image.map((image) => {

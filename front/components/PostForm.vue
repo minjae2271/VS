@@ -28,15 +28,18 @@
                 hidden
                 @change="onChangeImages"
               />
-              <v-btn type="button" @click.prevent="onClickImageUpload"
+              <v-btn type="button" @click="onClickImageUpload"
                 >이미지 업로드</v-btn
               >
             </v-col>
             <v-col cols="6">
-              <v-text-field v-model="content1" label="1" shaped outlined />
+              <v-text-field v-model="content1" label="1" rounded outlined />
             </v-col>
             <v-col cols="6">
               <v-text-field v-model="content2" label="2" rounded outlined />
+            </v-col>
+            <v-col>
+              <v-text-field v-model="hashtag" rounded outlined/>
             </v-col>
           </v-row>
         </v-container>
@@ -55,11 +58,11 @@ export default {
       title: "",
       content1: "",
       content2: "",
+      hashtag: "",
     };
   },
   methods: {
     onChangeImages(e) {
-      console.log(e.target.files);
       const imageFormData = new FormData();
       [].forEach.call(e.target.files, f => {
         imageFormData.append("image", f); //{ image: [file1, file2]}
@@ -79,11 +82,13 @@ export default {
           title: this.title,
           content1: this.content1,
           content2: this.content2,
+          hashtag: this.hashtag,
       })
       .then(() => {
         this.title = '';
         this.content1 = '';
         this.content2 = '';
+        this.hashtag = '';
       })
       .catch((err) => {
         console.error(err);

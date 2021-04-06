@@ -10,7 +10,6 @@ module.exports = () => {
   }, async (email, password, done) => {
     try {
       const exUser = await db.User.findOne({ where: { email } });
-      console.log(exUser)
       if (!exUser) {
         return done(null, false, { reason: '존재하지 않는 사용자입니다.' });
       }

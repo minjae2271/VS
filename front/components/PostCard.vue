@@ -1,49 +1,43 @@
 <template>
   <v-card class="mx-auto" max-width="100%">
+    <v-card-title>
+      <h3>
+        <nuxt-link :to="'/post/'+post.id">
+          {{ post.title }}
+        </nuxt-link>
+      </h3>
+    </v-card-title>
     <v-container>
       <v-row no-gutters>
         <v-col cols="6">
           <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+            :src="`http://localhost:3005/${post.Images[0].src}`"
             height="300px"
             width="100%"
           />
+          <h3 class="text-center">{{ post.content1 }}</h3>
         </v-col>
         <v-col cols="6">
           <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            :src="`http://localhost:3005/${post.Images[1].src}`"
             height="300px"
             width="100%"
           />
+          <h3 class="text-center">{{ post.content2 }}</h3>
         </v-col>
       </v-row>
     </v-container>
 
-    <v-card-title>
-      <h3>
-        <nuxt-link :to="'/post/1'">
-          {{ post[0].title }}
-        </nuxt-link>
-      </h3>
-    </v-card-title>
-
-    <v-card-subtitle class="pb-0">
-      {{ post[0].contents[0] }} VS {{ post[0].contents[1] }}
-    </v-card-subtitle>
-
-    <v-card-text class="text--primary">
-      <div>Whitehaven Beach</div>
-
-      <div>Whitsunday Island, Whitsunday Islands</div>
-    </v-card-text>
+    <!-- <v-card-subtitle class="pb-0">
+    </v-card-subtitle> -->
 
     <v-card-actions>
       <v-btn color="orange" text>
-        Share
+        공유하기
       </v-btn>
 
       <v-btn color="orange" text>
-        Explore
+        결과보기
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -53,18 +47,21 @@
 import CommentForm from "~/components/CommentForm";
 
 export default {
+  props: {
+    post: {
+      type: Object,
+      required: true,
+    }
+  },
   components: {
     CommentForm
   },
   data() {
     return {};
-  },
-  computed: {
-    post() {
-      return this.$store.state.posts.mainPosts;
-    }
   }
 };
 </script>
 
-<style></style>
+<style scoped>
+
+</style>

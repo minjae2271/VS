@@ -8,6 +8,7 @@ const morgan = require('morgan')
 
 const userRouter = require('./routes/user');
 const postRouter = require('./routes/post'); 
+const postsRouter = require('./routes/posts');
 const db = require('./models');
 const app = express(); 
 
@@ -37,7 +38,7 @@ app.use(passport.session());
 
 app.use('/user', userRouter);
 app.use('/post', postRouter);
-app.use('/posts', postRouter);
+app.use('/posts', postsRouter);
 
 
 app.listen(3005, () => {

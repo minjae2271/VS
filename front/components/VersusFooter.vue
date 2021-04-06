@@ -12,18 +12,8 @@
             {{ icon }}
           </v-icon>
         </v-btn>
-      </v-card-text>
-
-      <v-card-text class="white--text pt-0">
-        Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet.
-        Mauris cursus commodo interdum. Praesent ut risus eget metus luctus
-        accumsan id ultrices nunc.
-      </v-card-text>
-
-      <v-divider></v-divider>
-
-      <v-card-text class="white--text">
-        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+      <v-spacer></v-spacer>
+      {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
       </v-card-text>
     </v-card>
   </v-footer>
