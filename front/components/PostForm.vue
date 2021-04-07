@@ -2,36 +2,21 @@
   <v-container>
     <v-card>
       <v-subheader>글작성</v-subheader>
+      <v-text-field v-model="title" label="title" shaped outlined />
       <v-row>
-        <v-text-field v-model="title" label="title" shaped outlined />
-        <h1>{{ imagePaths }}</h1>
-        <v-col cols="12" sm="6">
+        <v-col cols="12" sm="6" v-for="(image,i) in imagePaths" :key="image">
           <v-card>
             <v-img
               class="postImg"
-              :src="`http://localhost:3005/${imagePaths[0]}`"
+              :src="`http://localhost:3005/${image}`"
             >
               <v-layout fill-height align-end justify-center>
-                <h2>{{ content1 }}</h2>
               </v-layout>
             </v-img>
-            <button @click="onRemoveImage(0)" type="button">제거</button>
-          </v-card>
-        </v-col>
-        <v-col cols="12" sm="6">
-          <v-card>
-            <v-img
-              class="postImg"
-              :src="`http://localhost:3005/${imagePaths[1]}`"
-            >
-              <v-layout fill-height align-end justify-center>
-                <h2>{{ content2 }}</h2>
-              </v-layout>
-            </v-img>
+            <button @click="onRemoveImage(i)" type="button">제거</button>
           </v-card>
         </v-col>
       </v-row>
-      <!-- <div> -->
       <v-form ref="form" @submit.prevent="onSubmitForm">
         <v-container>
           <v-row>
@@ -48,16 +33,17 @@
               >
             </v-col>
             <v-col cols="6">
-              <v-text-field v-model="content1" label="1" shaped outlined />
+              <v-text-field v-model="content1" label="1" rounded outlined />
             </v-col>
             <v-col cols="6">
               <v-text-field v-model="content2" label="2" rounded outlined />
             </v-col>
-            <v-col cols="12">
-              <v-btn type="submit" absolute right>등록</v-btn>
+            <v-col>
+              <v-text-field v-model="hashtag" rounded outlined/>
             </v-col>
           </v-row>
         </v-container>
+        <v-btn id="submitBtn" type="submit" absolute right>등록</v-btn> 
       </v-form>
     </v-card>
   </v-container>
@@ -72,11 +58,11 @@ export default {
       title: "",
       content1: "",
       content2: "",
+      hashtag: "",
     };
   },
   methods: {
     onChangeImages(e) {
-      console.log(e.target.files);
       const imageFormData = new FormData();
       [].forEach.call(e.target.files, f => {
         imageFormData.append("image", f); //{ image: [file1, file2]}
@@ -89,13 +75,24 @@ export default {
     onRemoveImage(index) {
       this.$store.commit('posts/removeImagePath', index);
     },
-    onSubmitForm() {
-      this.$store.dispatch("posts/addPost", {
-        postType: 1,
-        title: this.title,
-        content1: this.content1,
-        content2: this.content2
-      });
+    async onSubmitForm() {
+        this.$store.dispatch("posts/addPost", {
+          postType: 1,
+          postCategory: 1,
+          title: this.title,
+          content1: this.content1,
+          content2: this.content2,
+          hashtag: this.hashtag,
+      })
+      .then(() => {
+        this.title = '';
+        this.content1 = '';
+        this.content2 = '';
+        this.hashtag = '';
+      })
+      .catch((err) => {
+        console.error(err);
+      })
     }
   },
   computed: {
@@ -104,9 +101,11 @@ export default {
 };
 </script>
 
-<style>
-.postImg{
+<style scoped>
+.postImg
+{
   width: 100px;
   height: 50;
 }
+
 </style>

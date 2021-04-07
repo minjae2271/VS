@@ -37,7 +37,8 @@ export default {
         v => v.id === parseInt(this.$route.params.id, 10)
       );
     }
-  }
+  },
+  // middleware: "authenticated",
 };
 </script>
 
