@@ -28,9 +28,6 @@
       </v-row>
     </v-container>
 
-    <!-- <v-card-subtitle class="pb-0">
-    </v-card-subtitle> -->
-
     <v-card-actions>
       <v-btn color="orange" text>
         공유하기

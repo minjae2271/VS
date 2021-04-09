@@ -2,12 +2,11 @@ export const state = () => ({
   mainPosts: [
 
   ],
-  // hasMorePost: true, //쓸데없는 요청을 막는 것.
+  hasMorePost: true, //쓸데없는 요청을 막는 것.
   imagePaths: []
 });
 
-// const totalPosts = 51;
-// const limit = 10;
+const limit = 9;
 
 export const mutations = {
   addMainPost(state, payload) {
@@ -28,11 +27,10 @@ export const mutations = {
   },
   loadPosts(state, payload) {
     state.mainPosts = state.mainPosts.concat(payload);
-    // state.hasMorePost = payload.length === limit;
+    state.hasMorePost = payload.length === limit;
   },
   concatImagesPaths(state, payload) {
     state.imagePaths = state.imagePaths.concat(payload);
-    console.log(state.imagePaths);
   },
   removeImagePath(state, payload) {
     console.log(payload);
@@ -73,15 +71,17 @@ export const actions = {
     commit("loadComments", payload);
   },
 
-  loadPosts({ commit}) {
-    this.$axios.get('http://localhost:3005/posts')
-    .then((res) => {
-      commit("loadPosts", res.data);
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-    
+  loadPosts({ commit, state}) {
+    if(state.hasMorePost){
+      const lastPost = state.mainPosts[state.mainPosts.length - 1];
+      this.$axios.get(`http://localhost:3005/posts?lastId=${lastPost && lastPost.id}&limit=${limit}`) 
+      .then((res) => {
+        commit("loadPosts", res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+  }
   },
 
   uploadImages({ commit }, payload) {

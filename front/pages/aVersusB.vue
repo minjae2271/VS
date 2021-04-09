@@ -50,9 +50,6 @@
 import PostCard from "~/components/PostCard";
 
 export default {
-  fetch({ store }) {
-    return store.dispatch('posts/loadPosts');
-  },
   components: {
     PostCard,
   },
@@ -63,6 +60,27 @@ export default {
     mainPosts() {
       return this.$store.state.posts.mainPosts;
     },
+    hasMorePost(){
+        return this.$store.state.posts.hasMorePost;
+    }
+  }, 
+  fetch({ store }) {
+    return store.dispatch('posts/loadPosts');
+  },
+  methods: {
+      onScroll(){
+          if(window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 300){
+              if(this.hasMorePost){
+                  this.$store.dispatch('posts/loadPosts');
+              }
+          }
+      }
+  },
+  mounted(){
+      window.addEventListener('scroll', this.onScroll);
+  },
+  deforeDestroy(){
+      window.removeEventListener('scroll', this.onScroll);
   }
 }
 </script>
