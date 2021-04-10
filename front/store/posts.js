@@ -1,47 +1,15 @@
+import Vue from 'vue';;
+import throttle from 'lodash.throttle';
+
 export const state = () => ({
   mainPosts: [
-    {
-      id: 1,
-      title: "군대 현역인 사람 들어와",
-      User: {
-        id: 1,
-        nickname: "Murpick User1"
-      },
-      contents: ["10억", "전역"],
-      conditions: "1. 현재 전역을 3일 앞둔 말년병장일 때",
-      Comments: [
-        {
-          id: 1,
-          postId: 1,
-          content: "좋은글이네",
-          User: { id: 2, nickname: "Murpick User2" }
-        },
-        {
-          id: 2,
-          postId: 1,
-          content: "고맙다",
-          User: { id: 1, nickname: "Murpick User1" }
-        }
-      ],
-      Images: []
-    },
-    {
-      id: 2,
-      User: {
-        id: 2,
-        nickname: "Murpick User2"
-      },
-      content: "두번째 임시 게시물",
-      Comments: [],
-      Images: []
-    }
+
   ],
   hasMorePost: true, //쓸데없는 요청을 막는 것.
   imagePaths: []
 });
 
-const totalPosts = 51;
-const limit = 10;
+const limit = 9;
 
 export const mutations = {
   addMainPost(state, payload) {
@@ -66,7 +34,6 @@ export const mutations = {
   },
   concatImagesPaths(state, payload) {
     state.imagePaths = state.imagePaths.concat(payload);
-    console.log(state.imagePaths);
   },
   removeImagePath(state, payload) {
     console.log(payload);
@@ -82,6 +49,7 @@ export const actions = {
       title: payload.title,
       content1: payload.content1,
       content2: payload.content2,
+      hashtag: payload.hashtag,
       image: state.imagePaths,
     }, {
       withCredentials: true,
@@ -106,9 +74,17 @@ export const actions = {
     commit("loadComments", payload);
   },
 
-  loadPosts({ commit, state }, payload) {
-    commit("loadPosts", payload);
-  },
+  loadPosts: throttle( async function({ commit, state}) {
+    try{
+      if(state.hasMorePost){
+        const lastPost = state.mainPosts[state.mainPosts.length - 1];
+        const res = await this.$axios.get(`http://localhost:3005/posts?lastId=${lastPost && lastPost.id}&limit=${limit}`);
+        commit("loadPosts", res.data);
+      }
+    } catch(err){
+      console.error(err);
+    }
+  }, 3000),
 
   uploadImages({ commit }, payload) {
     this.$axios.post('http://localhost:3005/post/images', payload, {

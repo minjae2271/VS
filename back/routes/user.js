@@ -1,9 +1,15 @@
 const express = require('express');
-const router = express.Router();
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const db = require('../models');
 const { isNotLoggedIn, isLoggedIn } = require('./middlewares');
+
+const router = express.Router();
+
+// router.get('/', isLoggedIn, async (req, res, next) => {
+//     const user = req.user;
+//     res.json(user);
+// });
 
 router.post('/', isNotLoggedIn, async (req, res, next) => {
     try {

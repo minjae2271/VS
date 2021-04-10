@@ -4,6 +4,20 @@
       <v-toolbar-title>
         <nuxt-link to="/">Murpik</nuxt-link>
       </v-toolbar-title>
+      <v-toolbar-items>
+        <v-container
+          :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
+        >
+          <v-btn
+          text
+          nuxt
+          to="/aVersusB"
+          :style="{ display: 'flex', alignItems: 'center' }"
+          >
+            A B
+          </v-btn>
+        </v-container>
+      </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-container
@@ -27,6 +41,14 @@
           :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
         >
           <v-spacer></v-spacer>
+          <v-btn
+            text
+            nuxt
+            to="/createpost"
+            :style="{ display: 'flex', alignItems: 'center' }"
+          >
+            글쓰기
+          </v-btn>
           <v-avatar color="blue" size="48">
             <img v-if="me.profile_image_url" :src="me.profile_image_url" alt="me.nickname" />
             <span v-else>{{me.nickname}}</span>

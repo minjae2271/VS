@@ -4,7 +4,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: false,
         },
-        //
+        commentType: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        }
     }, {
         charset: 'utf8mb4',
         collate: 'utf8mb4_general_ci',
