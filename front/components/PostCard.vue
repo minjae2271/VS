@@ -2,7 +2,7 @@
   <v-card class="mx-auto" max-width="100%">
     <v-card-title class="post-title">
       <h3>
-        <nuxt-link :to="'/post/'+post.id" class="post-link">
+        <nuxt-link :to="'/post/' + post.id" class="post-link">
           {{ post.title }}
         </nuxt-link>
       </h3>
@@ -15,7 +15,7 @@
             height="300px"
             width="100%"
           />
-          <h3 class="text-center">{{ post.content1 }}</h3>
+            <h3 class="text-center">{{ post.content1 }}</h3>
         </v-col>
         <v-col cols="6">
           <v-img
@@ -47,7 +47,7 @@ export default {
   props: {
     post: {
       type: Object,
-      required: true,
+      required: true
     }
   },
   components: {
@@ -55,24 +55,29 @@ export default {
   },
   data() {
     return {};
+  },
+  methods: {
+    onClickA() {
+      console.log("clickA");
+    },
+    conClickB() {
+      console.log("clickB");
+    }
   }
 };
 </script>
 
 <style scoped>
-.post-title
-{
+.post-title {
   justify-content: center;
 }
 
-.post-link:link
-{
+.post-link:link {
   color: black;
   text-decoration: none;
 }
 
-.post-link:visited
-{
+.post-link:visited {
   color: black;
   text-decoration: none;
 }

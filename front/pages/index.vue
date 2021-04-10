@@ -15,6 +15,10 @@ export default {
     MainCarousel,
     ItemList
   },
+
+  async fetch({ store }) {
+    return await store.dispatch("");
+  }
 };
 </script>
 
