@@ -11,7 +11,7 @@ export const mutations = {
 export const actions = {
   async loadUser({ state, commit }) {
     try {
-      const res = await this.$axios.get('/user', {
+      const res = await this.$axios.get('http://localhost:3005/user', {
         withCredentials: true,
       });
       commit('setMe', res.data);
