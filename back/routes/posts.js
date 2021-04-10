@@ -20,6 +20,8 @@ router.get('/', async (req, res, next) => {
                 attributes: ['id', 'nickname'],
             }, {
                 model: db.Image,
+            }, {
+                model: db.Hashtag,
             }],
             order: [['createdAt', 'ASC']],
             limit: parseInt(req.query.limit, 10) || 10,
