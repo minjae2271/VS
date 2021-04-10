@@ -36,7 +36,11 @@ export default {
       return this.$store.state.posts.mainPosts.find(
         v => v.id === parseInt(this.$route.params.id, 10)
       );
-    }
+    },
+  },
+  async fetch({ store }) {
+    const result = await store.dispatch('posts/loadPosts');
+    return result;
   },
   // middleware: "authenticated",
 };

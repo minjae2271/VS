@@ -96,5 +96,5 @@ export const actions = {
     .catch((err) => {
       console.error(err);
     })
-  }
+  },
 };
