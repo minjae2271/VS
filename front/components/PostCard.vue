@@ -15,7 +15,7 @@
             height="300px"
             width="100%"
           />
-            <h3 class="text-center">{{ post.content1 }}</h3>
+          <h3 class="text-center">{{ post.content1 }}</h3>
         </v-col>
         <v-col cols="6">
           <v-img
@@ -26,6 +26,14 @@
           <h3 class="text-center">{{ post.content2 }}</h3>
         </v-col>
       </v-row>
+      <!-- <v-row
+        justify="center"
+        align="center"
+      > -->
+      <!-- <v-chip :ripple="false" v-for="(tag, i) in post.Hashtags" :key="i">
+      {{tag.name}}
+      </v-chip> -->
+      <!-- </v-row> -->
     </v-container>
 
     <v-card-actions>
