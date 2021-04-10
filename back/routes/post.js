@@ -49,7 +49,7 @@ router.post('/', async (req, res, next) => {
                     })
                 }));
             } else {
-                return res.status(403).send('2개의 이미지가 필요합니다.')
+                return res.status(403).send('2개의 이미지가 필요합니다.');
             }
         }
 

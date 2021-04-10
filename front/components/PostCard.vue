@@ -60,6 +60,10 @@ export default {
 </script>
 
 <style scoped>
+.post-title
+{
+  justify-content: center;
+}
 
 .post-link:link
 {
