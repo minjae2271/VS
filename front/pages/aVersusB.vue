@@ -56,8 +56,9 @@ export default {
   data() {
     return {};
   },
-  fetch({ store }) {
-    store.dispatch('posts/loadPosts');
+  async fetch({ store }) {
+    const result = await store.dispatch('posts/loadPosts');
+    return result;
   },
   computed: {
     mainPosts() {

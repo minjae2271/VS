@@ -75,16 +75,15 @@ export const actions = {
   },
 
   loadPosts: throttle( async function({ commit, state}) {
-    if(state.hasMorePost){
-      const lastPost = state.mainPosts[state.mainPosts.length - 1];
-      this.$axios.get(`http://localhost:3005/posts?lastId=${lastPost && lastPost.id}&limit=${limit}`) 
-      .then((res) => {
+    try{
+      if(state.hasMorePost){
+        const lastPost = state.mainPosts[state.mainPosts.length - 1];
+        const res = await this.$axios.get(`http://localhost:3005/posts?lastId=${lastPost && lastPost.id}&limit=${limit}`);
         commit("loadPosts", res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-  }
+      }
+    } catch(err){
+      console.error(err);
+    }
   }, 3000),
 
   uploadImages({ commit }, payload) {
