@@ -56,6 +56,9 @@ export default {
   data() {
     return {};
   },
+  fetch({ store }) {
+    store.dispatch('posts/loadPosts');
+  },
   computed: {
     mainPosts() {
       return this.$store.state.posts.mainPosts;
@@ -64,9 +67,6 @@ export default {
         return this.$store.state.posts.hasMorePost;
     }
   }, 
-  fetch({ store }) {
-    return store.dispatch('posts/loadPosts');
-  },
   methods: {
       onScroll(){
           if(window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 300){
@@ -79,7 +79,7 @@ export default {
   mounted(){
       window.addEventListener('scroll', this.onScroll);
   },
-  deforeDestroy(){
+  beforeDestroy(){
       window.removeEventListener('scroll', this.onScroll);
   }
 }

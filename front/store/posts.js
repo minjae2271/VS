@@ -1,3 +1,6 @@
+import Vue from 'vue';;
+import throttle from 'lodash.throttle';
+
 export const state = () => ({
   mainPosts: [
 
@@ -71,7 +74,7 @@ export const actions = {
     commit("loadComments", payload);
   },
 
-  loadPosts({ commit, state}) {
+  loadPosts: throttle( async function({ commit, state}) {
     if(state.hasMorePost){
       const lastPost = state.mainPosts[state.mainPosts.length - 1];
       this.$axios.get(`http://localhost:3005/posts?lastId=${lastPost && lastPost.id}&limit=${limit}`) 
@@ -82,7 +85,7 @@ export const actions = {
         console.error(err);
       })
   }
-  },
+  }, 3000),
 
   uploadImages({ commit }, payload) {
     this.$axios.post('http://localhost:3005/post/images', payload, {

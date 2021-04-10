@@ -1,8 +1,8 @@
 <template>
   <v-card class="mx-auto" max-width="100%">
-    <v-card-title>
+    <v-card-title class="post-title">
       <h3>
-        <nuxt-link :to="'/post/'+post.id">
+        <nuxt-link :to="'/post/'+post.id" class="post-link">
           {{ post.title }}
         </nuxt-link>
       </h3>
@@ -61,4 +61,15 @@ export default {
 
 <style scoped>
 
+.post-link:link
+{
+  color: black;
+  text-decoration: none;
+}
+
+.post-link:visited
+{
+  color: black;
+  text-decoration: none;
+}
 </style>
