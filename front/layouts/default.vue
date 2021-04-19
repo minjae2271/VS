@@ -53,7 +53,7 @@
             <img v-if="me.profile_image_url" :src="me.profile_image_url" alt="me.nickname" />
             <span v-else>{{me.nickname}}</span>
           </v-avatar>
-          <v-menu offset-y bottom center>
+          <!-- <v-menu offset-y bottom center>
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon x-large v-bind="attrs" v-on="on">
                 <v-btn icon>
@@ -88,7 +88,7 @@
                 </v-list-item-content>
               </v-list-item>
             </v-list>
-          </v-menu>
+          </v-menu> -->
           <!-- <v-btn nuxt to="/createpost">
                 글쓰기
               </v-btn> -->
@@ -124,6 +124,7 @@
 <script>
 import LoginForm from "~/components/LoginForm";
 import VersusFooter from "~/components/VersusFooter";
+
 export default {
   components: {
     LoginForm,

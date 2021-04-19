@@ -5,6 +5,9 @@ export const state = () => ({
   mainPosts: [
 
   ],
+  mainHashtags: [
+
+  ],
   hasMorePost: true, //쓸데없는 요청을 막는 것.
   imagePaths: []
 });
@@ -31,6 +34,9 @@ export const mutations = {
   loadPosts(state, payload) {
     state.mainPosts = state.mainPosts.concat(payload);
     state.hasMorePost = payload.length === limit;
+  },
+  loadHashtags(state, payload) {
+    state.mainHashtags = payload;
   },
   concatImagesPaths(state, payload) {
     state.imagePaths = state.imagePaths.concat(payload);
@@ -78,8 +84,10 @@ export const actions = {
     try{
       if(state.hasMorePost){
         const lastPost = state.mainPosts[state.mainPosts.length - 1];
-        const res = await this.$axios.get(`http://localhost:3005/posts?lastId=${lastPost && lastPost.id}&limit=${limit}`);
-        commit("loadPosts", res.data);
+        const resPosts = await this.$axios.get(`http://localhost:3005/posts?lastId=${lastPost && lastPost.id}&limit=${limit}`);
+        const resHashtags = await this.$axios.get('http://localhost:3005/hashtags/');
+        commit("loadPosts", resPosts.data);
+        commit("loadHashtags", resHashtags.data);
       }
     } catch(err){
       console.error(err);
