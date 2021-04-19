@@ -1,13 +1,9 @@
-import Vue from 'vue';;
+import Vue from 'vue';
 import throttle from 'lodash.throttle';
 
 export const state = () => ({
-  mainPosts: [
-
-  ],
-  mainHashtags: [
-
-  ],
+  mainPosts: [],
+  mainHashtags: [],
   hasMorePost: true, //쓸데없는 요청을 막는 것.
   imagePaths: []
 });
@@ -49,60 +45,90 @@ export const mutations = {
 
 export const actions = {
   addPost({ commit, state }, payload) {
-    this.$axios.post('http://localhost:3005/post', {
-      postType: payload.postType,
-      postCategory: payload.postCategory,
-      title: payload.title,
-      content1: payload.content1,
-      content2: payload.content2,
-      hashtag: payload.hashtag,
-      image: state.imagePaths,
-    }, {
-      withCredentials: true,
-    })
-    .then((res) => {
-      commit("addMainPost", res.data);
-    })
-    .catch((err) => {
-      console.error(err);
-    })
+    this.$axios
+      .post(
+        'http://localhost:3005/post',
+        {
+          postType: payload.postType,
+          postCategory: payload.postCategory,
+          title: payload.title,
+          content1: payload.content1,
+          content2: payload.content2,
+          hashtag: payload.hashtag,
+          image: state.imagePaths
+        },
+        {
+          withCredentials: true
+        }
+      )
+      .then(res => {
+        commit('addMainPost', res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   },
 
   remove({ commit }, payload) {
-    commit("removeMainPost", payload);
+    commit('removeMainPost', payload);
   },
 
-  addComment({ commit }, payload) {
-    commit("addComment", payload);
+  async addComment({ commit }, payload) {
+    try {
+      const res = await this.$axios.post(
+        `http://localhost:3005/post/${payload.postId}/comment`,
+        { content: payload.content },
+        { withCredentials: true }
+      );
+      commit('addComment', res.data);
+    } catch (err) {
+      console.error(err);
+    }
   },
 
-  loadComments({ commit }, payload) {
-    commit("loadComments", payload);
+  async loadComments({ commit }, payload) {
+    try {
+      const res = await this.$axios.get(
+        `http://localhost:3005/post/${payload.postId}/comments`
+      );
+      commit('loadComments', {
+        postId: payload.postId,
+        data: res.data
+      });
+    } catch (err) {
+      console.error(err);
+    }
   },
 
-  loadPosts: throttle( async function({ commit, state}) {
-    try{
-      if(state.hasMorePost){
+  loadPosts: throttle(async function({ commit, state }) {
+    try {
+      if (state.hasMorePost) {
         const lastPost = state.mainPosts[state.mainPosts.length - 1];
-        const resPosts = await this.$axios.get(`http://localhost:3005/posts?lastId=${lastPost && lastPost.id}&limit=${limit}`);
-        const resHashtags = await this.$axios.get('http://localhost:3005/hashtags/');
-        commit("loadPosts", resPosts.data);
-        commit("loadHashtags", resHashtags.data);
+        const resPosts = await this.$axios.get(
+          `http://localhost:3005/posts?lastId=${lastPost &&
+            lastPost.id}&limit=${limit}`
+        );
+        const resHashtags = await this.$axios.get(
+          'http://localhost:3005/hashtags/'
+        );
+        commit('loadPosts', resPosts.data);
+        commit('loadHashtags', resHashtags.data);
       }
-    } catch(err){
+    } catch (err) {
       console.error(err);
     }
   }, 3000),
 
   uploadImages({ commit }, payload) {
-    this.$axios.post('http://localhost:3005/post/images', payload, {
-      withCredentials: true,
-    })
-    .then((res) => {
-      commit("concatImagesPaths", res.data);
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-  },
+    this.$axios
+      .post('http://localhost:3005/post/images', payload, {
+        withCredentials: true
+      })
+      .then(res => {
+        commit('concatImagesPaths', res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
 };

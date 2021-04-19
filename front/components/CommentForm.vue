@@ -21,12 +21,18 @@
 
 <script>
 export default {
+  props: {
+    postId: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       valid: false,
-      content: "",
+      content: '',
       success: false,
-      successMessages: "",
+      successMessages: '',
       hideDetails: true
     };
   },
@@ -40,11 +46,24 @@ export default {
       if (value.length) {
         this.hideDetails = true;
         this.success = false;
-        this.successMessages = "";
+        this.successMessages = '';
       }
     },
-    onSubmitForm() {
-      
+    async onSubmitForm() {
+      try {
+        if (this.$refs.form.validate()) {
+          await this.$store.dispatch('posts/addComment', {
+            postId: this.postId,
+            content: this.content
+          });
+          this.content = '';
+          this.success = true;
+          this.successmessages = '댓글이 작성되었습니다.';
+          this.hideDetails = false;
+        }
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 };
