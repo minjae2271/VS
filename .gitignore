@@ -3,6 +3,7 @@ node_modules
 back/config/config.json
 test.vue
 TestComponent.vue
+back/uploads/*
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Node template

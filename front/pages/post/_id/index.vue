@@ -41,14 +41,11 @@
         </v-btn>
       </v-card-actions>
     </v-card>
-    <comment-form />
+    <comment-form :post-id="post.id" />
     <v-container>
       <v-row>
         <v-col>
-          <comments-list />
-        </v-col>
-        <v-col>
-          <comments-list />
+          <comments-list :post="post" />
         </v-col>
       </v-row>
     </v-container>
@@ -61,9 +58,9 @@
 <script>
 // post/_id.vue
 // po  /1   post/2    post
-import PostCard from "~/components/PostCard";
-import CommentForm from "~/components/CommentForm";
-import CommentsList from "~/components/CommentsList";
+import PostCard from '~/components/PostCard';
+import CommentForm from '~/components/CommentForm';
+import CommentsList from '~/components/CommentsList';
 
 export default {
   components: {
@@ -76,14 +73,10 @@ export default {
       return this.$store.state.posts.mainPosts.find(
         v => v.id === parseInt(this.$route.params.id, 10)
       );
-    },
+    }
   },
   async fetch({ store }) {
-    const result = await store.dispatch('posts/loadPosts');
-    return result;
-  },
-  fetch({ store }) {
-    return store.dispatch("posts/loadPosts");
+    return await store.dispatch('posts/loadPosts');
   }
   // middleware: "authenticated",
 };
