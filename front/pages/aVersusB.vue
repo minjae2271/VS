@@ -1,31 +1,15 @@
 <template>
   <div>
     <div class="hashtags text-center">
-            <v-chip
-      class="ma-2"
-      large
-    >
-    음식
-    </v-chip>
         <v-chip
+        v-for="(hashtag, i) in mainHashtags"
+        :key="i"
       class="ma-2"
       large
     >
-    상황
+    {{hashtag.name}}
     </v-chip>
-        <v-chip
-      class="ma-2"
-      large
-    >
-    19금
-    </v-chip>
-        <v-chip
-      class="ma-2"
-      large
-    >
-    철학
-    </v-chip>
-    </div>
+  </div>
   <v-container class="grey lighten-5">
     <v-row no-gutters>
       <v-col
@@ -43,26 +27,50 @@
       </v-col>
     </v-row>
   </v-container>
-  </div>
+</div>
 </template>
 
 <script>
 import PostCard from "~/components/PostCard";
 
 export default {
-  fetch({ store }) {
-    return store.dispatch('posts/loadPosts');
-  },
   components: {
     PostCard,
   },
   data() {
     return {};
   },
+  async fetch({ store }) {
+    const result = await store.dispatch('posts/loadPosts');
+    // const result1 = await store.dispatch('posts/loadHashtags');
+    return result;
+  },
+
   computed: {
     mainPosts() {
       return this.$store.state.posts.mainPosts;
     },
+    mainHashtags() {
+        return this.$store.state.posts.mainHashtags;
+    },
+    hasMorePost(){
+        return this.$store.state.posts.hasMorePost;
+    }
+  }, 
+  methods: {
+      onScroll(){
+          if(window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 300){
+              if(this.hasMorePost){
+                  this.$store.dispatch('posts/loadPosts');
+              }
+          }
+      }
+  },
+  mounted(){
+      window.addEventListener('scroll', this.onScroll);
+  },
+  beforeDestroy(){
+      window.removeEventListener('scroll', this.onScroll);
   }
 }
 </script>

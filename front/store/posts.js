@@ -1,13 +1,18 @@
+import Vue from 'vue';;
+import throttle from 'lodash.throttle';
+
 export const state = () => ({
   mainPosts: [
 
   ],
-  // hasMorePost: true, //쓸데없는 요청을 막는 것.
+  mainHashtags: [
+
+  ],
+  hasMorePost: true, //쓸데없는 요청을 막는 것.
   imagePaths: []
 });
 
-// const totalPosts = 51;
-// const limit = 10;
+const limit = 9;
 
 export const mutations = {
   addMainPost(state, payload) {
@@ -28,11 +33,13 @@ export const mutations = {
   },
   loadPosts(state, payload) {
     state.mainPosts = state.mainPosts.concat(payload);
-    // state.hasMorePost = payload.length === limit;
+    state.hasMorePost = payload.length === limit;
+  },
+  loadHashtags(state, payload) {
+    state.mainHashtags = payload;
   },
   concatImagesPaths(state, payload) {
     state.imagePaths = state.imagePaths.concat(payload);
-    console.log(state.imagePaths);
   },
   removeImagePath(state, payload) {
     console.log(payload);
@@ -73,16 +80,19 @@ export const actions = {
     commit("loadComments", payload);
   },
 
-  loadPosts({ commit}) {
-    this.$axios.get('http://localhost:3005/posts')
-    .then((res) => {
-      commit("loadPosts", res.data);
-    })
-    .catch((err) => {
+  loadPosts: throttle( async function({ commit, state}) {
+    try{
+      if(state.hasMorePost){
+        const lastPost = state.mainPosts[state.mainPosts.length - 1];
+        const resPosts = await this.$axios.get(`http://localhost:3005/posts?lastId=${lastPost && lastPost.id}&limit=${limit}`);
+        const resHashtags = await this.$axios.get('http://localhost:3005/hashtags/');
+        commit("loadPosts", resPosts.data);
+        commit("loadHashtags", resHashtags.data);
+      }
+    } catch(err){
       console.error(err);
-    })
-    
-  },
+    }
+  }, 3000),
 
   uploadImages({ commit }, payload) {
     this.$axios.post('http://localhost:3005/post/images', payload, {
@@ -94,5 +104,5 @@ export const actions = {
     .catch((err) => {
       console.error(err);
     })
-  }
+  },
 };

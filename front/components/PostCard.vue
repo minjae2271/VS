@@ -1,8 +1,8 @@
 <template>
   <v-card class="mx-auto" max-width="100%">
-    <v-card-title>
+    <v-card-title class="post-title">
       <h3>
-        <nuxt-link :to="'/post/'+post.id">
+        <nuxt-link :to="'/post/' + post.id" class="post-link">
           {{ post.title }}
         </nuxt-link>
       </h3>
@@ -26,10 +26,15 @@
           <h3 class="text-center">{{ post.content2 }}</h3>
         </v-col>
       </v-row>
+      <!-- <v-row
+        justify="center"
+        align="center"
+      > -->
+      <!-- <v-chip :ripple="false" v-for="(tag, i) in post.Hashtags" :key="i">
+      {{tag.name}}
+      </v-chip> -->
+      <!-- </v-row> -->
     </v-container>
-
-    <!-- <v-card-subtitle class="pb-0">
-    </v-card-subtitle> -->
 
     <v-card-actions>
       <v-btn color="orange" text>
@@ -50,7 +55,7 @@ export default {
   props: {
     post: {
       type: Object,
-      required: true,
+      required: true
     }
   },
   components: {
@@ -58,10 +63,30 @@ export default {
   },
   data() {
     return {};
+  },
+  methods: {
+    onClickA() {
+      console.log("clickA");
+    },
+    conClickB() {
+      console.log("clickB");
+    }
   }
 };
 </script>
 
 <style scoped>
+.post-title {
+  justify-content: center;
+}
 
+.post-link:link {
+  color: black;
+  text-decoration: none;
+}
+
+.post-link:visited {
+  color: black;
+  text-decoration: none;
+}
 </style>

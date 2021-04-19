@@ -1,6 +1,46 @@
 <template>
   <v-container v-if="post">
-    <post-card :post="post" />
+    <v-card class="mx-auto" max-width="100%">
+      <v-card-title class="post-title">
+        <h3>
+          {{ post.title }}
+        </h3>
+      </v-card-title>
+      <v-container>
+        <v-row no-gutters>
+          <v-col cols="6">
+            <v-container>
+              <v-img
+                :src="`http://localhost:3005/${post.Images[0].src}`"
+                height="300px"
+                width="100%"
+              />
+              <h3 class="text-center">{{ post.content1 }}</h3>
+            </v-container>
+          </v-col>
+          <v-col cols="6">
+            <v-container>
+              <v-img
+                :src="`http://localhost:3005/${post.Images[1].src}`"
+                height="300px"
+                width="100%"
+              />
+              <h3 class="text-center">{{ post.content2 }}</h3>
+            </v-container>
+          </v-col>
+        </v-row>
+      </v-container>
+
+      <v-card-actions>
+        <v-btn color="orange" text>
+          공유하기
+        </v-btn>
+
+        <v-btn color="orange" text>
+          결과보기
+        </v-btn>
+      </v-card-actions>
+    </v-card>
     <comment-form />
     <v-container>
       <v-row>
@@ -20,7 +60,7 @@
 
 <script>
 // post/_id.vue
-// post/1   post/2    post
+// po  /1   post/2    post
 import PostCard from "~/components/PostCard";
 import CommentForm from "~/components/CommentForm";
 import CommentsList from "~/components/CommentsList";
@@ -36,8 +76,15 @@ export default {
       return this.$store.state.posts.mainPosts.find(
         v => v.id === parseInt(this.$route.params.id, 10)
       );
-    }
+    },
   },
+  async fetch({ store }) {
+    const result = await store.dispatch('posts/loadPosts');
+    return result;
+  },
+  fetch({ store }) {
+    return store.dispatch("posts/loadPosts");
+  }
   // middleware: "authenticated",
 };
 </script>
