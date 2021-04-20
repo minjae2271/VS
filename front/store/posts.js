@@ -19,13 +19,16 @@ export const mutations = {
     const index = state.mainPosts.findIndex(v => v.id === payload.postId);
     state.mainPosts.splice(index, 1);
   },
-  addComment(state, payload) {
-    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
-    state.mainPosts[index].Comments.unshift(payload);
-  },
   loadComments(state, payload) {
     const index = state.mainPosts.findIndex(v => v.id === payload.postId);
-    state.mainPosts[index].Comments = payload;
+    Vue.set(state.mainPosts[index], 'Comments', payload.data);
+  },
+  addComment(state, payload) {
+    const index = state.mainPosts.findIndex(v => v.id === payload.PostId);
+    state.mainPosts[index].Comments.unshift(payload);
+  },
+  loadPost(state, payload) {
+    state.mainPosts = [payload];
   },
   loadPosts(state, payload) {
     state.mainPosts = state.mainPosts.concat(payload);
@@ -38,7 +41,6 @@ export const mutations = {
     state.imagePaths = state.imagePaths.concat(payload);
   },
   removeImagePath(state, payload) {
-    console.log(payload);
     state.imagePaths.splice(payload, 1);
   }
 };
@@ -76,7 +78,7 @@ export const actions = {
   async addComment({ commit }, payload) {
     try {
       const res = await this.$axios.post(
-        `http://localhost:3005/post/${payload.postId}/comment`,
+        `/post/${payload.postId}/comment`,
         { content: payload.content },
         { withCredentials: true }
       );
@@ -88,13 +90,20 @@ export const actions = {
 
   async loadComments({ commit }, payload) {
     try {
-      const res = await this.$axios.get(
-        `http://localhost:3005/post/${payload.postId}/comments`
-      );
+      const res = await this.$axios.get(`/post/${payload.postId}/comments`);
       commit('loadComments', {
-        postId: payload.postId,
+        postId: Number(payload.postId),
         data: res.data
       });
+    } catch (err) {
+      console.error(err);
+    }
+  },
+
+  async loadPost({ commit, state }, payload) {
+    try {
+      const res = await this.$axios.get(`/post/${payload}`);
+      commit('loadPost', res.data);
     } catch (err) {
       console.error(err);
     }
@@ -105,12 +114,9 @@ export const actions = {
       if (state.hasMorePost) {
         const lastPost = state.mainPosts[state.mainPosts.length - 1];
         const resPosts = await this.$axios.get(
-          `http://localhost:3005/posts?lastId=${lastPost &&
-            lastPost.id}&limit=${limit}`
+          `/posts?lastId=${lastPost && lastPost.id}&limit=${limit}`
         );
-        const resHashtags = await this.$axios.get(
-          'http://localhost:3005/hashtags/'
-        );
+        const resHashtags = await this.$axios.get('/hashtags/');
         commit('loadPosts', resPosts.data);
         commit('loadHashtags', resHashtags.data);
       }

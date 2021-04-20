@@ -7,17 +7,13 @@
 </template>
 
 <script>
-import MainCarousel from "~/components/MainCarousel";
-import ItemList from "~/components/ItemList";
+import MainCarousel from '~/components/MainCarousel';
+import ItemList from '~/components/ItemList';
 
 export default {
   components: {
     MainCarousel,
     ItemList
-  },
-
-  async fetch({ store }) {
-    return await store.dispatch("");
   }
 };
 </script>
