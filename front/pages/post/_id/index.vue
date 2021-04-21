@@ -75,8 +75,9 @@ export default {
       );
     }
   },
-  async fetch({ store }) {
-    return await store.dispatch('posts/loadPosts');
+  async fetch({ store, params }) {
+    await store.dispatch('posts/loadPost', params.id);
+    return await store.dispatch('posts/loadComments', { postId: params.id });
   }
   // middleware: "authenticated",
 };

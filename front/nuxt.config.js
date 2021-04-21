@@ -60,11 +60,11 @@ export default {
       }
     }
   },
-  // axios: {
-  //   browserBaseURL: 'http://localhost:3005',
-  //   baseURL: 'http://localhost:3005',
-  //   https: false
-  // },
+  axios: {
+    browserBaseURL: 'http://localhost:3005',
+    baseURL: 'http://localhost:3005',
+    https: false
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {}

@@ -9,10 +9,10 @@
           :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
         >
           <v-btn
-          text
-          nuxt
-          to="/aVersusB"
-          :style="{ display: 'flex', alignItems: 'center' }"
+            text
+            nuxt
+            to="/aVersusB"
+            :style="{ display: 'flex', alignItems: 'center' }"
           >
             밸런스
           </v-btn>
@@ -50,8 +50,12 @@
             글쓰기
           </v-btn>
           <v-avatar color="blue" size="48">
-            <img v-if="me.profile_image_url" :src="me.profile_image_url" alt="me.nickname" />
-            <span v-else>{{me.nickname}}</span>
+            <img
+              v-if="me.profile_image_url"
+              :src="me.profile_image_url"
+              alt="me.nickname"
+            />
+            <span v-else>{{ me.nickname }}</span>
           </v-avatar>
           <v-menu offset-y bottom center>
             <template v-slot:activator="{ on, attrs }">
@@ -117,8 +121,8 @@
 </template>
 
 <script>
-import LoginForm from "~/components/LoginForm";
-import VersusFooter from "~/components/VersusFooter";
+import LoginForm from '~/components/LoginForm';
+import VersusFooter from '~/components/VersusFooter';
 
 export default {
   components: {
@@ -140,7 +144,7 @@ export default {
       this.showDialog = !this.showDialog;
     },
     logOut() {
-      this.$store.dispatch("users/logOut");
+      this.$store.dispatch('users/logOut');
     }
   },
 };

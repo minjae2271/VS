@@ -78,7 +78,23 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.post('/:id/comments', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
+  try {
+    const post = await db.Post.findOne({
+      where: { id: req.params.id },
+      include: [
+        { model: db.User, attributes: ['id', 'nickname'] },
+        { model: db.Image },
+      ],
+    });
+    return res.json(post);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.get('/:id/comments', async (req, res, next) => {
   try {
     const post = await db.Post.findOne({
       where: {
@@ -88,7 +104,7 @@ router.post('/:id/comments', async (req, res, next) => {
     if (!post) {
       return res.status(404).send('게시글이 존재하지 않습니다.');
     }
-    const comments = db.Comment.findAll({
+    const comments = await db.Comment.findAll({
       where: {
         PostId: req.params.id,
       },
@@ -100,6 +116,7 @@ router.post('/:id/comments', async (req, res, next) => {
       ],
       order: [['createdAt', 'ASC']],
     });
+    console.log(comments);
     return res.json(comments);
   } catch (err) {
     console.error(err);

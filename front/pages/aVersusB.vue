@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import PostCard from "~/components/PostCard";
+import PostCard from '~/components/PostCard';
 
 export default {
   components: {
-    PostCard,
+    PostCard
   },
   data() {
     return {
@@ -61,30 +61,31 @@ export default {
       return this.$store.state.posts.mainPosts;
     },
     mainHashtags() {
-        return this.$store.state.posts.mainHashtags;
+      return this.$store.state.posts.mainHashtags;
     },
-    hasMorePost(){
-        return this.$store.state.posts.hasMorePost;
+    hasMorePost() {
+      return this.$store.state.posts.hasMorePost;
     }
-  }, 
+  },
   methods: {
-      onScroll(){
-          if(window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 300){
-              if(this.hasMorePost){
-                  this.$store.dispatch('posts/loadPosts');
-              }
-          }
+    onScroll() {
+      if (
+        window.scrollY + document.documentElement.clientHeight >
+        document.documentElement.scrollHeight - 300
+      ) {
+        if (this.hasMorePost) {
+          this.$store.dispatch('posts/loadPosts');
+        }
       }
+    }
   },
-  mounted(){
-      window.addEventListener('scroll', this.onScroll);
+  mounted() {
+    window.addEventListener('scroll', this.onScroll);
   },
-  beforeDestroy(){
-      window.removeEventListener('scroll', this.onScroll);
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.onScroll);
   }
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
