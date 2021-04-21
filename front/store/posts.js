@@ -100,6 +100,17 @@ export const actions = {
     }
   },
 
+  async loadHashtags({ commit }, payload) {
+    try {
+      const resHashtags = await this.$axios.get(
+        'http://localhost:3005/hashtags/'
+      );
+      commit('loadHashtags', resHashtags.data);
+    } catch(err) {
+      console.error(err);
+    }
+  },
+
   loadPosts: throttle(async function({ commit, state }) {
     try {
       if (state.hasMorePost) {
@@ -108,11 +119,7 @@ export const actions = {
           `http://localhost:3005/posts?lastId=${lastPost &&
             lastPost.id}&limit=${limit}`
         );
-        const resHashtags = await this.$axios.get(
-          'http://localhost:3005/hashtags/'
-        );
         commit('loadPosts', resPosts.data);
-        commit('loadHashtags', resHashtags.data);
       }
     } catch (err) {
       console.error(err);

@@ -1,15 +1,24 @@
 <template>
   <div>
-    <div class="hashtags text-center">
-        <v-chip
-        v-for="(hashtag, i) in mainHashtags"
-        :key="i"
-      class="ma-2"
-      large
-    >
-    {{hashtag.name}}
-    </v-chip>
-  </div>
+    <v-row justify="center">
+        <v-col
+        >
+            <v-chip-group
+            v-model="selection"
+            active-class="primary--text text--accent-4"
+
+            >
+                <v-chip
+                v-for="(hashtag, i) in mainHashtags"
+                :key="i"
+                class="ma-2"
+                large
+                >
+                {{hashtag.name}}
+                </v-chip>
+            </v-chip-group>
+        </v-col>
+    </v-row>
   <v-container class="grey lighten-5">
     <v-row no-gutters>
       <v-col
@@ -38,12 +47,13 @@ export default {
     PostCard,
   },
   data() {
-    return {};
+    return {
+        selection: "",
+    };
   },
-  async fetch({ store }) {
-    const result = await store.dispatch('posts/loadPosts');
-    // const result1 = await store.dispatch('posts/loadHashtags');
-    return result;
+  fetch({ store }) {
+    store.dispatch('posts/loadPosts');
+    return store.dispatch('posts/loadHashtags');
   },
 
   computed: {

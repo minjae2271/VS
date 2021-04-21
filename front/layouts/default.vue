@@ -14,7 +14,7 @@
           to="/aVersusB"
           :style="{ display: 'flex', alignItems: 'center' }"
           >
-            A B
+            밸런스
           </v-btn>
         </v-container>
       </v-toolbar-items>
@@ -53,12 +53,10 @@
             <img v-if="me.profile_image_url" :src="me.profile_image_url" alt="me.nickname" />
             <span v-else>{{me.nickname}}</span>
           </v-avatar>
-          <!-- <v-menu offset-y bottom center>
+          <v-menu offset-y bottom center>
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon x-large v-bind="attrs" v-on="on">
-                <v-btn icon>
                   <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
               </v-btn>
             </template>
             <v-list>
@@ -88,10 +86,7 @@
                 </v-list-item-content>
               </v-list-item>
             </v-list>
-          </v-menu> -->
-          <!-- <v-btn nuxt to="/createpost">
-                글쓰기
-              </v-btn> -->
+          </v-menu>
         </v-container>
       </v-toolbar-items>
     </v-app-bar>
@@ -148,11 +143,6 @@ export default {
       this.$store.dispatch("users/logOut");
     }
   },
-  computed: {
-    me() {
-      return this.$store.state.users.me;
-    }
-  }
 };
 </script>
 

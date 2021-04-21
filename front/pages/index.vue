@@ -16,9 +16,9 @@ export default {
     ItemList
   },
 
-  async fetch({ store }) {
-    return await store.dispatch("");
-  }
+  // async fetch({ store }) {
+  //   return await store.dispatch("");
+  // }
 };
 </script>
 
