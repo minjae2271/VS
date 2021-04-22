@@ -13,7 +13,7 @@ const hashtagsRouter = require('./routes/hashtags');
 const db = require('./models');
 const app = express();
 
-// db.sequelize.sync({ force: true });
+//db.sequelize.sync({ force: true });
 db.sequelize.sync({ force: false });
 passportConfig();
 

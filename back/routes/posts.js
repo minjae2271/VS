@@ -24,6 +24,9 @@ router.get('/', async (req, res, next) => {
         {
           model: db.Hashtag,
         },
+        {
+          model: db.Pick,
+        }
       ],
       order: [['createdAt', 'ASC']],
       limit: parseInt(req.query.limit, 10) || 10,

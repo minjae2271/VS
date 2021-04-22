@@ -51,14 +51,14 @@ export default {
         selection: "",
     };
   },
-  fetch({ store }) {
-    store.dispatch('posts/loadPosts');
-    return store.dispatch('posts/loadHashtags');
+  async fetch({ store }) {
+    await store.dispatch('posts/loadPosts');
+    return await store.dispatch('posts/loadHashtags');
   },
 
   computed: {
     mainPosts() {
-      return this.$store.state.posts.mainPosts;
+      return this.$store.state.posts.mainPosts.filter(post => post != null);
     },
     mainHashtags() {
       return this.$store.state.posts.mainHashtags;

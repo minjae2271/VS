@@ -26,6 +26,22 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(100),
         allowNull: true,
       },
+      condition: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+      condition1: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      condition2: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      condition3: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      }
     },
     {
       charset: "utf8mb4",
@@ -36,6 +52,7 @@ module.exports = (sequelize, DataTypes) => {
     db.Post.belongsTo(db.User);
     db.Post.hasMany(db.Comment);
     db.Post.hasMany(db.Image);
+    db.Post.hasMany(db.Pick);
     db.Post.belongsToMany(db.Hashtag, { through: "PostHashtag" });
   };
   return Post;
