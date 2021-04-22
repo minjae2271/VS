@@ -8,6 +8,7 @@
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>{{ c.User.nickname }}</v-list-item-title>
+          <span>{{contents[c.commentType]}}</span>
           <v-list-item-subtitle>{{ c.content }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -25,7 +26,7 @@ export default {
   },
   data() {
     return {
-
+      contents: [this.post.content1, this.post.content2, this.post.content3]
     };
   },
 };

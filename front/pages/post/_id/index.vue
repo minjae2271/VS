@@ -74,7 +74,7 @@ export default {
   computed: {
     post() {
       return this.$store.state.posts.mainPosts.find(
-        v => v?.id === parseInt(this.$route.params.id, 10)
+        v => v.id === parseInt(this.$route.params.id, 10)
       );
     },
   },
@@ -94,7 +94,7 @@ export default {
         postId: this.$route.params.id,
         contentNum
       });
-      window.location.reload();
+      // window.location.reload();
     }
   }
   // middleware: "authenticated",

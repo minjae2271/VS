@@ -48,7 +48,8 @@ export const mutations = {
     Vue.set(state.mainPosts[index], 'Picks', payload.data);   
   },
   pickContent(state, payload) {
-    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
+    console.log(payload);
+    const index = state.mainPosts.findIndex(v => v.id === payload.PostId);
     state.mainPosts[index].Picks.unshift(payload);
   }
 };
