@@ -1,6 +1,5 @@
 <template>
   <v-list>
-    {{post}}
     <template>
       <v-list-item v-for="c in post.Comments" :key="c.id">
         <v-list-item-avatar color="teal">
@@ -12,7 +11,7 @@
           <v-list-item-subtitle>{{ c.content }}</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
-          <v-icon @click="remove(post.id, c.id)"
+          <v-icon @click="remove(post.id, c.id)" v-if="me != null && me.id === c.User.id"
             >mdi-minus-circle-outline</v-icon
           >
         </v-list-item-action>
@@ -38,6 +37,11 @@ export default {
       contents: [this.post.content1, this.post.content2, this.post.content3]
     };
   },
+  computed: {
+    me() {
+      return this.$store.state.users.me
+    }
+  }
 };
 </script>
 
