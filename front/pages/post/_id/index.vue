@@ -45,7 +45,7 @@
     <v-container>
       <v-row>
         <v-col>
-          <comments-list :post="post" />
+          <comments-list :post="post" :remove="removeComment" />
         </v-col>
       </v-row>
     </v-container>
@@ -78,8 +78,13 @@ export default {
   async fetch({ store, params }) {
     await store.dispatch('posts/loadPost', params.id);
     return await store.dispatch('posts/loadComments', { postId: params.id });
-  }
+  },
   // middleware: "authenticated",
+  methods: {
+    async removeComment(postId, commentId) {
+      await this.$store.dispatch('posts/removeComment', { postId, commentId });
+    }
+  }
 };
 </script>
 

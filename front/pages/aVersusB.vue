@@ -1,42 +1,30 @@
 <template>
   <div>
     <v-row justify="center">
-        <v-col
+      <v-col>
+        <v-chip-group
+          v-model="selection"
+          active-class="primary--text text--accent-4"
         >
-            <v-chip-group
-            v-model="selection"
-            active-class="primary--text text--accent-4"
-
-            >
-                <v-chip
-                v-for="(hashtag, i) in mainHashtags"
-                :key="i"
-                class="ma-2"
-                large
-                >
-                {{hashtag.name}}
-                </v-chip>
-            </v-chip-group>
-        </v-col>
-    </v-row>
-  <v-container class="grey lighten-5">
-    <v-row no-gutters>
-      <v-col
-        v-for="(post, i) in mainPosts"
-        :key="i"
-        cols="12"
-        sm="4"
-      >
-        <post-card
-          class="ma-3"
-          elevation="4"
-          :post="post"
-        >
-        </post-card>
+          <v-chip
+            v-for="(hashtag, i) in mainHashtags"
+            :key="i"
+            class="ma-2"
+            large
+          >
+            {{ hashtag.name }}
+          </v-chip>
+        </v-chip-group>
       </v-col>
     </v-row>
-  </v-container>
-</div>
+    <v-container class="grey lighten-5">
+      <v-row no-gutters>
+        <v-col v-for="(post, i) in mainPosts" :key="i" cols="12" sm="4">
+          <post-card class="ma-3" elevation="4" :post="post"> </post-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
@@ -48,11 +36,11 @@ export default {
   },
   data() {
     return {
-        selection: "",
+      selection: ''
     };
   },
-  fetch({ store }) {
-    store.dispatch('posts/loadPosts');
+  async fetch({ store }) {
+    await store.dispatch('posts/loadPosts', { reset: true });
     return store.dispatch('posts/loadHashtags');
   },
 

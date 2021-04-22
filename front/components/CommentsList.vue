@@ -9,6 +9,11 @@
           <v-list-item-title>{{ c.User.nickname }}</v-list-item-title>
           <v-list-item-subtitle>{{ c.content }}</v-list-item-subtitle>
         </v-list-item-content>
+        <v-list-item-action>
+          <v-icon @click="remove(post.id, c.id)"
+            >mdi-minus-circle-outline</v-icon
+          >
+        </v-list-item-action>
       </v-list-item>
     </template>
   </v-list>
@@ -19,6 +24,10 @@ export default {
   props: {
     post: {
       type: Object,
+      required: true
+    },
+    remove: {
+      type: Function,
       required: true
     }
   },
