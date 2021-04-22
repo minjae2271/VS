@@ -31,7 +31,7 @@
             </v-container>
           </v-col>
           <v-col>
-            <p>{{post.condition}}</p>
+            <p>{{ post.condition }}</p>
           </v-col>
         </v-row>
       </v-container>
@@ -46,11 +46,11 @@
         </v-btn>
       </v-card-actions>
     </v-card>
-    <comment-form :post-id="post.id"/>
+    <comment-form :post-id="post.id" />
     <v-container>
       <v-row>
         <v-col>
-          <comments-list :post="post"/>
+          <comments-list :post="post" :remove="removeComment" />
         </v-col>
       </v-row>
     </v-container>
@@ -76,21 +76,19 @@ export default {
       return this.$store.state.posts.mainPosts.find(
         v => v.id === parseInt(this.$route.params.id, 10)
       );
-    },
+    }
   },
   async fetch({ store, params }) {
     await store.dispatch('posts/loadPost', params.id);
-    await store.dispatch('posts/loadPicks', { postId: params.id })
+    await store.dispatch('posts/loadPicks', { postId: params.id });
     return await store.dispatch('posts/loadComments', { postId: params.id });
   },
   data() {
-    return {
-
-    }
+    return {};
   },
   methods: {
-    onPickContent(contentNum){
-      this.$store.dispatch('posts/pickContent', { 
+    onPickContent(contentNum) {
+      this.$store.dispatch('posts/pickContent', {
         postId: this.$route.params.id,
         contentNum
       });
