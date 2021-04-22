@@ -94,6 +94,10 @@ export default {
         postId: this.$route.params.id,
         contentNum
       });
+      window.location.reload();
+    },
+    async removeComment(postId, commentId) {
+      await this.$store.dispatch('posts/removeComment', { postId, commentId });
     }
   }
   // middleware: "authenticated",
