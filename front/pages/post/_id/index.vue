@@ -91,14 +91,10 @@ export default {
         postId: this.$route.params.id,
         contentNum
       });
-<<<<<<< HEAD
-      // window.location.reload();
-=======
       window.location.reload();
     },
     async removeComment(postId, commentId) {
       await this.$store.dispatch('posts/removeComment', { postId, commentId });
->>>>>>> 62b0779d912ea5897e4653028107f8f10f457260
     }
   }
 };
