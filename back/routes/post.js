@@ -188,7 +188,7 @@ router.get('/:id/comments', async (req, res, next) => {
           attributes: ['id', 'nickname'],
         },
       ],
-      order: [['createdAt', 'ASC']],
+      order: [['createdAt', 'DESC']],
     });
     return res.json(comments);
   } catch (err) {
@@ -232,6 +232,26 @@ router.post('/:id/comment', isLoggedIn, async (req, res, next) => {
       ],
     });
     return res.json(comment);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.delete('/:id/comment/:commentId', isLoggedIn, async (req, res, next) => {
+  try {
+    const post = await db.Post.findOne({ where: { id: req.params.id } });
+    if (!post) {
+      return res.status(404).send('게시글이 존재하지 않습니다.');
+    }
+    await post.removeComment(req.params.commentId);
+    await db.Comment.destroy({
+      where: { id: req.params.commentId },
+    });
+    res.send({
+      postId: req.params.id,
+      commentId: req.params.commentId,
+    });
   } catch (err) {
     console.error(err);
     next(err);
