@@ -7,12 +7,12 @@ const { isLoggedIn } = require('./middlewares');
 
 const upload = multer({
   storage: multer.diskStorage({
-    destination(req, file, done) {
+    destination(req, file, done) { //서버에 저장된 위치
       done(null, 'uploads');
     },
     filename(req, file, done) {
       const ext = path.extname(file.originalname);
-      const basename = path.basename(file.originalname, ext);
+      const basename = path.basename(file.originalname, ext); // 서버에 저장될 파일 이름
       done(null, basename + Date.now() + ext);
     },
   }),
@@ -32,6 +32,7 @@ router.post('/', async (req, res, next) => {
       title: req.body.title,
       content1: req.body.content1,
       content2: req.body.content2,
+      condition: req.body.condition,
       UserId: req.user.id,
     });
     if (hashtag) {
@@ -94,6 +95,79 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+router.post('/:id/pick', async (req, res, next) => {
+  try {
+    const post = await db.Post.findOne({
+      where: { id: req.params.id },
+    });
+    if(!post) {
+      return res.status(404).send('게시글이 존재하지 않습니다.');
+    }
+
+    const checkPick = await db.Pick.findOne({
+      where: {
+        PostId: post.id,
+        UserId: req.user.id,        
+      }
+    });
+    if(checkPick){
+      return res.status(403).send('이미 선택된 게시글입니다.')
+    }
+
+    const newPick = await db.Pick.create({
+      PostId: post.id,
+      UserId: req.user.id,
+      contentNum: req.body.contentNum,
+    });
+
+    const pick = await db.Pick.findOne({
+      where: {
+        id: newPick.id,
+      },
+      include: [
+        {
+          model: db.Post,
+          include: [{
+            model: db.User,
+            attributes: ['id','nickname']
+          }],
+        },
+      ],
+    });
+    res.json(pick);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.get('/:id/picks', async (req, res, next) => {
+  try {
+    const post = await db.Post.findOne({
+      where: { id: req.params.id },
+    });
+    if(!post) {
+      return res.status(404).send('게시글이 존재하지 않습니다.');
+    }    
+
+    const picks = await db.Pick.findAll({
+      where: {
+        postId: req.params.id,
+      },
+      include: [
+        {
+          model:db.User,
+          attributes: ['id', 'nickname'],
+        },
+      ]
+    });
+    return res.json(picks);
+  } catch(err){
+    console.error(err);
+    next(err);
+  }
+})
+
 router.get('/:id/comments', async (req, res, next) => {
   try {
     const post = await db.Post.findOne({
@@ -116,7 +190,6 @@ router.get('/:id/comments', async (req, res, next) => {
       ],
       order: [['createdAt', 'DESC']],
     });
-    console.log(comments);
     return res.json(comments);
   } catch (err) {
     console.error(err);
@@ -130,11 +203,22 @@ router.post('/:id/comment', isLoggedIn, async (req, res, next) => {
     if (!post) {
       return res.status(404).send('게시글이 존재하지 않습니다.');
     }
+
+    const pick = await db.Pick.findOne({
+      where: {
+        postId: req.params.id,
+        userId: req.user.id,
+      }
+    });
+    if(!pick){
+      return res.status(403).send('컨텐츠 중 하나를 선택하세요.')
+    }
+
     const newComment = await db.Comment.create({
       PostId: post.id,
       UserId: req.user.id,
       content: req.body.content,
-      commentType: 1,
+      commentType: pick.contentNum,
     });
     const comment = await db.Comment.findOne({
       where: {

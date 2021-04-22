@@ -26,6 +26,10 @@
           <h3 class="text-center">{{ post.content2 }}</h3>
         </v-col>
       </v-row>
+      <div v-if="post.Picks">
+      <span>{{post.Picks.length}}</span>
+      <span>명 참여중</span>
+      </div>
       <!-- <v-row
         justify="center"
         align="center"
@@ -65,12 +69,7 @@ export default {
     return {};
   },
   methods: {
-    onClickA() {
-      console.log("clickA");
-    },
-    conClickB() {
-      console.log("clickB");
-    }
+
   }
 };
 </script>

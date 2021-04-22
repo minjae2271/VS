@@ -56,6 +56,18 @@ export const mutations = {
       v => v.id === payload.commentId
     );
     state.mainPosts[index].Comments.splice(commentIndex, 1);
+  },
+
+  // Pick
+  loadPicks(state, payload) {
+    const index = state.mainPosts.findIndex(
+      element => element.id === payload.postId
+    );
+    Vue.set(state.mainPosts[index], 'Picks', payload.data);
+  },
+  pickContent(state, payload) {
+    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
+    state.mainPosts[index].Picks.unshift(payload);
   }
 };
 
@@ -70,6 +82,7 @@ export const actions = {
           title: payload.title,
           content1: payload.content1,
           content2: payload.content2,
+          condition: payload.condition,
           hashtag: payload.hashtag,
           image: state.imagePaths
         },
@@ -174,6 +187,32 @@ export const actions = {
       commit('removeComment', {
         postId: payload.postId,
         commentId: payload.commentId
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  },
+
+  // Pick
+  async pickContent({ commit }, payload) {
+    try {
+      const res = await this.$axios.post(
+        `/post/${payload.postId}/pick`,
+        { contentNum: payload.contentNum },
+        { withCredentials: true }
+      );
+      commit('pickContent', res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  },
+
+  async loadPicks({ commit }, payload) {
+    try {
+      const res = await this.$axios.get(`/post/${payload.postId}/picks`);
+      commit('loadPicks', {
+        postId: Number(payload.postId),
+        data: res.data
       });
     } catch (err) {
       console.error(err);

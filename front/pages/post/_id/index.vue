@@ -14,6 +14,7 @@
                 :src="`http://localhost:3005/${post.Images[0].src}`"
                 height="300px"
                 width="100%"
+                @click="onPickContent(0)"
               />
               <h3 class="text-center">{{ post.content1 }}</h3>
             </v-container>
@@ -24,9 +25,13 @@
                 :src="`http://localhost:3005/${post.Images[1].src}`"
                 height="300px"
                 width="100%"
+                @click="onPickContent(1)"
               />
               <h3 class="text-center">{{ post.content2 }}</h3>
             </v-container>
+          </v-col>
+          <v-col>
+            <p>{{ post.condition }}</p>
           </v-col>
         </v-row>
       </v-container>
@@ -58,34 +63,42 @@
 <script>
 // post/_id.vue
 // po  /1   post/2    post
-import PostCard from '~/components/PostCard';
 import CommentForm from '~/components/CommentForm';
 import CommentsList from '~/components/CommentsList';
 
 export default {
   components: {
-    PostCard,
     CommentsList,
     CommentForm
   },
+
   computed: {
     post() {
       return this.$store.state.posts.mainPosts.find(
-        v => v.id === parseInt(this.$route.params.id, 10)
+        v => v?.id === parseInt(this.$route.params.id, 10)
       );
     }
   },
   async fetch({ store, params }) {
     await store.dispatch('posts/loadPost', params.id);
+    await store.dispatch('posts/loadPicks', { postId: params.id });
     return await store.dispatch('posts/loadComments', { postId: params.id });
   },
-  // middleware: "authenticated",
+
   methods: {
+    onPickContent(contentNum) {
+      this.$store.dispatch('posts/pickContent', {
+        postId: this.$route.params.id,
+        contentNum
+      });
+      window.location.reload();
+    },
     async removeComment(postId, commentId) {
       await this.$store.dispatch('posts/removeComment', { postId, commentId });
     }
   }
 };
+// middleware: "authenticated",
 </script>
 
 <style></style>

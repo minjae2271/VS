@@ -1,5 +1,6 @@
 <template>
   <v-list>
+    {{post}}
     <template>
       <v-list-item v-for="c in post.Comments" :key="c.id">
         <v-list-item-avatar color="teal">
@@ -32,8 +33,10 @@ export default {
     }
   },
   data() {
-    return {};
-  }
+    return {
+
+    };
+  },
 };
 </script>
 

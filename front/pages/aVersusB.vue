@@ -46,7 +46,7 @@ export default {
 
   computed: {
     mainPosts() {
-      return this.$store.state.posts.mainPosts;
+      return this.$store.state.posts.mainPosts.filter(post => post != null);
     },
     mainHashtags() {
       return this.$store.state.posts.mainHashtags;
