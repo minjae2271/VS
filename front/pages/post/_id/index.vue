@@ -7,35 +7,45 @@
         </h3>
       </v-card-title>
       <v-container>
-        <v-row no-gutters>
+        <v-row no-gutters v-if="post.Images.length === 2">
           <v-col cols="6">
             <v-container>
               <v-img
                 :src="`http://localhost:3005/${post.Images[0].src}`"
-                height="300px"
+                height="400px"
                 width="100%"
                 @click="onPickContent(0)"
               />
-              <h3 class="text-center">{{ post.content1 }}</h3>
             </v-container>
           </v-col>
           <v-col cols="6">
             <v-container>
               <v-img
                 :src="`http://localhost:3005/${post.Images[1].src}`"
-                height="300px"
+                height="400px"
                 width="100%"
                 @click="onPickContent(1)"
               />
-              <h3 class="text-center">{{ post.content2 }}</h3>
             </v-container>
           </v-col>
-          <v-col>
-            <p>{{ post.condition }}</p>
-          </v-col>
+        </v-row>
+        <v-row no-gutters v-else-if="post.Images.length === 1">
+            <v-container>
+              <v-img
+                :src="`http://localhost:3005/${post.Images[0].src}`"
+                height="400px"
+                width="100%"
+              />
+            </v-container>
         </v-row>
       </v-container>
-
+      <v-container class="content-name">
+        <h3 class="text-center" @click="onPickContent(0)">{{ post.content1 }}</h3>
+        <h3 class="text-center" @click="onPickContent(1)">{{ post.content2 }}</h3>
+      </v-container>
+      <v-container class="content-condition">
+          <p>{{ post.condition }}</p>        
+      </v-container>
       <v-card-actions>
         <v-btn color="orange" text>
           공유하기
@@ -92,7 +102,6 @@ export default {
         postId: this.$route.params.id,
         contentNum
       });
-      window.location.reload();
     },
     async removeComment(postId, commentId) {
       await this.$store.dispatch('posts/removeComment', { postId, commentId });
@@ -102,4 +111,16 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+
+.content-name
+{
+  display: flex;
+  padding-top: 0;
+}
+
+.content-name h3
+{
+  flex:1;
+}
+</style>

@@ -7,15 +7,14 @@
         </nuxt-link>
       </h3>
     </v-card-title>
-    <v-container>
-      <v-row no-gutters>
+    <v-container class="post-content">
+      <v-row no-gutters v-if="post.Images.length === 2">
         <v-col cols="6">
           <v-img
             :src="`http://localhost:3005/${post.Images[0].src}`"
             height="300px"
             width="100%"
           />
-          <h3 class="text-center">{{ post.content1 }}</h3>
         </v-col>
         <v-col cols="6">
           <v-img
@@ -23,23 +22,26 @@
             height="300px"
             width="100%"
           />
-          <h3 class="text-center">{{ post.content2 }}</h3>
         </v-col>
       </v-row>
-      <div v-if="post.Picks">
+      <v-row no-gutters v-else-if="post.Images.length === 1">
+        <v-col cols="12">
+          <v-img
+            :src="`http://localhost:3005/${post.Images[0].src}`" 
+            height="300px"
+            width="100%"
+          />
+        </v-col>
+      </v-row>
+      <v-container class="content-name">
+            <h3 class="text-center">{{ post.content1 }}</h3>
+            <h3 class="text-center">{{ post.content2 }}</h3>
+      </v-container>
+      <v-container class="content-desc" v-if="post.Picks">
       <span>{{post.Picks.length}}</span>
       <span>명 참여중</span>
-      </div>
-      <!-- <v-row
-        justify="center"
-        align="center"
-      > -->
-      <!-- <v-chip :ripple="false" v-for="(tag, i) in post.Hashtags" :key="i">
-      {{tag.name}}
-      </v-chip> -->
-      <!-- </v-row> -->
+      </v-container>
     </v-container>
-
     <v-card-actions>
       <v-btn color="orange" text>
         공유하기
@@ -77,6 +79,7 @@ export default {
 <style scoped>
 .post-title {
   justify-content: center;
+  padding-bottom: 0;
 }
 
 .post-link:link {
@@ -88,4 +91,15 @@ export default {
   color: black;
   text-decoration: none;
 }
+
+.content-name
+{
+  display: flex;
+}
+
+.content-name h3
+{
+  flex:1;
+}
+
 </style>

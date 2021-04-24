@@ -2,25 +2,26 @@
   <div>
     <v-row justify="center">
       <v-col>
-        <v-chip-group
+        <!-- <v-chip-group
           v-model="selection"
           active-class="primary--text text--accent-4"
-        >
+        > -->
           <v-chip
             v-for="(hashtag, i) in mainHashtags"
             :key="i"
             class="ma-2"
             large
+            @click="onselectHashtag(hashtag.name)"
           >
             {{ hashtag.name }}
           </v-chip>
-        </v-chip-group>
+        <!-- </v-chip-group> -->
       </v-col>
     </v-row>
-    <v-container class="grey lighten-5">
+    <v-container class="post-card-box grey lighten-5">
       <v-row no-gutters>
-        <v-col v-for="(post, i) in mainPosts" :key="i" cols="12" sm="4">
-          <post-card class="ma-3" elevation="4" :post="post"> </post-card>
+        <v-col class="post-card" v-for="(post, i) in mainPosts" :key="i" sm="12" md="3">
+            <post-card elevation="4" :post="post" />
         </v-col>
       </v-row>
     </v-container>
@@ -36,7 +37,7 @@ export default {
   },
   data() {
     return {
-      selection: ''
+      
     };
   },
   async fetch({ store }) {
@@ -65,6 +66,10 @@ export default {
           this.$store.dispatch('posts/loadPosts');
         }
       }
+    },
+    onselectHashtag(hashtag) {
+      console.log(hashtag);
+      // this.$store.dispatch('posts/searchPost', hashtag);
     }
   },
   mounted() {
@@ -76,4 +81,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.post-card
+{
+  margin:0 15px 20px 0;
+}
+</style>
