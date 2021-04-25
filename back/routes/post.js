@@ -7,7 +7,8 @@ const { isLoggedIn } = require('./middlewares');
 
 const upload = multer({
   storage: multer.diskStorage({
-    destination(req, file, done) { //서버에 저장된 위치
+    destination(req, file, done) {
+      //서버에 저장된 위치
       done(null, 'uploads');
     },
     filename(req, file, done) {
@@ -100,18 +101,18 @@ router.post('/:id/pick', async (req, res, next) => {
     const post = await db.Post.findOne({
       where: { id: req.params.id },
     });
-    if(!post) {
+    if (!post) {
       return res.status(404).send('게시글이 존재하지 않습니다.');
     }
 
     const checkPick = await db.Pick.findOne({
       where: {
         PostId: post.id,
-        UserId: req.user.id,        
-      }
+        UserId: req.user.id,
+      },
     });
-    if(checkPick){
-      return res.status(403).send('이미 선택된 게시글입니다.')
+    if (checkPick) {
+      return res.status(403).send('이미 선택된 게시글입니다.');
     }
 
     const newPick = await db.Pick.create({
@@ -127,10 +128,12 @@ router.post('/:id/pick', async (req, res, next) => {
       include: [
         {
           model: db.Post,
-          include: [{
-            model: db.User,
-            attributes: ['id','nickname']
-          }],
+          include: [
+            {
+              model: db.User,
+              attributes: ['id', 'nickname'],
+            },
+          ],
         },
       ],
     });
@@ -146,9 +149,9 @@ router.get('/:id/picks', async (req, res, next) => {
     const post = await db.Post.findOne({
       where: { id: req.params.id },
     });
-    if(!post) {
+    if (!post) {
       return res.status(404).send('게시글이 존재하지 않습니다.');
-    }    
+    }
 
     const picks = await db.Pick.findAll({
       where: {
@@ -156,17 +159,17 @@ router.get('/:id/picks', async (req, res, next) => {
       },
       include: [
         {
-          model:db.User,
+          model: db.User,
           attributes: ['id', 'nickname'],
         },
-      ]
+      ],
     });
     return res.json(picks);
-  } catch(err){
+  } catch (err) {
     console.error(err);
     next(err);
   }
-})
+});
 
 router.get('/:id/comments', async (req, res, next) => {
   try {
@@ -208,10 +211,10 @@ router.post('/:id/comment', isLoggedIn, async (req, res, next) => {
       where: {
         postId: req.params.id,
         userId: req.user.id,
-      }
+      },
     });
-    if(!pick){
-      return res.status(403).send('컨텐츠 중 하나를 선택하세요.')
+    if (!pick) {
+      return res.status(403).send('컨텐츠 중 하나를 선택하세요.');
     }
 
     const newComment = await db.Comment.create({
@@ -238,19 +241,36 @@ router.post('/:id/comment', isLoggedIn, async (req, res, next) => {
   }
 });
 
-router.delete('/:id/comment/:commentId', isLoggedIn, async (req, res, next) => {
+router.patch('/comment/:id', isLoggedIn, async (req, res, next) => {
   try {
-    const post = await db.Post.findOne({ where: { id: req.params.id } });
-    if (!post) {
-      return res.status(404).send('게시글이 존재하지 않습니다.');
+    const comment = await db.Comment.findOne({
+      where: { id: req.params.id },
+    });
+    if (!comment) {
+      return res.status(404).send('댓글이 존재하지 않습니다.');
     }
-    await post.removeComment(req.params.commentId);
+    await db.Comment.update(
+      { content: req.body.content },
+      { where: { id: req.params.id } }
+    );
+    return res.json(req.body.content);
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
+
+router.delete('/comment/:id', isLoggedIn, async (req, res, next) => {
+  try {
+    const comment = await db.Comment.findOne({ where: { id: req.params.id } });
+    if (!comment) {
+      return res.status(404).send('댓글이 존재하지 않습니다.');
+    }
     await db.Comment.destroy({
-      where: { id: req.params.commentId },
+      where: { id: req.params.id },
     });
     res.send({
-      postId: req.params.id,
-      commentId: req.params.commentId,
+      commentId: req.params.id,
     });
   } catch (err) {
     console.error(err);
