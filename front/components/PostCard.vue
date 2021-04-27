@@ -8,21 +8,12 @@
         </nuxt-link>
       </h3>
       <v-spacer></v-spacer>
-            <v-btn
-              icon
-              color="pink"
-              v-if="isPicked"
-            >
-              <v-icon>mdi-heart</v-icon>
-            </v-btn>
-            <v-btn
-              icon
-              color="pink"
-              disabled
-              v-else
-            >
-              <v-icon>mdi-heart</v-icon>
-            </v-btn>
+      <v-btn icon color="pink" v-if="isPicked">
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+      <v-btn icon color="pink" disabled v-else>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
     </v-card-title>
     <v-container class="post-content">
       <v-row no-gutters v-if="post.Images.length === 2">
@@ -44,25 +35,25 @@
       <v-row no-gutters v-else-if="post.Images.length === 1">
         <v-col cols="12">
           <v-img
-            :src="`http://localhost:3005/${post.Images[0].src}`" 
+            :src="`http://localhost:3005/${post.Images[0].src}`"
             height="300px"
             width="100%"
           />
         </v-col>
       </v-row>
       <v-container class="content-name">
-            <h2 class="text-center">{{ post.content1 }}</h2>
-            <p>VS</p>
-            <h2 class="text-center">{{ post.content2 }}</h2>
+        <h2 class="text-center">{{ post.content1 }}</h2>
+        <p>VS</p>
+        <h2 class="text-center">{{ post.content2 }}</h2>
       </v-container>
       <div class="content-desc" v-if="post.Picks">
         <div class="content-participation">
-          <span>{{post.Picks.length}}</span>
+          <span>{{ post.Picks.length }}</span>
           <span>명 참여중</span>
         </div>
         <div class="content-hashtags">
           <v-chip v-for="(hashtag, i) in post.Hashtags" :key="i">
-            {{hashtag.name}}
+            {{ hashtag.name }}
           </v-chip>
         </div>
       </div>
@@ -76,7 +67,7 @@
 </template>
 
 <script>
-import CommentForm from "~/components/CommentForm";
+import CommentForm from '~/components/CommentForm';
 
 export default {
   props: {
@@ -89,20 +80,22 @@ export default {
     CommentForm
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
-      me(){
-          return this.$store.state.users.me;
-      },
-      isPicked() {
-          return this.me && this.post.User.id === this.me.id && this.post.Picks.find(v => v.UserId === this.me.id)
-      },
+    me() {
+      return this.$store.state.users.me;
+    },
+    isPicked() {
+      console.log('picks', this.post.Picks);
+      return (
+        this.me &&
+        this.post.User.id === this.me.id &&
+        this.post.Picks.find(v => v.UserId === this.me.id)
+      );
+    }
   },
-  methods: {
-
-  }
+  methods: {}
 };
 </script>
 
@@ -122,21 +115,16 @@ export default {
   text-decoration: none;
 }
 
-.content-name
-{
+.content-name {
   display: flex;
   justify-content: center;
 }
 
-.content-name h2
-{
-  flex:1;
+.content-name h2 {
+  flex: 1;
 }
 
-.content-participation
-{
+.content-participation {
   margin-bottom: 10px;
 }
-
-
 </style>

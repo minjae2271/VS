@@ -14,9 +14,20 @@
 
       <v-tabs-items v-model="tabs">
         <v-tab-item v-for="item in items" :key="item.tab">
-          <v-card flat>
-            <v-card-text>{{ item.content }}</v-card-text>
-          </v-card>
+          <v-container class="post-card-box grey lighten-5">
+            <v-row class="post-card-row" no-gutters>
+              <v-col
+                class="post-card-col"
+                v-for="(post, i) in mainPosts"
+                :key="i"
+                cols="12"
+                sm="6"
+                md="3"
+              >
+                <post-card elevation="4" :post="post" />
+              </v-col>
+            </v-row>
+          </v-container>
         </v-tab-item>
       </v-tabs-items>
     </template>
@@ -39,9 +50,15 @@ export default {
       return this.$store.state.users.me == null
         ? ''
         : this.$store.state.users.me;
+    },
+    mainPosts() {
+      return this.$store.state.posts.mainPosts.filter(post => post != null);
     }
   },
   middleware: 'authenticated',
+  async fetch({ store, params }) {
+    return await store.dispatch('posts/loadPosts');
+  },
   methods: {}
 };
 </script>
