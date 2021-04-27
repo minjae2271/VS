@@ -25,7 +25,7 @@
         </v-row>
       </v-container>
     </v-list-item-action>
-    <update-comment-form
+    <comment-form-update
       v-if="editForm"
       :comment="comment"
       :type="'edit'"
@@ -35,10 +35,10 @@
 </template>
 
 <script>
-import CommentForm from '~/components/CommentForm';
+import CommentFormUpdate from './CommentFormUpdate.vue';
 export default {
   components: {
-    CommentForm
+    CommentFormUpdate
   },
   props: {
     post: {
