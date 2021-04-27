@@ -1,6 +1,6 @@
 <template>
   <v-container v-if="post">
-    <p>{{post}}</p>
+    <p>{{ post }}</p>
     <v-card class="mx-auto" max-width="100%">
       <v-container class="post-title">
         <h3>
@@ -41,21 +41,12 @@
         </v-row>
       </v-container>
       <v-container class="content-name">
-<<<<<<< HEAD
-        <v-btn class="content-name-1" text>
-          <h2 class="text-center" @click="onPickContent(0)">{{ post.content1 }}</h2>
-        </v-btn>
-        <v-btn class="content-name-2" text>
-          <h2 class="text-center" @click="onPickContent(1)">{{ post.content2 }}</h2>
-        </v-btn>
-=======
         <h3 class="text-center" @click="onPickContent(0)">
           {{ post.content1 }}
         </h3>
         <h3 class="text-center" @click="onPickContent(1)">
           {{ post.content2 }}
         </h3>
->>>>>>> bf2e644d0ce6931ac846c791f2a707e0441fb594
       </v-container>
       <v-container class="content-condition">
         <p>{{ post.condition }}</p>
@@ -69,10 +60,20 @@
           결과보기
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="orange" text nuxt :to="'/post/' + post.id + '/updatePost'">
+        <v-btn
+          color="orange"
+          text
+          nuxt
+          :to="'/post/' + post.id + '/updatePost'"
+        >
           수정하기
         </v-btn>
-        <v-btn v-if="me.id === post.User.id" color="orange" text @click="removePost()">
+        <v-btn
+          v-if="me.id === post.User.id"
+          color="orange"
+          text
+          @click="removePost()"
+        >
           삭제하기
         </v-btn>
       </v-card-actions>
@@ -122,14 +123,13 @@ export default {
   },
   methods: {
     async onPickContent(contentNum) {
-      if(!this.me){
+      if (!this.me) {
         return alert('로그인이 필요합니다.');
       }
       await this.$store.dispatch('posts/pickContent', {
         postId: this.$route.params.id,
         contentNum
       });
-<<<<<<< HEAD
     },
     async removeComment(postId, commentId) {
       await this.$store.dispatch('posts/removeComment', { postId, commentId });
@@ -138,8 +138,6 @@ export default {
       await this.$store.dispatch('posts/removePost', {
         postId: this.$route.params.id
       });
-=======
->>>>>>> bf2e644d0ce6931ac846c791f2a707e0441fb594
     }
   }
   // middleware: "authenticated",
@@ -152,18 +150,15 @@ export default {
   padding-top: 0;
 }
 
-<<<<<<< HEAD
-.content-name .content-name-1
-{
-  flex:1;
+.content-name .content-name-1 {
+  flex: 1;
 }
 
-.content-name .content-name-2
-{
-  flex:1;
-=======
+.content-name .content-name-2 {
+  flex: 1;
+}
+
 .content-name h3 {
   flex: 1;
->>>>>>> bf2e644d0ce6931ac846c791f2a707e0441fb594
 }
 </style>
