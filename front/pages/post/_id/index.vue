@@ -31,25 +31,34 @@
           </v-col>
         </v-row>
         <v-row no-gutters v-else-if="post.Images.length === 1">
-            <v-container>
-              <v-img
-                :src="`http://localhost:3005/${post.Images[0].src}`"
-                height="400px"
-                width="100%"
-              />
-            </v-container>
+          <v-container>
+            <v-img
+              :src="`http://localhost:3005/${post.Images[0].src}`"
+              height="400px"
+              width="100%"
+            />
+          </v-container>
         </v-row>
       </v-container>
       <v-container class="content-name">
+<<<<<<< HEAD
         <v-btn class="content-name-1" text>
           <h2 class="text-center" @click="onPickContent(0)">{{ post.content1 }}</h2>
         </v-btn>
         <v-btn class="content-name-2" text>
           <h2 class="text-center" @click="onPickContent(1)">{{ post.content2 }}</h2>
         </v-btn>
+=======
+        <h3 class="text-center" @click="onPickContent(0)">
+          {{ post.content1 }}
+        </h3>
+        <h3 class="text-center" @click="onPickContent(1)">
+          {{ post.content2 }}
+        </h3>
+>>>>>>> bf2e644d0ce6931ac846c791f2a707e0441fb594
       </v-container>
       <v-container class="content-condition">
-          <p>{{ post.condition }}</p>        
+        <p>{{ post.condition }}</p>
       </v-container>
       <v-card-actions>
         <v-btn color="orange" text>
@@ -68,11 +77,11 @@
         </v-btn>
       </v-card-actions>
     </v-card>
-    <comment-form :post-id="post.id" />
+    <comment-form :post-id="post.id" :comment-id="-1" :type="'add'" />
     <v-container>
       <v-row>
         <v-col>
-          <comments-list :post="post" :remove="removeComment" />
+          <comments-list :post="post" />
         </v-col>
       </v-row>
     </v-container>
@@ -120,6 +129,7 @@ export default {
         postId: this.$route.params.id,
         contentNum
       });
+<<<<<<< HEAD
     },
     async removeComment(postId, commentId) {
       await this.$store.dispatch('posts/removeComment', { postId, commentId });
@@ -128,6 +138,8 @@ export default {
       await this.$store.dispatch('posts/removePost', {
         postId: this.$route.params.id
       });
+=======
+>>>>>>> bf2e644d0ce6931ac846c791f2a707e0441fb594
     }
   }
   // middleware: "authenticated",
@@ -135,13 +147,12 @@ export default {
 </script>
 
 <style scoped>
-
-.content-name
-{
+.content-name {
   display: flex;
   padding-top: 0;
 }
 
+<<<<<<< HEAD
 .content-name .content-name-1
 {
   flex:1;
@@ -150,5 +161,9 @@ export default {
 .content-name .content-name-2
 {
   flex:1;
+=======
+.content-name h3 {
+  flex: 1;
+>>>>>>> bf2e644d0ce6931ac846c791f2a707e0441fb594
 }
 </style>

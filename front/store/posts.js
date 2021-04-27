@@ -55,13 +55,20 @@ export const mutations = {
   },
 
   // Comment CRUD
+  addComment(state, payload) {
+    const index = state.mainPosts.findIndex(v => v.id === payload.PostId);
+    state.mainPosts[index].Comments.unshift(payload);
+  },
   loadComments(state, payload) {
     const index = state.mainPosts.findIndex(v => v.id === payload.postId);
     Vue.set(state.mainPosts[index], 'Comments', payload.data);
   },
-  addComment(state, payload) {
-    const index = state.mainPosts.findIndex(v => v.id === payload.PostId);
-    state.mainPosts[index].Comments.unshift(payload);
+  editComment(state, payload) {
+    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
+    const commentIndex = state.mainPosts[index].Comments.findIndex(
+      v => v.id === payload.commentId
+    );
+    state.mainPosts[index].Comments[commentIndex].content = payload.content;
   },
   removeComment(state, payload) {
     const index = state.mainPosts.findIndex(v => v.id === payload.postId);
@@ -198,17 +205,6 @@ export const actions = {
   },
 
   // Actions: Comment CRUD
-  async loadComments({ commit }, payload) {
-    try {
-      const res = await this.$axios.get(`/post/${payload.postId}/comments`);
-      commit('loadComments', {
-        postId: Number(payload.postId),
-        data: res.data
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  },
 
   async addComment({ commit }, payload) {
     try {
@@ -223,12 +219,40 @@ export const actions = {
     }
   },
 
-  async removeComment({ commit }, payload) {
+  async loadComments({ commit }, payload) {
     try {
-      await this.$axios.delete(
-        `/post/${payload.postId}/comment/${payload.commentId}`,
+      const res = await this.$axios.get(`/post/${payload.postId}/comments`);
+      commit('loadComments', {
+        postId: Number(payload.postId),
+        data: res.data
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  },
+
+  async editComment({ commit }, payload) {
+    try {
+      const res = await this.$axios.patch(
+        `/post/comment/${payload.commentId}`,
+        { content: payload.content },
         { withCredentials: true }
       );
+      commit('editComment', {
+        postId: payload.postId,
+        commentId: payload.commentId,
+        content: res.data
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  },
+
+  async removeComment({ commit }, payload) {
+    try {
+      await this.$axios.delete(`/post/comment/${payload.commentId}`, {
+        withCredentials: true
+      });
       commit('removeComment', {
         postId: payload.postId,
         commentId: payload.commentId

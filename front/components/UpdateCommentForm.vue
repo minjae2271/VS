@@ -1,33 +1,32 @@
 <template>
-  <v-form
-    ref="form"
-    v-model="valid"
-    style="position: relative"
-    @submit.prevent="onSubmitForm"
-  >
-    <v-textarea
-      v-model="content"
-      filled
-      auto-grow
-      label="댓글 달기"
-      :hide-details="hideDetails"
-      :success="success"
-      :success-messages="successMessages"
-      @input="onChangeTextarea"
-    />
-    <v-btn color="green" dark absolute top right type="submit">등록</v-btn>
-  </v-form>
+  <div>
+    <p>{{ comment }}</p>
+    <v-form
+      ref="form"
+      v-model="valid"
+      style="position: relative"
+      @submit.prevent="onSubmitForm"
+    >
+      <v-textarea
+        v-model="content"
+        filled
+        auto-grow
+        label="댓글 달기"
+        :hide-details="hideDetails"
+        :success="success"
+        :success-messages="successMessages"
+        @input="onChangeTextarea"
+      />
+      <v-btn color="green" dark absolute top right type="submit">등록</v-btn>
+    </v-form>
+  </div>
 </template>
 
 <script>
 export default {
   props: {
-    postId: {
-      type: Number,
-      required: true
-    },
-    commentId: {
-      type: String,
+    comment: {
+      type: Object,
       required: true
     },
     type: {
@@ -38,7 +37,7 @@ export default {
   data() {
     return {
       valid: false,
-      content: '',
+      content: this.comment.content,
       success: false,
       successMessages: '',
       hideDetails: true
@@ -67,8 +66,8 @@ export default {
             });
           } else if (this.type === 'edit') {
             await this.$store.dispatch('posts/editComment', {
-              postId: this.postId,
-              commentId: this.commentId,
+              postId: this.comment.PostId,
+              commentId: this.comment.id,
               content: this.content
             });
             this.$emit('toggleEditForm');
