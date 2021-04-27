@@ -41,21 +41,12 @@
         </v-row>
       </v-container>
       <v-container class="content-name">
-<<<<<<< HEAD
         <v-btn class="content-name-1" text>
           <h2 class="text-center" @click="onPickContent(0)">{{ post.content1 }}</h2>
         </v-btn>
         <v-btn class="content-name-2" text>
           <h2 class="text-center" @click="onPickContent(1)">{{ post.content2 }}</h2>
         </v-btn>
-=======
-        <h3 class="text-center" @click="onPickContent(0)">
-          {{ post.content1 }}
-        </h3>
-        <h3 class="text-center" @click="onPickContent(1)">
-          {{ post.content2 }}
-        </h3>
->>>>>>> bf2e644d0ce6931ac846c791f2a707e0441fb594
       </v-container>
       <v-container class="content-condition">
         <p>{{ post.condition }}</p>
@@ -129,7 +120,6 @@ export default {
         postId: this.$route.params.id,
         contentNum
       });
-<<<<<<< HEAD
     },
     async removeComment(postId, commentId) {
       await this.$store.dispatch('posts/removeComment', { postId, commentId });
@@ -138,8 +128,6 @@ export default {
       await this.$store.dispatch('posts/removePost', {
         postId: this.$route.params.id
       });
-=======
->>>>>>> bf2e644d0ce6931ac846c791f2a707e0441fb594
     }
   }
   // middleware: "authenticated",
@@ -152,7 +140,6 @@ export default {
   padding-top: 0;
 }
 
-<<<<<<< HEAD
 .content-name .content-name-1
 {
   flex:1;
@@ -161,9 +148,5 @@ export default {
 .content-name .content-name-2
 {
   flex:1;
-=======
-.content-name h3 {
-  flex: 1;
->>>>>>> bf2e644d0ce6931ac846c791f2a707e0441fb594
 }
 </style>
