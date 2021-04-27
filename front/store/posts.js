@@ -3,9 +3,11 @@ import throttle from 'lodash.throttle';
 
 export const state = () => ({
   mainPosts: [],
+  updatePost: [],
   mainHashtags: [],
   hasMorePost: true, //쓸데없는 요청을 막는 것.
-  imagePaths: []
+  imagePaths: [],
+  updateImagePaths: [],
 });
 
 const limit = 9;
@@ -22,6 +24,7 @@ export const mutations = {
 
   loadPost(state, payload) {
     state.mainPosts = [payload];
+    state.updatePost = payload;
   },
   loadPosts(state, payload) {
     if (payload.reset) {
@@ -37,8 +40,18 @@ export const mutations = {
   concatImagesPaths(state, payload) {
     state.imagePaths = state.imagePaths.concat(payload);
   },
+  concatUpdateImagesPaths(state, payload) {
+    state.updateImagePaths = state.updateImagePaths.concat(payload);
+  },
   removeImagePath(state, payload) {
     state.imagePaths.splice(payload, 1);
+  },
+
+  setUpdateImagePath(state, payload) {
+    state.updateImagePaths = payload;
+  },
+  removeUpdateImagePath(state, payload) {
+    state.updateImagePaths.splice(payload, 1);
   },
 
   // Comment CRUD
@@ -99,8 +112,27 @@ export const actions = {
       });
   },
 
-  remove({ commit }, payload) {
-    commit('removeMainPost', payload);
+  async updatePost({ commit }, payload) {
+    try {
+      console.log('update~')
+      const res = await this.$axios.patch(`/post/${payload.postId}/update`, {
+        withCredentials: true,
+      });
+      //redirect
+    } catch(err){
+      console.error(err);
+    }
+  },
+
+  async removePost({ commit }, payload) {
+    try {
+      const res = await this.$axios.delete(`/post/${payload.postId}`, {
+        withCredentials: true
+      });
+      commit('removeMainPost', res.data);
+    } catch(err){
+      console.error(err);
+    }
   },
 
   async loadHashtags({ commit }, payload) {
@@ -151,6 +183,18 @@ export const actions = {
       .catch(err => {
         console.error(err);
       });
+  },
+
+  updateImages({ commit }, payload) {
+    this.$axios.post('/post/images', payload, {
+      withCredentials: true,
+    })
+    .then(res => {
+      commit('concatUpdateImagesPaths', res.data);
+    })
+    .catch(err => {
+      console.error(err);
+    })
   },
 
   // Actions: Comment CRUD

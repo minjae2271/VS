@@ -17,14 +17,12 @@ export default {
   data() {
     return {
       tab: [],
-      items: ["참여글", "작성글", "작성댓글"]
+      items: ["참여글", "작성댓글"]
     };
   },
   computed: {
     me() {
-      return this.$store.state.users.me == null
-        ? ""
-        : this.$store.state.users.me;
+      return this.$store.state.users.me;
     }
   },
   middleware: "authenticated",

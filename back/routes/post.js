@@ -79,6 +79,60 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+//게시글 업데이트
+router.patch('/:id/update', async (req, res, next) => {
+  try {
+    const post = await db.Post.findOne({
+      where: {
+        id: req.params.id
+      }
+    });
+    if(!post) {
+      return res.status(404).send('게시글이 존재하지 않습니다.');
+    }
+    await db.Post.update({
+      // postType: req.body.postType,
+      // postCategory: req.body.postCategory,
+      title: req.body.title,
+      content1: req.body.content1,
+      content2: req.body.content2,
+      condition: req.body.condition,
+      // UserId: req.user.id,
+    }, {
+      where: {
+        id: req.params.id        
+      }
+    });
+    res.send(req.body.title);    
+  } catch(err){
+    console.error(err);
+    next(err);
+  }
+});
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const post = await db.Post.findOne({
+      where: {
+        id: req.params.id
+      }
+    });
+    if(!post) {
+      return res.status(404).send('게시글이 존재하지 않습니다.');
+    }
+
+    await db.Post.destroy({
+      where: { id: req.params.id },
+    });
+    res.send({
+      postId: req.params.id,
+    });
+  } catch(err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 router.get('/:id', async (req, res, next) => {
   try {
     const post = await db.Post.findOne({
@@ -86,6 +140,7 @@ router.get('/:id', async (req, res, next) => {
       include: [
         { model: db.User, attributes: ['id', 'nickname'] },
         { model: db.Image },
+        { model: db.Hashtag}
       ],
     });
     return res.json(post);

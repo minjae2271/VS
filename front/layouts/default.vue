@@ -150,7 +150,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+body
+{
+  padding: 0;
+  margin: 0;
+}
+
 a {
   color: inherit;
   text-decoration: none;

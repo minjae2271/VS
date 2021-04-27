@@ -5,8 +5,10 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
     try{
-        const hashtags = await db.Hashtag.findAll({
+        const hashtags = await db.Hashtags.findAll({
+            where: {
 
+            }
         });
         return res.json(hashtags);
     } catch(err){

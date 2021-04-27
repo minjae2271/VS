@@ -1,11 +1,7 @@
 <template>
   <div>
-    <v-row justify="center">
+    <!-- <v-row justify="center">
       <v-col>
-        <!-- <v-chip-group
-          v-model="selection"
-          active-class="primary--text text--accent-4"
-        > -->
           <v-chip
             v-for="(hashtag, i) in mainHashtags"
             :key="i"
@@ -15,16 +11,15 @@
           >
             {{ hashtag.name }}
           </v-chip>
-        <!-- </v-chip-group> -->
       </v-col>
-    </v-row>
-    <v-container class="post-card-box grey lighten-5">
-      <v-row no-gutters>
-        <v-col class="post-card" v-for="(post, i) in mainPosts" :key="i" sm="12" md="3">
+    </v-row> -->
+    <div class="post-card-box grey lighten-5">
+      <v-row class="post-card-row" no-gutters>
+        <v-col class="post-card-col" v-for="(post, i) in mainPosts" :key="i" cols="12" sm="6" md="3">
             <post-card elevation="4" :post="post" />
         </v-col>
       </v-row>
-    </v-container>
+    </div>
   </div>
 </template>
 
@@ -41,8 +36,8 @@ export default {
     };
   },
   async fetch({ store }) {
-    await store.dispatch('posts/loadPosts', { reset: true });
-    return store.dispatch('posts/loadHashtags');
+    //await store.dispatch('posts/loadHashtags');
+    return store.dispatch('posts/loadPosts', { reset: true });
   },
 
   computed: {
@@ -69,7 +64,7 @@ export default {
     },
     onselectHashtag(hashtag) {
       console.log(hashtag);
-      // this.$store.dispatch('posts/searchPost', hashtag);
+      this.$store.dispatch('posts/searchPost', hashtag);
     }
   },
   mounted() {
@@ -82,8 +77,14 @@ export default {
 </script>
 
 <style scoped>
-.post-card
+
+.post-card-row
 {
-  margin:0 15px 20px 0;
+  display: flex;
+  justify-content: center;
+}
+.post-card-col
+{
+  margin:0 15px 20px 15px;
 }
 </style>

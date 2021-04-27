@@ -1,11 +1,28 @@
 <template>
-  <v-card class="mx-auto" max-width="100%">
+  <v-card max-width="100%">
     <v-card-title class="post-title">
+      <v-spacer></v-spacer>
       <h3>
         <nuxt-link :to="'/post/' + post.id" class="post-link">
           {{ post.title }}
         </nuxt-link>
       </h3>
+      <v-spacer></v-spacer>
+            <v-btn
+              icon
+              color="pink"
+              v-if="isPicked"
+            >
+              <v-icon>mdi-heart</v-icon>
+            </v-btn>
+            <v-btn
+              icon
+              color="pink"
+              disabled
+              v-else
+            >
+              <v-icon>mdi-heart</v-icon>
+            </v-btn>
     </v-card-title>
     <v-container class="post-content">
       <v-row no-gutters v-if="post.Images.length === 2">
@@ -34,21 +51,25 @@
         </v-col>
       </v-row>
       <v-container class="content-name">
-            <h3 class="text-center">{{ post.content1 }}</h3>
-            <h3 class="text-center">{{ post.content2 }}</h3>
+            <h2 class="text-center">{{ post.content1 }}</h2>
+            <p>VS</p>
+            <h2 class="text-center">{{ post.content2 }}</h2>
       </v-container>
-      <v-container class="content-desc" v-if="post.Picks">
-      <span>{{post.Picks.length}}</span>
-      <span>명 참여중</span>
-      </v-container>
+      <div class="content-desc" v-if="post.Picks">
+        <div class="content-participation">
+          <span>{{post.Picks.length}}</span>
+          <span>명 참여중</span>
+        </div>
+        <div class="content-hashtags">
+          <v-chip v-for="(hashtag, i) in post.Hashtags" :key="i">
+            {{hashtag.name}}
+          </v-chip>
+        </div>
+      </div>
     </v-container>
     <v-card-actions>
       <v-btn color="orange" text>
         공유하기
-      </v-btn>
-
-      <v-btn color="orange" text>
-        결과보기
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -68,7 +89,16 @@ export default {
     CommentForm
   },
   data() {
-    return {};
+    return {
+    };
+  },
+  computed: {
+      me(){
+          return this.$store.state.users.me;
+      },
+      isPicked() {
+          return this.me && this.post.User.id === this.me.id && this.post.Picks.find(v => v.UserId === this.me.id)
+      },
   },
   methods: {
 
@@ -95,11 +125,18 @@ export default {
 .content-name
 {
   display: flex;
+  justify-content: center;
 }
 
-.content-name h3
+.content-name h2
 {
   flex:1;
 }
+
+.content-participation
+{
+  margin-bottom: 10px;
+}
+
 
 </style>

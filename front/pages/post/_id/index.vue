@@ -1,11 +1,12 @@
 <template>
   <v-container v-if="post">
+    <p>{{post}}</p>
     <v-card class="mx-auto" max-width="100%">
-      <v-card-title class="post-title">
+      <v-container class="post-title">
         <h3>
           {{ post.title }}
         </h3>
-      </v-card-title>
+      </v-container>
       <v-container>
         <v-row no-gutters v-if="post.Images.length === 2">
           <v-col cols="6">
@@ -40,8 +41,12 @@
         </v-row>
       </v-container>
       <v-container class="content-name">
-        <h3 class="text-center" @click="onPickContent(0)">{{ post.content1 }}</h3>
-        <h3 class="text-center" @click="onPickContent(1)">{{ post.content2 }}</h3>
+        <v-btn class="content-name-1" text>
+          <h2 class="text-center" @click="onPickContent(0)">{{ post.content1 }}</h2>
+        </v-btn>
+        <v-btn class="content-name-2" text>
+          <h2 class="text-center" @click="onPickContent(1)">{{ post.content2 }}</h2>
+        </v-btn>
       </v-container>
       <v-container class="content-condition">
           <p>{{ post.condition }}</p>        
@@ -53,6 +58,13 @@
 
         <v-btn color="orange" text>
           결과보기
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn color="orange" text nuxt :to="'/post/' + post.id + '/updatePost'">
+          수정하기
+        </v-btn>
+        <v-btn v-if="me.id === post.User.id" color="orange" text @click="removePost()">
+          삭제하기
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -82,6 +94,9 @@ export default {
     CommentForm
   },
   computed: {
+    me() {
+      return this.$store.state.users.me;
+    },
     post() {
       return this.$store.state.posts.mainPosts.find(
         v => v.id === parseInt(this.$route.params.id, 10)
@@ -97,14 +112,22 @@ export default {
     return {};
   },
   methods: {
-    onPickContent(contentNum) {
-      this.$store.dispatch('posts/pickContent', {
+    async onPickContent(contentNum) {
+      if(!this.me){
+        return alert('로그인이 필요합니다.');
+      }
+      await this.$store.dispatch('posts/pickContent', {
         postId: this.$route.params.id,
         contentNum
       });
     },
     async removeComment(postId, commentId) {
       await this.$store.dispatch('posts/removeComment', { postId, commentId });
+    },
+    async removePost() {
+      await this.$store.dispatch('posts/removePost', {
+        postId: this.$route.params.id
+      });
     }
   }
   // middleware: "authenticated",
@@ -119,7 +142,12 @@ export default {
   padding-top: 0;
 }
 
-.content-name h3
+.content-name .content-name-1
+{
+  flex:1;
+}
+
+.content-name .content-name-2
 {
   flex:1;
 }
