@@ -25,14 +25,6 @@ export default {
     postId: {
       type: Number,
       required: true
-    },
-    commentId: {
-      type: String,
-      required: true
-    },
-    type: {
-      type: String,
-      required: true
     }
   },
   data() {
@@ -60,19 +52,10 @@ export default {
     async onSubmitForm() {
       try {
         if (this.$refs.form.validate()) {
-          if (this.type === 'add') {
-            await this.$store.dispatch('posts/addComment', {
-              postId: this.postId,
-              content: this.content
-            });
-          } else if (this.type === 'edit') {
-            await this.$store.dispatch('posts/editComment', {
-              postId: this.postId,
-              commentId: this.commentId,
-              content: this.content
-            });
-            this.$emit('toggleEditForm');
-          }
+          await this.$store.dispatch('posts/addComment', {
+            postId: this.postId,
+            content: this.content
+          });
           this.content = '';
           this.success = true;
           this.successmessages = `댓글이 ${
