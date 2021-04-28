@@ -69,7 +69,7 @@
           수정하기
         </v-btn>
         <v-btn
-          v-if="me.id === post.User.id"
+          v-if="canDelete"
           color="orange"
           text
           @click="removePost()"
@@ -111,6 +111,10 @@ export default {
       return this.$store.state.posts.mainPosts.find(
         v => v.id === parseInt(this.$route.params.id, 10)
       );
+    },
+    canDelete(){
+      const me = this.$store.state.users.me;
+      return !!(this.post.UserId === (me && me.id));
     }
   },
   async fetch({ store, params }) {
@@ -139,8 +143,8 @@ export default {
         postId: this.$route.params.id
       });
     }
-  }
-  // middleware: "authenticated",
+  },
+  //middleware: "authenticated",
 };
 </script>
 

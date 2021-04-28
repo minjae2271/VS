@@ -16,7 +16,7 @@
     <div class="post-card-box grey lighten-5">
       <v-row class="post-card-row" no-gutters>
         <v-col class="post-card-col" v-for="(post, i) in mainPosts" :key="i" cols="12" sm="6" md="3">
-            <post-card elevation="4" :post="post" />
+            <post-card elevation="4" :post="post"/>
         </v-col>
       </v-row>
     </div>
@@ -49,7 +49,7 @@ export default {
     },
     hasMorePost() {
       return this.$store.state.posts.hasMorePost;
-    }
+    },
   },
   methods: {
     onScroll() {
