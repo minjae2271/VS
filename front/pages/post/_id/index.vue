@@ -41,12 +41,12 @@
         </v-row>
       </v-container>
       <v-container class="content-name">
-        <h3 class="text-center" @click="onPickContent(0)">
-          {{ post.content1 }}
-        </h3>
-        <h3 class="text-center" @click="onPickContent(1)">
-          {{ post.content2 }}
-        </h3>
+        <v-btn class="content-name-1" text>
+          <h2 class="text-center" @click="onPickContent(0)">{{ post.content1 }}</h2>
+        </v-btn>
+        <v-btn class="content-name-2" text>
+          <h2 class="text-center" @click="onPickContent(1)">{{ post.content2 }}</h2>
+        </v-btn>
       </v-container>
       <v-container class="content-condition">
         <p>{{ post.condition }}</p>
