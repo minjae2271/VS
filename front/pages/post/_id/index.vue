@@ -78,7 +78,7 @@
         </v-btn>
       </v-card-actions>
     </v-card>
-    <comment-form :post-id="post.id" :comment-id="-1" :type="'add'" />
+    <comment-form :post-id="post.id" />
     <v-container>
       <v-row>
         <v-col>
