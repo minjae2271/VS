@@ -1,6 +1,5 @@
 <template>
   <v-container v-if="post">
-    <p>{{ post }}</p>
     <v-card class="mx-auto" max-width="100%">
       <v-container class="post-title">
         <h3>

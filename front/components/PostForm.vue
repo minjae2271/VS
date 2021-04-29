@@ -2,7 +2,7 @@
   <v-container>
     <v-card>
       <v-subheader>글작성</v-subheader>
-      <v-text-field v-model="title" label="글제목" shaped outlined />
+      <v-text-field v-model="title" label="글제목" rounded outlined />
       <v-row>
         <v-col cols="12" sm="6" v-for="(image, i) in imagePaths" :key="image">
           <v-card>
@@ -34,10 +34,10 @@
             <v-col cols="6">
               <v-text-field v-model="content2" label="2번" rounded outlined />
             </v-col>
-            <v-col>
+            <v-col cols="12">
               <v-text-field v-model="condition" label="조건" rounded outlined />
             </v-col>
-            <v-col>
+            <v-col cols="12">
               <v-text-field
                 v-model="hashtag"
                 label=" 해쉬태그"
