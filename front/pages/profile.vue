@@ -13,7 +13,7 @@
       </v-tabs>
 
       <v-tabs-items v-model="tabs">
-        <v-tab-item v-for="item in items" :key="item.tab">
+        <v-tab-item>
           <v-container class="post-card-box grey lighten-5">
             <v-row class="post-card-row" no-gutters>
               <v-col
@@ -29,19 +29,24 @@
             </v-row>
           </v-container>
         </v-tab-item>
+        <v-tab-item>
+          <user-comments-list :comments="userComments" />
+        </v-tab-item>
       </v-tabs-items>
     </template>
   </v-container>
 </template>
 
 <script>
+import UserCommentsList from '../components/UserCommentsList.vue';
 export default {
+  components: { UserCommentsList },
   data() {
     return {
       tabs: null,
       items: [
-        { tab: '참여 글', content: 'Tab 1 Content' },
-        { tab: '작성 댓글', content: 'Tab 2 Content' }
+        { tab: '참여 글', content: 'post' },
+        { tab: '작성 댓글', content: 'comment' }
       ]
     };
   },
@@ -57,7 +62,10 @@ export default {
   },
   middleware: 'authenticated',
   async fetch({ store, params }) {
-    return await store.dispatch('posts/loadPosts');
+    return await store.dispatch('posts/loadUserPosts', {
+      userId: this.me.id,
+      reset: true
+    });
   },
   methods: {}
 };

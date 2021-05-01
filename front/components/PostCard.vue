@@ -1,7 +1,7 @@
 <template>
   <v-card max-width="100%">
-    <p>{{post}}</p>
-    <h1>{{isPicked}}</h1>
+    <!-- <p>{{post}}</p> -->
+    <!-- <h1>{{isPicked}}</h1> -->
     <v-card-title class="post-title">
       <v-spacer></v-spacer>
       <h3>
@@ -10,19 +10,10 @@
         </nuxt-link>
       </h3>
       <v-spacer></v-spacer>
-      <v-btn
-        icon
-        color="pink"
-        v-if="isPicked"
-      >
+      <v-btn icon color="pink" v-if="isPicked">
         <v-icon>mdi-heart</v-icon>
       </v-btn>
-      <v-btn
-        icon
-        color="pink"
-        disabled
-        v-else
-      >
+      <v-btn icon color="pink" disabled v-else>
         <v-icon>mdi-heart</v-icon>
       </v-btn>
     </v-card-title>
@@ -85,7 +76,7 @@ export default {
     post: {
       type: Object,
       required: true
-    },
+    }
   },
   components: {
     CommentForm
