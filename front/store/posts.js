@@ -4,11 +4,12 @@ import throttle from 'lodash.throttle';
 export const state = () => ({
   topPosts: [],
   mainPosts: [],
+  comments: [],
   updatePost: [],
   mainHashtags: [],
   hasMorePost: true, //쓸데없는 요청을 막는 것.
   imagePaths: [],
-  updateImagePaths: [],
+  updateImagePaths: []
 });
 
 const limit = 9;
@@ -68,6 +69,10 @@ export const mutations = {
   loadComments(state, payload) {
     const index = state.mainPosts.findIndex(v => v.id === payload.postId);
     Vue.set(state.mainPosts[index], 'Comments', payload.data);
+  },
+  loadUserComments(state, payload) {
+    state.comments = payload;
+    console.log('store/posts.js - mut - loadUserComments', state.comments);
   },
   editComment(state, payload) {
     const index = state.mainPosts.findIndex(v => v.id === payload.postId);
@@ -139,12 +144,12 @@ export const actions = {
 
   async updatePost({ commit }, payload) {
     try {
-      console.log('update~')
+      console.log('update~');
       const res = await this.$axios.patch(`/post/${payload.postId}/update`, {
-        withCredentials: true,
+        withCredentials: true
       });
       //redirect
-    } catch(err){
+    } catch (err) {
       console.error(err);
     }
   },
@@ -155,7 +160,7 @@ export const actions = {
         withCredentials: true
       });
       commit('removeMainPost', res.data);
-    } catch(err){
+    } catch (err) {
       console.error(err);
     }
   },
@@ -199,6 +204,32 @@ export const actions = {
     }
   }, 3000),
 
+  loadUserPosts: throttle(async function({ commit, state }, payload) {
+    try {
+      if (payload && payload.reset) {
+        const res = await this.$axios.get(
+          `user/${payload.userId}/posts?limit=10`
+        );
+        commit('loadPosts', {
+          data: res.data,
+          reset: true
+        });
+      }
+      if (state.hasMorePost) {
+        const lastPost = state.mainPosts[state.mainPosts.length - 1];
+        const res = await this.$axios.get(
+          `user/${payload.userId}/posts?lastId=${lastPost &&
+            lastPost.id}&limit=10`
+        );
+        commit('loadPosts', {
+          data: res.data
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, 3000),
+
   uploadImages({ commit }, payload) {
     this.$axios
       .post('/post/images', payload, { withCredentials: true })
@@ -211,15 +242,16 @@ export const actions = {
   },
 
   updateImages({ commit }, payload) {
-    this.$axios.post('/post/images', payload, {
-      withCredentials: true,
-    })
-    .then(res => {
-      commit('concatUpdateImagesPaths', res.data);
-    })
-    .catch(err => {
-      console.error(err);
-    })
+    this.$axios
+      .post('/post/images', payload, {
+        withCredentials: true
+      })
+      .then(res => {
+        commit('concatUpdateImagesPaths', res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   },
 
   // Actions: Comment CRUD
@@ -246,6 +278,17 @@ export const actions = {
       });
     } catch (err) {
       console.error(err);
+    }
+  },
+
+  async loadUserComments({ commit }, payload) {
+    try {
+      if (payload && payload.reset) {
+        const res = await this.$axios.get(`user/${payload.userId}/comments`);
+        commit('loadUserComments', res.data);
+      }
+    } catch (e) {
+      console.error(e);
     }
   },
 

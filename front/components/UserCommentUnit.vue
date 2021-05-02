@@ -6,7 +6,7 @@
     </v-list-item-avatar>
     <v-list-item-content>
       <v-list-item-title>{{ comment.User.nickname }}</v-list-item-title>
-      <span>{{ contents[comment.commentType] }}</span>
+      <!-- <span>{{ contents[comment.commentType] }}</span> -->
       <v-list-item-subtitle>{{ comment.content }}</v-list-item-subtitle>
     </v-list-item-content>
     <v-list-item-action>
@@ -14,7 +14,7 @@
         <v-row>
           <v-icon
             v-if="me != null && me.id === comment.User.id"
-            @click="removeComment(post.id, comment.id)"
+            @click="removeComment(comment.PostId, comment.id)"
             >mdi-delete
           </v-icon>
           <v-icon
@@ -41,10 +41,6 @@ export default {
     CommentFormUpdate
   },
   props: {
-    post: {
-      type: Object,
-      required: false
-    },
     comment: {
       type: Object,
       required: true
@@ -52,7 +48,7 @@ export default {
   },
   data() {
     return {
-      contents: [this.post.content1, this.post.content2, this.post.content3],
+      // contents: [this.post.content1, this.post.content2, this.post.content3],
       editForm: false
     };
   },

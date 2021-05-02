@@ -1,8 +1,13 @@
 <template>
   <v-list>
-    <template>
+    <template v-if="post">
       <v-list-item v-for="c in post.Comments" :key="c.id">
         <comment-unit :post="post" :comment="c" />
+      </v-list-item>
+    </template>
+    <template v-else>
+      <v-list-item v-for="c in comments" :key="c.id">
+        <comment-unit :post="null" :comment="c" />
       </v-list-item>
     </template>
   </v-list>
@@ -17,7 +22,11 @@ export default {
   props: {
     post: {
       type: Object,
-      required: true
+      required: false
+    },
+    comments: {
+      type: Array,
+      required: false
     }
   },
   data() {
