@@ -141,6 +141,9 @@ router.get('/:id/posts', async (req, res, next) => {
         {
           model: db.Image,
         },
+        {
+          model: db.Pick,
+        },
       ],
     });
     res.json(posts);

@@ -3,6 +3,7 @@ import throttle from 'lodash.throttle';
 
 export const state = () => ({
   mainPosts: [],
+  comments: [],
   updatePost: [],
   mainHashtags: [],
   hasMorePost: true, //쓸데없는 요청을 막는 것.
@@ -62,6 +63,10 @@ export const mutations = {
   loadComments(state, payload) {
     const index = state.mainPosts.findIndex(v => v.id === payload.postId);
     Vue.set(state.mainPosts[index], 'Comments', payload.data);
+  },
+  loadUserComments(state, payload) {
+    state.comments = payload;
+    console.log('store/posts.js - mut - loadUserComments', state.comments);
   },
   editComment(state, payload) {
     const index = state.mainPosts.findIndex(v => v.id === payload.postId);
@@ -262,10 +267,7 @@ export const actions = {
     try {
       if (payload && payload.reset) {
         const res = await this.$axios.get(`user/${payload.userId}/comments`);
-        commit('loadComments', {
-          postId: Number(payload.postsId),
-          data: res.data
-        });
+        commit('loadUserComments', res.data);
       }
     } catch (e) {
       console.error(e);

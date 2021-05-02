@@ -6,7 +6,7 @@
     </v-list-item-avatar>
     <v-list-item-content>
       <v-list-item-title>{{ comment.User.nickname }}</v-list-item-title>
-      <span>{{ contents[comment.commentType] }}</span>
+      <!-- <span>{{ contents[comment.commentType] }}</span> -->
       <v-list-item-subtitle>{{ comment.content }}</v-list-item-subtitle>
     </v-list-item-content>
     <v-list-item-action>

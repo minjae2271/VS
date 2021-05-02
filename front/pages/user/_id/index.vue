@@ -30,7 +30,7 @@
           </v-container>
         </v-tab-item>
         <v-tab-item>
-          <user-comments-list :comments="comments" />
+          <user-comments-list :comments="userComments" />
         </v-tab-item>
       </v-tabs-items>
     </template>
@@ -38,11 +38,29 @@
 </template>
 
 <script>
-import CommentsList from '~/components/CommentsList';
 import UserCommentsList from '~/components/UserCommentsList';
-
 export default {
-  components: { CommentsList, UserCommentsList },
+  components: { UserCommentsList },
+  data() {},
+  computed: {
+    me() {
+      return this.$store.state.users.me;
+    },
+    mainPosts() {
+      //   return this.$store.state.posts.mainPosts;
+      return this.$store.state.posts.mainPosts.filter(post => post != null);
+    }
+  },
+  async fetch({ store, params }) {
+    await store.dispatch('users/loadUser');
+    await store.dispatch('posts/loadPosts');
+    await store.dispatch('posts/loadUserPosts', {
+      userId: params.id,
+      reset: true
+    });
+    // await store.dispatch('posts/loadOther');
+    return;
+  },
   data() {
     return {
       tabs: null,
@@ -52,36 +70,8 @@ export default {
       ]
     };
   },
-  computed: {
-    me() {
-      return this.$store.state.users.me == null
-        ? ''
-        : this.$store.state.users.me;
-    },
-    mainPosts() {
-      return this.$store.state.posts.mainPosts.filter(post => post != null);
-    },
-    comments() {
-      return this.$store.state.posts.comments;
-    }
-  },
-  async fetch({ store }) {
-    await store.dispatch('users/loadUser');
-    await store.dispatch('posts/loadUserPosts', {
-      userId: store.state.users.me.id,
-      reset: true
-    });
-    console.log('profile.vue-fetch 1', store.state.users.me.id);
-    await store.dispatch('posts/loadUserComments', {
-      userId: store.state.users.me.id,
-      reset: true
-    });
-    console.log('profile.vue - fetch');
-    return;
-  },
-  middleware: 'authenticated',
   methods: {}
 };
 </script>
 
-<style scoped></style>
+<style></style>

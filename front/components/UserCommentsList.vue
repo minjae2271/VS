@@ -2,6 +2,7 @@
   <v-list>
     <template>
       <v-list-item v-for="c in comments" :key="c.id">
+        <!-- <p>{{ c }}<p> -->
         <user-comment-unit :comment="c" />
       </v-list-item>
     </template>
