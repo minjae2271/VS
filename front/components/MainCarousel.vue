@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-carousel v-model="model" cycle show-arrows-on-hover hide-delimiter-background>
+        <v-carousel height="300" v-model="model" cycle show-arrows-on-hover hide-delimiter-background>
             <v-carousel-item
             v-for="(color, i) in colors"
             :key="color"
@@ -39,6 +39,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.carousel-box
+{
+    height: 100px;
+}
 </style>

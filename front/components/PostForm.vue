@@ -47,7 +47,7 @@
             </v-col>
           </v-row>
         </v-container>
-        <v-btn id="submitBtn" type="submit" absolute right>등록</v-btn>
+        <v-btn id="submitBtn" type="submit">등록</v-btn>
       </v-form>
     </v-card>
   </v-container>

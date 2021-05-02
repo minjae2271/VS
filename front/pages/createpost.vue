@@ -15,7 +15,8 @@ export default {
   computed: {
     updatePost() {
       return this.$store.state.posts.updatePost;
-    }
+    },
+    //category(){}
   }
 }
 </script>

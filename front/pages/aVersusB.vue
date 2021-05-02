@@ -1,18 +1,6 @@
 <template>
   <div>
-    <!-- <v-row justify="center">
-      <v-col>
-          <v-chip
-            v-for="(hashtag, i) in mainHashtags"
-            :key="i"
-            class="ma-2"
-            large
-            @click="onselectHashtag(hashtag.name)"
-          >
-            {{ hashtag.name }}
-          </v-chip>
-      </v-col>
-    </v-row> -->
+    <!-- 중분류 chips -->
     <div class="post-card-box grey lighten-5">
       <v-row class="post-card-row" no-gutters>
         <v-col class="post-card-col" v-for="(post, i) in mainPosts" :key="i" cols="12" sm="6" md="3">

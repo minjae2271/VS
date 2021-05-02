@@ -9,21 +9,25 @@
       <v-container>
         <v-row no-gutters v-if="post.Images.length === 2">
           <v-col cols="6">
-            <v-container>
+            <v-container class="wrapper">
               <v-img
                 :src="`http://localhost:3005/${post.Images[0].src}`"
-                height="400px"
+                height="400"
                 width="100%"
+                max-width="100%"
+                contain
                 @click="onPickContent(0)"
               />
             </v-container>
           </v-col>
           <v-col cols="6">
-            <v-container>
+            <v-container class="wrapper">
               <v-img
                 :src="`http://localhost:3005/${post.Images[1].src}`"
-                height="400px"
+                height="400"
                 width="100%"
+                max-width="100%"
+                contain
                 @click="onPickContent(1)"
               />
             </v-container>
@@ -164,4 +168,23 @@ export default {
 .content-name h3 {
   flex: 1;
 }
+
+.wrapper
+{
+  background-color: #40739e;
+}
+
+/* .wrapper
+{
+  height: 400px;
+  width: 300px
+}
+
+.post-img
+{ 
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  object-fit: contain;
+} */
 </style>

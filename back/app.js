@@ -10,10 +10,11 @@ const userRouter = require('./routes/user');
 const postRouter = require('./routes/post');
 const postsRouter = require('./routes/posts');
 const hashtagsRouter = require('./routes/hashtags');
+const postCharactersRouter = require('./routes/postCharacters');
 const db = require('./models');
 const app = express();
 
-// db.sequelize.sync({ force: true });
+//db.sequelize.sync({ force: true });
 db.sequelize.sync({ force: false });
 passportConfig();
 
@@ -46,6 +47,7 @@ app.use('/user', userRouter);
 app.use('/post', postRouter);
 app.use('/posts', postsRouter);
 app.use('/hashtags', hashtagsRouter);
+app.use('/postCharacters', postCharactersRouter);
 
 app.listen(3005, () => {
   console.log(`backend server ${3005}`);
