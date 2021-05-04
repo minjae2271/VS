@@ -21,7 +21,7 @@ export const state = () => ({
     },
     //postCategory
     addPostCategory(state, payload){
-      state.postCategory.unshift(payload);
+      state.postCategories.unshift(payload);
     },
     loadPostCategories(state, payload){
       state.postCategories = payload;
