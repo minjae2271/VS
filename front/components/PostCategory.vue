@@ -47,5 +47,12 @@ export default {
 </script>
 
 <style>
-
+.post-category-form-box
+{
+    margin-top: 20px;     
+}
+.post-category-list-box
+{
+    margin-top: 20px;     
+}
 </style>

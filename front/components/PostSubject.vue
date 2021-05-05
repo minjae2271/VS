@@ -13,7 +13,7 @@
           >
           </v-select>
           <v-form ref='form' v-model='valid' @submit='onSubmitPostSubjectForm'>
-              <v-text-field v-model='postSubject' />
+              <v-text-field v-model='postSubject' :rules='postSubjectRule'/>
               <v-btn id='submitPostSubjectBtn' type='submit'>중분류 등록</v-btn>
           </v-form>
       </div>
@@ -61,7 +61,7 @@ export default {
                         postSubject: this.postSubject
                     });
                 } else{
-                alert("중분류를 입력하세요");
+                alert("중분류를 입력하세요ㅜㅜ");
             }
             }
         },
@@ -69,6 +69,13 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.post-subject-form-box
+{
+    margin-top: 20px;   
+}
+.post-subject-list-box
+{
+    margin-top: 20px;      
+}
 </style>

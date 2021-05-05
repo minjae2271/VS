@@ -46,28 +46,5 @@ export default {
 </script>
 
 <style scoped>
-.post-type-form-box
-{
-    margin-top: 20px;
-}
-.post-type-list-box
-{
-    margin-top: 20px;
-}
-.post-subject-form-box
-{
-    margin-top: 20px;   
-}
-.post-subject-list-box
-{
-    margin-top: 20px;      
-}
-.post-category-form-box
-{
-    margin-top: 20px;     
-}
-.post-category-list-box
-{
-    margin-top: 20px;     
-}
+
 </style>

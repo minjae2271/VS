@@ -8,9 +8,11 @@
           </v-form>
       </div>
       <div class='post-type-list-box'>
-          <v-chip v-for='(postType, i) in postTypes' :key='i'>
-              {{postType.postTypeName}}
-          </v-chip>
+          <div class="post-type-chip-box" v-for='(postType, i) in postTypes' :key='i'>
+            <v-chip>
+                {{postType.postTypeName}}
+            </v-chip>
+          </div>
       </div>
   </v-container>
 </template>
@@ -46,6 +48,14 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.post-type-form-box
+{
+    margin-top: 20px;
+}
+.post-type-list-box
+{
+    margin-top: 20px;
+    display: flex;
+}
 </style>
