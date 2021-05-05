@@ -28,6 +28,28 @@ router.get('/postType', async (req, res, next) => {
     }
 });
 
+router.delete('/:id/postType', async (req, res, next) => {
+    try{
+        const postType = await db.PostType.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if(!postType){
+            return res.status(403).send("존재하지 않는 대분류입니다.")
+        }
+        await db.PostType.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.send("대분류가 삭제되었습니다.")
+    }catch(err){
+        console.error(err);
+        next(err);        
+    }
+})
+
 //postSubject
 router.post('/postSubject', async (req, res, next) => {
     try{

@@ -12,6 +12,9 @@ export const state = () => ({
     loadPostTypes(state, payload){
       state.postTypes = payload;
     },
+    deletePostType(state, payload){
+      
+    },
     //postSubject
     addPostSubject(state, payload){
       state.postSubjects.unshift(payload);
@@ -50,6 +53,18 @@ export const state = () => ({
         commit('loadPostTypes', res.data);
       } catch(err) {
         console.error(err);
+      }
+    },
+    async deletePostType({ commit }, payload){
+      try{
+        const res = await this.$axios.delete(`http://localhost:3005/postCharacters/${payload.postTypeId}/postType`, {
+          withCredentials: true
+        });
+        commit('deletePostType', {
+          postTypeId: payload.postTypeId
+        });
+      }catch(err){
+        console.error(err);        
       }
     },
     //postSubject

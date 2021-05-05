@@ -9,7 +9,9 @@
       </div>
       <div class='post-type-list-box'>
           <div class="post-type-chip-box" v-for='(postType, i) in postTypes' :key='i'>
-            <v-chip>
+            <v-chip
+            close
+            @click:close="close(postType.id)">
                 {{postType.postTypeName}}
             </v-chip>
           </div>
@@ -44,6 +46,12 @@ export default {
                 alert("대분류를 입력하세요ㅜㅜ");
             }
         },
+        async close(PostTypeId){
+            alert("정말 대분류를 삭제 하시겠습니까?");
+            await this.$store.dispatch('admins/deletePostType', {
+                postTypeId: PostTypeId
+            })
+        }
     }
 }
 </script>
