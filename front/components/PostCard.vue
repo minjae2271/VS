@@ -1,7 +1,5 @@
 <template>
   <v-card max-width="100%">
-    <p>{{ post.Picks }}</p>
-    <!-- <h1>{{isPicked}}</h1> -->
     <v-card-title class="post-title">
       <v-spacer></v-spacer>
       <h3>

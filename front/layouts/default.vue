@@ -60,7 +60,7 @@
           <v-menu offset-y bottom center>
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon x-large v-bind="attrs" v-on="on">
-                  <v-icon>mdi-dots-vertical</v-icon>
+                <v-icon>mdi-dots-vertical</v-icon>
               </v-btn>
             </template>
             <v-list>
@@ -84,7 +84,7 @@
               </v-list-item>
               <v-list-item>
                 <v-list-item-content>
-                  <v-btn text @click="logOut">
+                  <v-btn nuxt to="/" text @click="logOut">
                     <div>로그아웃</div>
                   </v-btn>
                 </v-list-item-content>
@@ -146,13 +146,12 @@ export default {
     logOut() {
       this.$store.dispatch('users/logOut');
     }
-  },
+  }
 };
 </script>
 
 <style>
-body
-{
+body {
   padding: 0;
   margin: 0;
 }

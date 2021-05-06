@@ -12,16 +12,18 @@
     <v-list-item-action>
       <v-container>
         <v-row>
-          <v-icon
-            v-if="me != null && me.id === comment.User.id"
-            @click="removeComment(post.id, comment.id)"
-            >mdi-delete
-          </v-icon>
-          <v-icon
-            v-if="me != null && me.id === comment.User.id"
-            @click="toggleEditForm"
-            >mdi-square-edit-outline</v-icon
-          >
+          <v-col>
+            <v-icon
+              v-if="me != null && me.id === comment.User.id"
+              @click="removeComment(post.id, comment.id)"
+              >mdi-delete
+            </v-icon>
+            <v-icon
+              v-if="me != null && me.id === comment.User.id"
+              @click="toggleEditForm"
+              >mdi-square-edit-outline</v-icon
+            >
+          </v-col>
         </v-row>
       </v-container>
     </v-list-item-action>

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <!-- {{ comment }} -->
+    {{ comment }}
     <v-list-item-avatar color="teal">
       <span>{{ comment.User.nickname[0] }}</span>
     </v-list-item-avatar>
