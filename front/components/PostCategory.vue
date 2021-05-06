@@ -8,9 +8,15 @@
           </v-form>
       </div>
       <div class='post-category-list-box'>
-          <v-chip v-for='(postCategory, i) in postCategories' :key='i'>
-              {{postCategory.postCategoryName}}
-          </v-chip>
+        <div class="post-type-chip-box" v-for='(postCategory, i) in postCategories' :key='i'>
+            <v-chip
+            close
+            color="teal"
+            text-color="white"
+            @click:close="close(postCategory.id)">
+                {{postCategory.postCategoryName}}
+            </v-chip>
+        </div>
       </div>
   </v-container>
 </template>
@@ -42,6 +48,12 @@ export default {
                 alert("소분류를 입력하세요 ㅠㅠ");
             }
         },
+        async close(postCategory){
+            alert("정말 소분류를 삭제 하시겠습니까?");
+            await this.$store.dispatch('admins/deletePostCategory', {
+                postCategoryId: postCategory
+            })
+        }
     }
 }
 </script>
@@ -53,6 +65,7 @@ export default {
 }
 .post-category-list-box
 {
-    margin-top: 20px;     
+    margin-top: 20px;  
+    display: flex;   
 }
 </style>

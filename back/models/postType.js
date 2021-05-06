@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
             postTypeName: {
                 type: DataTypes.STRING(20),
                 allowNull: false,
+                unique: true,
             }
         },
         {
@@ -13,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         }
     );
     PostType.associate = (db) => {
-        db.PostType.hasMany(db.PostSubject);
+        db.PostType.hasMany(db.PostSubject, {
+            onDelete: 'CASCADE',
+            hooks: true,
+        });
     };
     return PostType;
 }

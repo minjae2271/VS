@@ -13,7 +13,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-form ref="form" @submit.prevent="onSubmitForm">
+      <v-form ref="form" v-model="valid" @submit.prevent="onSubmitForm">
         <v-container>
           <v-row>
             <v-col cols="12">
@@ -59,6 +59,7 @@ import { mapState } from 'vuex';
 export default {
   data() {
     return {
+      valid: true,
       title: '',
       content1: '',
       content2: '',
@@ -84,6 +85,7 @@ export default {
       this.$store
         .dispatch('posts/addPost', {
           postType: 1,
+          postSubject: 1,
           postCategory: 1,
           title: this.title,
           content1: this.content1,

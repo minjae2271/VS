@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
             postSubjectName: {
                 type: DataTypes.STRING(20),
                 allowNull: false,
+                unique: true,
             },
         },
         {

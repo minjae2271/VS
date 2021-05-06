@@ -11,7 +11,10 @@
           <div class="post-type-chip-box" v-for='(postType, i) in postTypes' :key='i'>
             <v-chip
             close
-            @click:close="close(postType.id)">
+            color="teal"
+            text-color="white"
+            @click:close="close(postType.id)"
+            @click="updatePostType(postType.id)">
                 {{postType.postTypeName}}
             </v-chip>
           </div>
@@ -47,10 +50,16 @@ export default {
             }
         },
         async close(PostTypeId){
-            alert("정말 대분류를 삭제 하시겠습니까?");
-            await this.$store.dispatch('admins/deletePostType', {
-                postTypeId: PostTypeId
-            })
+            if(!confirm("정말 대분류를 삭제 하시겠습니까?")){
+                alert("취소 하였습니다.");
+            } else {
+                await this.$store.dispatch('admins/deletePostType', {
+                    postTypeId: PostTypeId
+                })
+            }
+        },
+        async updatePostType(postTypeId){
+            alert('update');
         }
     }
 }

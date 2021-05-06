@@ -29,6 +29,7 @@ router.post('/', async (req, res, next) => {
     const hashtag = req.body.hashtag.match(/#[^\s#]+/g);
     const newPost = await db.Post.create({
       postType: req.body.postType,
+      postSubject: req.body.postSubject,
       postCategory: req.body.postCategory,
       title: req.body.title,
       content1: req.body.content1,
