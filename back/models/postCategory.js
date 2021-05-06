@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
             postCategoryName: {
                 type: DataTypes.STRING(20),
                 allowNull: false,
+                unique: true,
             }
         },
         {
@@ -13,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     );
     PostCategory.associate = (db) => {
-        
+
     };
     return PostCategory;
 }

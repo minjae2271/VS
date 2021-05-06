@@ -18,9 +18,16 @@
           </v-form>
       </div>
       <div class='post-subject-list-box'>
-          <v-chip v-for='(postSubject, i) in postSubjects' :key='i'>
-              {{postSubject.postSubjectName}}
-          </v-chip>
+          <div class="post-type-chip-box" v-for='(postSubject, i) in postSubjects' :key='i'>
+            <p>{{postSubject}}</p>
+            <v-chip
+            close
+            color="teal"
+            text-color="white"
+            @click:close="close(postSubject.id)">
+                {{postSubject.postSubjectName}}
+            </v-chip>
+          </div>
       </div>
   </v-container>
 </template>
@@ -62,9 +69,18 @@ export default {
                     });
                 } else{
                 alert("중분류를 입력하세요ㅜㅜ");
-            }
+              }
             }
         },
+        async close(PostSubjectId){
+            if(!confirm('정말 중분류를 삭제 하시겠습니까?')){
+                alert("취소 되었습니다.");
+            } else {
+                await this.$store.dispatch('admins/deletePostSubject', {
+                    postSubjectId: PostSubjectId
+                });
+            }
+        }
     }
 }
 </script>

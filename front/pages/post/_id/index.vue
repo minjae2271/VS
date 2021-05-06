@@ -6,16 +6,13 @@
           {{ post.title }}
         </h3>
       </v-container>
-      <v-container>
-        <v-row no-gutters v-if="post.Images.length === 2">
+      <v-container class="post-container">
+        <v-row class="post-row" no-gutters v-if="post.Images.length === 2">
           <v-col cols="6">
             <v-container class="wrapper">
               <v-img
                 :src="`http://localhost:3005/${post.Images[0].src}`"
-                height="400"
-                width="100%"
-                max-width="100%"
-                contain
+                class="post-img"
                 @click="onPickContent(0)"
               />
             </v-container>
@@ -24,21 +21,17 @@
             <v-container class="wrapper">
               <v-img
                 :src="`http://localhost:3005/${post.Images[1].src}`"
-                height="400"
-                width="100%"
-                max-width="100%"
-                contain
+                class="post-img"
                 @click="onPickContent(1)"
               />
             </v-container>
           </v-col>
         </v-row>
-        <v-row no-gutters v-else-if="post.Images.length === 1">
+        <v-row class="post-row" no-gutters v-else-if="post.Images.length === 1">
           <v-container>
             <v-img
               :src="`http://localhost:3005/${post.Images[0].src}`"
-              height="400px"
-              width="100%"
+
             />
           </v-container>
         </v-row>
@@ -174,17 +167,26 @@ export default {
   background-color: #40739e;
 }
 
-/* .wrapper
+.wrapper
 {
-  height: 400px;
-  width: 300px
+  width:100%;
+  height: 100%;
+  position: relative;
+}
+
+.post-row
+{
+  min-height: 400px;
 }
 
 .post-img
 { 
-  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
   width: 100%;
-  max-width: 100%;
-  object-fit: contain;
-} */
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
 </style>

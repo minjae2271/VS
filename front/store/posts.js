@@ -122,6 +122,7 @@ export const actions = {
         'http://localhost:3005/post',
         {
           postType: payload.postType,
+          postSubject: payload.postSubject,
           postCategory: payload.postCategory,
           title: payload.title,
           content1: payload.content1,

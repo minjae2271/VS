@@ -13,7 +13,8 @@ export const state = () => ({
       state.postTypes = payload;
     },
     deletePostType(state, payload){
-      
+      const postTypeIndex = state.postTypes.findIndex(v => v.id === payload.postTypeId);
+      state.postTypes.splice(postTypeIndex, 1);
     },
     //postSubject
     addPostSubject(state, payload){
@@ -22,12 +23,20 @@ export const state = () => ({
     loadPostSubjects(state, payload){
       state.postSubjects = payload;
     },
+    deletePostSubject(state, payload){
+      const postSubjectIndex = state.postSubjects.findIndex(v => v.id === payload.postSubjectId);
+      state.postSubjects.splice(postSubjectIndex, 1);
+    },
     //postCategory
     addPostCategory(state, payload){
       state.postCategories.unshift(payload);
     },
     loadPostCategories(state, payload){
       state.postCategories = payload;
+    },
+    deletePostCategory(state, payload){
+      const postCategoryIndex = state.postCategories.findIndex(v => v.id === payload.postCategoryId);
+      state.postCategories.splice(postCategoryIndex, 1);
     }
   };
   
@@ -91,6 +100,18 @@ export const state = () => ({
         console.error(err);
       }
     },
+    async deletePostSubject({ commit }, payload){
+      try{
+        const res = await this.$axios.delete(`http://localhost:3005/postCharacters/${payload.postSubjectId}/postSubject`, {
+          withCredentials: true
+        });
+        commit('deletePostSubject', {
+          postSubjectId: payload.postSubjectId
+        });
+      }catch(err){
+        console.error(err);
+      }
+    },
     //postCategory
     async addPostCategory({ commit }, payload){
       try{
@@ -110,6 +131,18 @@ export const state = () => ({
           withCredentials: true
         });
         commit('loadPostCategories', res.data);
+      }catch(err){
+        console.error(err);
+      }
+    },
+    async deletePostCategory({ commit }, payload){
+      try{
+        const res = await this.$axios.delete(`http://localhost:3005/postCharacters/${payload.postCategoryId}/postCategory`, {
+          withCredentials: true
+        });
+        commit('deletePostCategory', {
+          postCategoryId: payload.postCategoryId
+        });
       }catch(err){
         console.error(err);
       }

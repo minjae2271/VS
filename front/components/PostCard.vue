@@ -1,22 +1,5 @@
 <template>
-  <v-card max-width="100%">
-    <p>{{ post.Picks }}</p>
-    <!-- <h1>{{isPicked}}</h1> -->
-    <v-card-title class="post-title">
-      <v-spacer></v-spacer>
-      <h3>
-        <nuxt-link :to="'/post/' + post.id" class="post-link">
-          {{ post.title }}
-        </nuxt-link>
-      </h3>
-      <v-spacer></v-spacer>
-      <v-btn icon color="pink" v-if="isPicked">
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-      <v-btn icon color="pink" disabled v-else>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-    </v-card-title>
+  <v-card max-width="300px">
     <v-container class="post-content">
       <v-row no-gutters v-if="post.Images.length === 2">
         <v-col cols="6">
@@ -43,13 +26,13 @@
           />
         </v-col>
       </v-row>
-    <v-card-title class="post-title">
+    <div class="post-title">
       <h3>
         <nuxt-link :to="'/post/' + post.id" class="post-link">
           {{ post.title }}
         </nuxt-link>
       </h3>
-    </v-card-title>
+    </div>
       <!-- <v-container class="content-name">
         <h2 class="text-center">{{ post.content1 }}</h2>
         <p>VS</p>
@@ -119,8 +102,9 @@ export default {
 
 <style scoped>
 .post-title {
-  justify-content: center;
+  /* justify-content: center; */
   padding-bottom: 0;
+  padding-left: 0;
 }
 
 .post-link:link {
@@ -148,6 +132,6 @@ export default {
 
 .content-desc
 {
-  margin: 10px;
+  /* margin: 10px; */
 }
 </style>

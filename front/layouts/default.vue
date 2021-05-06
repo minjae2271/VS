@@ -163,6 +163,11 @@ a {
   display: block;
 }
 
+*
+{
+  box-sizing: border-box;
+}
+
 .profile-menu-avatar {
   justify-content: center;
 }

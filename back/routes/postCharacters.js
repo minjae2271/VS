@@ -81,6 +81,28 @@ router.get('/postSubject', async (req, res, next) => {
         console.error(err);
         next(err);
     }
+});
+
+router.delete('/:id/postSubject', async (req, res, next) => {
+    try{
+        const postSubject = await db.PostSubject.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if(!postSubject){
+            return res.status(403).send("존재하지 않는 중분류입니다.")
+        }
+        await db.PostSubject.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.send("중분류가 삭제되었습니다.");
+    }catch(err){
+        console.error(err);
+        next(err);        
+    }
 })
 
 //postCategory
@@ -106,6 +128,28 @@ router.get('/postCategory', async (req, res, next) => {
         console.error(err);
         next(err);     
     }
-})
+});
+
+router.delete('/:id/postCategory', async (req, res, next) => {
+    try{
+        const postCategory = await db.PostCategory.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if(!postCategory){
+            return res.status(403).send("존재하지 않는 소분류입니다.")
+        }
+        await db.PostCategory.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.send("소분류가 삭제되었습니다.")
+    }catch(err){
+        console.error(err);
+        next(err);        
+    }
+});
 
 module.exports = router;
