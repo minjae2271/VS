@@ -2,6 +2,7 @@ import Vue from 'vue';
 import throttle from 'lodash.throttle';
 
 export const state = () => ({
+  topPosts: [],
   mainPosts: [],
   comments: [],
   updatePost: [],
@@ -14,6 +15,10 @@ export const state = () => ({
 const limit = 9;
 
 export const mutations = {
+  loadTopPosts(state, payload) {
+    state.topPosts = payload;
+  },
+
   addMainPost(state, payload) {
     state.mainPosts.unshift(payload);
     state.imagePaths = [];
@@ -27,6 +32,7 @@ export const mutations = {
     state.mainPosts = [payload];
     state.updatePost = payload;
   },
+
   loadPosts(state, payload) {
     if (payload.reset) {
       state.mainPosts = payload.data;
@@ -101,6 +107,18 @@ export const mutations = {
 };
 
 export const actions = {
+  async loadTopPosts({ commit }, payload){
+    try{
+      const res = await this.$axios.get('posts/loadTopPosts', {
+        withCredentials: true
+      });
+      console.log(res.data);
+      commit('loadTopPosts', res.data);
+    }catch(err){
+      console.error(err);
+    }
+  },
+
   addPost({ commit, state }, payload) {
     this.$axios
       .post(

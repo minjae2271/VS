@@ -2,11 +2,15 @@ module.exports = (sequelize, DataTypes) => {
   const Post = sequelize.define(
     "Post",
     {
-      postType: {
+      postType: { //대분류 : 밸런스, 수치입력, 랜덤...
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      postCategory: {
+      postSubject: { //중분류 : 호불호, ox...
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      postCategory: { //소분류 : 유머, 진지 ..
         type: DataTypes.INTEGER,
         allowNull: false,
       },

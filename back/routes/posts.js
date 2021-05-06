@@ -38,4 +38,33 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/loadTopPosts', async (req, res, next) => {
+  try{
+    const topPosts = await db.Pick.findAll({
+      attributes: ['PostId', [db.Sequelize.fn("count", '*'), "count"]], //select count(*) from Posts group by PostId
+      where: {
+        PostId: {
+          [db.Sequelize.Op.ne]: null
+        }
+      },
+      group: 'PostId',
+      include: [
+        {
+          model: db.Post,
+          // include: [
+          //   {
+          //     model: db.User,
+          //     attributes: ['id', 'nickname']
+          //   }
+          // ]
+        }],
+      limit: 5
+    });
+    return res.json(topPosts);
+  }catch(err){
+    console.error(err);
+    next(err);
+  }
+})
+
 module.exports = router;
