@@ -1,9 +1,10 @@
 <template>
   <v-app>
     <v-app-bar app>
-      <v-toolbar-title>
+      <v-app-bar-title>
         <nuxt-link to="/">Murpik</nuxt-link>
-      </v-toolbar-title>
+      </v-app-bar-title>
+
       <v-toolbar-items>
         <v-container
           :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
@@ -13,6 +14,7 @@
             nuxt
             to="/aVersusB"
             :style="{ display: 'flex', alignItems: 'center' }"
+            @click="toggleNav"
           >
             밸런스
           </v-btn>
@@ -60,7 +62,7 @@
           <v-menu offset-y bottom center>
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon x-large v-bind="attrs" v-on="on">
-                  <v-icon>mdi-dots-vertical</v-icon>
+                <v-icon>mdi-dots-vertical</v-icon>
               </v-btn>
             </template>
             <v-list>
@@ -123,14 +125,17 @@
 <script>
 import LoginForm from '~/components/LoginForm';
 import VersusFooter from '~/components/VersusFooter';
+import NavDrawer from '~/components/navDrawer';
 
 export default {
   components: {
     LoginForm,
-    VersusFooter
+    VersusFooter,
+    NavDrawer
   },
   data() {
     return {
+      drawer: null,
       showDialog: false
     };
   },
@@ -145,14 +150,16 @@ export default {
     },
     logOut() {
       this.$store.dispatch('users/logOut');
+    },
+    toggleNav() {
+      this.$store.dispatch('toggleNav');
     }
-  },
+  }
 };
 </script>
 
 <style>
-body
-{
+body {
   padding: 0;
   margin: 0;
 }
@@ -163,8 +170,7 @@ a {
   display: block;
 }
 
-*
-{
+* {
   box-sizing: border-box;
 }
 

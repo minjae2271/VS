@@ -14,7 +14,7 @@ const postCharactersRouter = require('./routes/postCharacters');
 const db = require('./models');
 const app = express();
 
-//db.sequelize.sync({ force: true });
+// db.sequelize.sync({ force: true });
 db.sequelize.sync({ force: false });
 passportConfig();
 
