@@ -6,7 +6,10 @@
       </v-list-item-icon> -->
 
       <v-list-item-content>
-        <v-list-item-title>{{ postSubject.postSubjectName }}</v-list-item-title>
+        <nuxt-link
+        :to="{ path: 'aVersusB', query: { postSubject:  postSubject.id}}">
+          <v-list-item-title >{{ postSubject.postSubjectName }}</v-list-item-title>
+        </nuxt-link>
       </v-list-item-content>
     </v-list-item>
   </v-list>
@@ -23,6 +26,15 @@ export default {
     },
     postCategories() {
       return this.$store.state.admins.postCategories;
+    }
+  },
+  methods: {
+    loadSearchPosts(postTypeId, postSubjectId){
+      this.$store.dispatch('posts/loadSearchPosts', { 
+        reset: true,
+        postTypeId,
+        postSubjectId,
+      })
     }
   }
 };
