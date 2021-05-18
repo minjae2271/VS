@@ -1,13 +1,10 @@
 <template>
   <v-list dense>
     <v-list-item v-for="postSubject in postSubjects" :key="postSubject" link>
-      <!-- <v-list-item-icon>
-        <v-icon>{{ postSubject.postSubjectName }}</v-icon>
-      </v-list-item-icon> -->
-
       <v-list-item-content>
         <nuxt-link
-        :to="{ path: 'aVersusB', query: { postSubject:  postSubject.id}}">
+        :to="postSubject.id" 
+        append>
           <v-list-item-title >{{ postSubject.postSubjectName }}</v-list-item-title>
         </nuxt-link>
       </v-list-item-content>
