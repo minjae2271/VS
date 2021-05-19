@@ -3,7 +3,7 @@
     <v-list-item v-for="postSubject in postSubjects" :key="postSubject" link>
       <v-list-item-content>
         <nuxt-link
-        :to="postSubject.id" 
+        :to="'/aVersusB/' + postSubject.id" 
         append>
           <v-list-item-title >{{ postSubject.postSubjectName }}</v-list-item-title>
         </nuxt-link>
