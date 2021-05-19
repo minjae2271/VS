@@ -1,9 +1,33 @@
 <template>
   <v-app>
+    <v-navigation-drawer v-model="drawer" app>
+      <v-list nav dense>
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-purple--text text--accent-4"
+        >
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-home</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-account</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Account</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+
     <v-app-bar app>
-      <v-toolbar-title>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-title>
         <nuxt-link to="/">Murpik</nuxt-link>
-      </v-toolbar-title>
+      </v-app-bar-title>
       <v-toolbar-items>
         <v-container
           :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
@@ -18,7 +42,9 @@
           </v-btn>
         </v-container>
       </v-toolbar-items>
+
       <v-spacer></v-spacer>
+
       <v-toolbar-items>
         <v-container
           v-if="!me"
@@ -94,6 +120,7 @@
         </v-container>
       </v-toolbar-items>
     </v-app-bar>
+
     <v-main>
       <v-row fluid justify="center">
         <v-col>
@@ -116,7 +143,10 @@
         v-on:dialogChange="showLoginDialog"
       />
     </v-main>
-    <versus-footer app />
+
+    <v-footer>
+      <versus-footer />
+    </v-footer>
   </v-app>
 </template>
 
@@ -131,7 +161,8 @@ export default {
   },
   data() {
     return {
-      showDialog: false
+      showDialog: false,
+      drawer: null
     };
   },
   computed: {
@@ -162,8 +193,7 @@ a {
   display: block;
 }
 
-*
-{
+* {
   box-sizing: border-box;
 }
 

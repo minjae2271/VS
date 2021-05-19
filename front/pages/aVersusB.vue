@@ -3,8 +3,15 @@
     <!-- 중분류 chips -->
     <div class="post-card-box grey lighten-5">
       <v-row class="post-card-row" no-gutters>
-        <v-col class="post-card-col" v-for="(post, i) in mainPosts" :key="i" cols="12" sm="6" md="3">
-            <post-card elevation="4" :post="post"/>
+        <v-col
+          class="post-card-col"
+          v-for="(post, i) in mainPosts"
+          :key="i"
+          cols="12"
+          sm="6"
+          md="3"
+        >
+          <post-card elevation="4" :post="post" />
         </v-col>
       </v-row>
     </div>
@@ -19,9 +26,7 @@ export default {
     PostCard
   },
   data() {
-    return {
-      
-    };
+    return {};
   },
   async fetch({ store }) {
     //await store.dispatch('posts/loadHashtags');
@@ -37,7 +42,7 @@ export default {
     },
     hasMorePost() {
       return this.$store.state.posts.hasMorePost;
-    },
+    }
   },
   methods: {
     onScroll() {
@@ -65,14 +70,11 @@ export default {
 </script>
 
 <style scoped>
-
-.post-card-row
-{
+.post-card-row {
   display: flex;
   justify-content: center;
 }
-.post-card-col
-{
-  margin:0 15px 20px 15px;
+.post-card-col {
+  margin: 0 15px 20px 15px;
 }
 </style>
