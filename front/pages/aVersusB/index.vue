@@ -1,5 +1,8 @@
 <template>
   <div>
+    <v-navigation-drawer absolute v-model="drawer">
+      <nav-drawer></nav-drawer>
+    </v-navigation-drawer>
     <!-- 중분류 chips -->
     <div class="post-card-box grey lighten-5">
       <v-row class="post-card-row" no-gutters>
@@ -30,7 +33,11 @@ export default {
   },
   async fetch({ store }) {
     //await store.dispatch('posts/loadHashtags');
-    return store.dispatch('posts/loadPosts', { reset: true });
+    await store.dispatch('admins/loadPostCategories');
+    await store.dispatch('admins/loadPostSubjects');
+    await store.dispatch('admins/loadPostTypes');
+
+    return await store.dispatch('posts/loadPosts', { reset: true });
   },
 
   computed: {
@@ -42,6 +49,9 @@ export default {
     },
     hasMorePost() {
       return this.$store.state.posts.hasMorePost;
+    },
+    drawer() {
+      return this.$store.state.showNav;
     }
   },
   methods: {
@@ -60,6 +70,7 @@ export default {
       this.$store.dispatch('posts/searchPost', hashtag);
     }
   },
+  middleware: 'showNav',
   mounted() {
     window.addEventListener('scroll', this.onScroll);
   },

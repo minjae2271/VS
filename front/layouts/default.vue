@@ -24,10 +24,10 @@
     </v-navigation-drawer>
 
     <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-app-bar-title>
         <nuxt-link to="/">Murpik</nuxt-link>
       </v-app-bar-title>
+
       <v-toolbar-items>
         <v-container
           :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
@@ -37,6 +37,7 @@
             nuxt
             to="/aVersusB"
             :style="{ display: 'flex', alignItems: 'center' }"
+            @click="toggleNav"
           >
             밸런스
           </v-btn>
@@ -153,16 +154,18 @@
 <script>
 import LoginForm from '~/components/LoginForm';
 import VersusFooter from '~/components/VersusFooter';
+import NavDrawer from '~/components/navDrawer';
 
 export default {
   components: {
     LoginForm,
-    VersusFooter
+    VersusFooter,
+    NavDrawer
   },
   data() {
     return {
-      showDialog: false,
-      drawer: null
+      drawer: null,
+      showDialog: false
     };
   },
   computed: {
@@ -176,6 +179,9 @@ export default {
     },
     logOut() {
       this.$store.dispatch('users/logOut');
+    },
+    toggleNav() {
+      this.$store.dispatch('toggleNav');
     }
   }
 };
