@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer absolute v-model="drawer">
+    <v-navigation-drawer absolute>
       <nav-drawer></nav-drawer>
     </v-navigation-drawer>
     <!-- 중분류 chips -->
@@ -23,10 +23,12 @@
 
 <script>
 import PostCard from '~/components/PostCard';
+import NavDrawer from '~/components/NavDrawer';
 
 export default {
   components: {
-    PostCard
+    PostCard,
+    NavDrawer
   },
   data() {
     return {};
