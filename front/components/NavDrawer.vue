@@ -1,11 +1,12 @@
 <template>
   <v-list dense>
-    <v-list-item v-for="postSubject in postSubjects" :key="postSubject.id" link>
+    <v-list-item v-for="postSubject in postSubjects" :key="postSubject" link>
       <v-list-item-content>
-        <v-list-item-title
-          @click="selectedPostSubject(postSubject.PostTypeId, postSubject.id)"
-          >{{ postSubject.postSubjectName }}</v-list-item-title
-        >
+        <nuxt-link :to="'/aVersusB/' + postSubject.id" append>
+          <v-list-item-title>{{
+            postSubject.postSubjectName
+          }}</v-list-item-title>
+        </nuxt-link>
       </v-list-item-content>
     </v-list-item>
   </v-list>
@@ -25,9 +26,8 @@ export default {
     }
   },
   methods: {
-    selectedPostSubject(postTypeId, postSubjectId) {
-      console.log(postTypeId, postSubjectId);
-      this.dispatch('posts/loadFilteredPost', {
+    loadSearchPosts(postTypeId, postSubjectId) {
+      this.$store.dispatch('posts/loadSearchPosts', {
         reset: true,
         postTypeId,
         postSubjectId

@@ -20,7 +20,9 @@
           </v-btn>
         </v-container>
       </v-toolbar-items>
+
       <v-spacer></v-spacer>
+
       <v-toolbar-items>
         <v-container
           v-if="!me"
@@ -86,7 +88,7 @@
               </v-list-item>
               <v-list-item>
                 <v-list-item-content>
-                  <v-btn text @click="logOut">
+                  <v-btn nuxt to="/" text @click="logOut">
                     <div>로그아웃</div>
                   </v-btn>
                 </v-list-item-content>
@@ -96,6 +98,7 @@
         </v-container>
       </v-toolbar-items>
     </v-app-bar>
+
     <v-main>
       <v-row fluid justify="center">
         <v-col>
@@ -118,7 +121,10 @@
         v-on:dialogChange="showLoginDialog"
       />
     </v-main>
-    <versus-footer app />
+
+    <v-footer>
+      <versus-footer />
+    </v-footer>
   </v-app>
 </template>
 
