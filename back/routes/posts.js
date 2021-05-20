@@ -38,6 +38,42 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/loadSearchPosts/:postType/:postSubject', async (req, res, next) => {
+  try {
+    let where = {
+      postType: parseInt(req.params.postType, 10),
+      postSubject: parseInt(req.params.postSubject, 10),
+    };
+    if (parseInt(req.query.lastId, 10)) {
+      where[db.Sequelize.Op.gt] = parseInt(req.query.lastId, 10) 
+    }
+    const posts = await db.Post.findAll({
+      where,
+      include: [
+        {
+          model: db.User,
+          attributes: ['id', 'nickname'],
+        },
+        {
+          model: db.Image,
+        },
+        {
+          model: db.Hashtag,
+        },
+        {
+          model: db.Pick,
+        }
+      ],
+      order: [['createdAt', 'ASC']],
+      limit: parseInt(req.query.limit, 10) || 10,
+    });
+    return res.json(posts);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 router.get('/loadTopPosts', async (req, res, next) => {
   try{
     const topPosts = await db.Pick.findAll({

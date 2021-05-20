@@ -1,7 +1,7 @@
 <template>
   <div>
-      <p>subID: {{subjectId}}</p> 
-      <p>cateId : {{categoryId}}</p>
+      <p>{{subjectId}}</p>
+      <p>{{categoryId}}</p>
   </div>
 </template>
 

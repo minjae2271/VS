@@ -205,6 +205,27 @@ export const actions = {
     }
   }, 3000),
 
+  loadSearchPosts: throttle(async function({ commit, state }, payload) {
+    try {
+      if (payload && payload.reset) {
+        const res = await this.$axios.get(`/posts/loadSearchPosts/${payload.postTypeId}/${payload.postSubjectId}?limit=10`);
+        commit('loadPosts', {
+          data: res.data,
+          reset: true
+        });
+      }
+      if (state.hasMorePost) {
+        const lastPost = state.mainPosts[state.mainPosts.length - 1];
+        const resPosts = await this.$axios.get(
+          `/posts/loadSearchPosts/${payload.postTypeId}/${payload.postSubjectId}?lastId=${lastPost && lastPost.id}&limit=${limit}`
+        );
+        commit('loadPosts', { data: resPosts.data });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, 3000),
+
   loadUserPosts: throttle(async function({ commit, state }, payload) {
     try {
       if (payload && payload.reset) {

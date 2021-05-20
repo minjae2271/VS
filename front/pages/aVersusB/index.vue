@@ -44,14 +44,16 @@ export default {
     mainPosts() {
       return this.$store.state.posts.mainPosts.filter(post => post != null);
     },
-    mainHashtags() {
-      return this.$store.state.posts.mainHashtags;
-    },
     hasMorePost() {
       return this.$store.state.posts.hasMorePost;
     },
-    drawer() {
-      return this.$store.state.showNav;
+    drawer: {
+      get(){
+        return this.$store.state.showNav;
+      },
+      set(v){
+        return this.$store.state.showNav = v;
+      }
     }
   },
   methods: {
@@ -65,11 +67,7 @@ export default {
         }
       }
     },
-    onselectHashtag(hashtag) {
-      console.log(hashtag);
-      this.$store.dispatch('posts/searchPost', hashtag);
-    }
-  },
+  },                  
   middleware: 'showNav',
   mounted() {
     window.addEventListener('scroll', this.onScroll);

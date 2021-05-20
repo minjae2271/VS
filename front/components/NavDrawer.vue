@@ -1,6 +1,6 @@
 <template>
   <v-list dense>
-    <v-list-item v-for="postSubject in postSubjects" :key="postSubject" link>
+    <v-list-item v-for="(postSubject, i) in postSubjects" :key="i" link>
       <v-list-item-content>
         <nuxt-link
         :to="'/aVersusB/' + postSubject.id" 
@@ -25,15 +25,6 @@ export default {
       return this.$store.state.admins.postCategories;
     }
   },
-  methods: {
-    loadSearchPosts(postTypeId, postSubjectId){
-      this.$store.dispatch('posts/loadSearchPosts', { 
-        reset: true,
-        postTypeId,
-        postSubjectId,
-      })
-    }
-  }
 };
 </script>
 
