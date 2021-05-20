@@ -72,7 +72,6 @@ export const mutations = {
   },
   loadUserComments(state, payload) {
     state.comments = payload;
-    console.log('store/posts.js - mut - loadUserComments', state.comments);
   },
   editComment(state, payload) {
     const index = state.mainPosts.findIndex(v => v.id === payload.postId);
@@ -87,6 +86,10 @@ export const mutations = {
       v => v.id === payload.commentId
     );
     state.mainPosts[index].Comments.splice(commentIndex, 1);
+  },
+  removeUserComment(state, payload) {
+    state.comments.findIndex(v=> v.id===payload.id);
+    state.comments.splice(index, 1);
   },
 
   // Pick
@@ -104,14 +107,14 @@ export const mutations = {
 };
 
 export const actions = {
-  async loadTopPosts({ commit }, payload){
-    try{
+  async loadTopPosts({ commit }, payload) {
+    try {
       const res = await this.$axios.get('posts/loadTopPosts', {
         withCredentials: true
       });
       console.log(res.data);
       commit('loadTopPosts', res.data);
-    }catch(err){
+    } catch (err) {
       console.error(err);
     }
   },
@@ -252,6 +255,31 @@ export const actions = {
     }
   }, 3000),
 
+  loadFilterdPosts: throttle(async function({ commit, state }, payload) {
+    try {
+      if (payload && payload.reset) {
+        const res = await this.$axios.get(
+          `/posts?limit=10&postTypeId=${paload.postTypeId}&postSubjectId=${post}`
+        );
+        commit('loadPosts', {
+          data: res.data,
+          reset: true
+        });
+      }
+      if (state.hasMorePost) {
+        const lastPost = state.mainPosts[state.mainPosts.length - 1];
+        const res = await this.$axios.get(
+          `user/${payload.userId}/posts?lastId=${lastPost &&
+            lastPost.id}&limit=10`
+        );
+        commit('loadPosts', {
+          data: res.data
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, 3000),
   uploadImages({ commit }, payload) {
     this.$axios
       .post('/post/images', payload, { withCredentials: true })
@@ -336,6 +364,7 @@ export const actions = {
       await this.$axios.delete(`/post/comment/${payload.commentId}`, {
         withCredentials: true
       });
+      console.log('store/posts.js > actions > removeComment', payload);
       commit('removeComment', {
         postId: payload.postId,
         commentId: payload.commentId

@@ -7,8 +7,13 @@ const { isNotLoggedIn, isLoggedIn } = require('./middlewares');
 const router = express.Router();
 
 router.get('/', async (req, res, next) => {
-  const user = req.user;
-  res.json(user);
+  try {
+    const user = req.user;
+    res.json(user);
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
 });
 
 router.post('/', isNotLoggedIn, async (req, res, next) => {
@@ -153,7 +158,7 @@ router.get('/:id/posts', async (req, res, next) => {
   }
 });
 
-router.get('/:id/comments', isLoggedIn, async (req, res, next) => {
+router.get('/:id/comments', async (req, res, next) => {
   try {
     const comments = await db.Comment.findAll({
       where: {

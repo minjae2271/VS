@@ -26,13 +26,13 @@
           />
         </v-col>
       </v-row>
-    <div class="post-title">
-      <h3>
-        <nuxt-link :to="'/post/' + post.id" class="post-link">
-          {{ post.title }}
-        </nuxt-link>
-      </h3>
-    </div>
+      <div class="post-title">
+        <h3>
+          <nuxt-link :to="'/post/' + post.id" class="post-link">
+            {{ post.title }}
+          </nuxt-link>
+        </h3>
+      </div>
       <!-- <v-container class="content-name">
         <h2 class="text-center">{{ post.content1 }}</h2>
         <p>VS</p>
@@ -54,20 +54,11 @@
       <v-btn color="orange" text>
         공유하기
       </v-btn>
-            <v-spacer></v-spacer>
-      <v-btn
-        icon
-        color="pink"
-        v-if="isPicked"
-      >
+      <v-spacer></v-spacer>
+      <v-btn icon color="pink" v-if="isPicked">
         <v-icon>mdi-heart</v-icon>
       </v-btn>
-      <v-btn
-        icon
-        color="pink"
-        disabled
-        v-else
-      >
+      <v-btn icon color="pink" disabled v-else>
         <v-icon>mdi-heart</v-icon>
       </v-btn>
     </v-card-actions>
@@ -130,8 +121,7 @@ export default {
   margin-bottom: 10px;
 }
 
-.content-desc
-{
+.content-desc {
   /* margin: 10px; */
 }
 </style>
