@@ -25,18 +25,6 @@ export default {
       return this.$store.state.admins.postCategories;
     }
   },
-<<<<<<< HEAD
-=======
-  methods: {
-    loadSearchPosts(postTypeId, postSubjectId) {
-      this.$store.dispatch('posts/loadSearchPosts', {
-        reset: true,
-        postTypeId,
-        postSubjectId
-      });
-    }
-  }
->>>>>>> 2fb6b1155bc598960234b6ff816aef3e7dea032f
 };
 </script>
 

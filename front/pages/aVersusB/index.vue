@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer absolute>
+    <v-navigation-drawer absolute v-model="drawer">
       <nav-drawer></nav-drawer>
     </v-navigation-drawer>
     <!-- 중분류 chips -->
@@ -53,8 +53,8 @@ export default {
       get(){
         return this.$store.state.showNav;
       },
-      set(v){
-        return this.$store.state.showNav = v;
+      set(){
+
       }
     }
   },
