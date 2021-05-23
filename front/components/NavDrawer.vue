@@ -1,5 +1,6 @@
 <template>
   <v-list dense>
+    {{postSubjects}}
     <nuxt-link :to="`/posts/${page}/`" append>
       <v-list-item-title>
         전체보기
@@ -27,11 +28,11 @@ export default {
     }
   },
   computed: {
-    postTypes() {
-      return this.$store.state.admins.postTypes;
-    },
+    // postTypes() {
+    //   return this.$store.state.admins.postTypes;
+    // },
     postSubjects() {
-      return this.$store.state.admins.postSubjects;
+      return this.$store.state.admins.postSubjects.filter(v => v.PostTypeId === this.page);
     },
     postCategories() {
       return this.$store.state.admins.postCategories;
