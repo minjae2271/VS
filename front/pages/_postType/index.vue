@@ -1,9 +1,5 @@
 <template>
   <div>
-    <!-- <v-navigation-drawer temporary absolute v-model="drawer">
-      <nav-drawer></nav-drawer>
-    </v-navigation-drawer> -->
-    <!-- 중분류 chips -->
     <div class="post-card-box grey lighten-5">
       <v-row class="post-card-row" no-gutters>
         <v-col
@@ -23,22 +19,15 @@
 
 <script>
 import PostCard from '~/components/PostCard';
-import NavDrawer from '~/components/NavDrawer';
 
 export default {
   components: {
     PostCard,
-    NavDrawer
   },
   data() {
     return {};
   },
   async fetch({ store }) {
-    //await store.dispatch('posts/loadHashtags');
-    await store.dispatch('admins/loadPostCategories');
-    await store.dispatch('admins/loadPostSubjects');
-    await store.dispatch('admins/loadPostTypes');
-
     return await store.dispatch('posts/loadPosts', { reset: true });
   },
 
@@ -49,14 +38,6 @@ export default {
     hasMorePost() {
       return this.$store.state.posts.hasMorePost;
     },
-    // drawer: {
-    //   get(){
-    //     return this.$store.state.showNav;
-    //   },
-    //   set(){
-
-    //   }
-    // }
   },
   methods: {
     onScroll() {
@@ -70,7 +51,6 @@ export default {
       }
     },
   },                  
-  middleware: 'showNav',
   mounted() {
     window.addEventListener('scroll', this.onScroll);
   },

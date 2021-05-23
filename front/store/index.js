@@ -1,18 +1,16 @@
 export const state = () => ({
-  showNav: false
+
 });
 
 export const mutations = {
-  toggleNav(state) {
-    state.showNav = !state.showNav;
-  }
+
 };
 
 export const actions = {
-  nuxtServerInit({ commit, dispatch, state }, { req }) {
+  async nuxtServerInit({ commit, dispatch, state }, { req }) {
+    await dispatch('admins/loadPostCategories');
+    await dispatch('admins/loadPostSubjects');
+    await dispatch('admins/loadPostTypes');
     return dispatch('users/loadUser');
   },
-  toggleNav({ commit }) {
-    commit('toggleNav');
-  }
 };

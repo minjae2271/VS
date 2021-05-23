@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <!-- nav bar -->
-    <v-navigation-drawer temporary absolute v-model="drawer">
+    <v-navigation-drawer app temporary absolute v-model="drawer">
       <nav-drawer :page="currentPage"></nav-drawer>
     </v-navigation-drawer>
     <v-app-bar app>
@@ -145,6 +145,7 @@ export default {
   data() {
     return {
       showDialog: false,
+      drawer: false,
       currentPage: 0
     };
   },
@@ -152,14 +153,7 @@ export default {
     me() {
       return this.$store.state.users.me;
     },
-    drawer: {
-      get() {
-        return this.$store.state.showNav;
-      },
-      set() {}
-    }
   },
-  middleware: 'showNav',
   methods: {
     showLoginDialog() {
       this.showDialog = !this.showDialog;
@@ -168,7 +162,7 @@ export default {
       this.$store.dispatch('users/logOut');
     },
     toggleNav(currentPage) {
-      this.$store.dispatch('toggleNav');
+      this.drawer = !this.drawer;
       this.currentPage = currentPage;
     }
   }
