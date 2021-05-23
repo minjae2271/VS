@@ -1,18 +1,21 @@
 <template>
   <v-app>
+    <!-- nav bar -->
+    <v-navigation-drawer temporary absolute v-model="drawer">
+      <nav-drawer></nav-drawer>
+    </v-navigation-drawer>
     <v-app-bar app>
+      <!-- title -->
       <v-app-bar-title>
         <nuxt-link to="/">Murpik</nuxt-link>
       </v-app-bar-title>
-
+      <!-- postTypes -->
       <v-toolbar-items>
         <v-container
           :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
         >
           <v-btn
             text
-            nuxt
-            to="/aVersusB"
             :style="{ display: 'flex', alignItems: 'center' }"
             @click="toggleNav"
           >
@@ -141,15 +144,23 @@ export default {
   },
   data() {
     return {
-      drawer: null,
       showDialog: false
     };
   },
   computed: {
     me() {
       return this.$store.state.users.me;
+    },
+    drawer: {
+      get(){
+        return this.$store.state.showNav;
+      },
+      set(){
+
+      }
     }
   },
+  middleware: 'showNav',
   methods: {
     showLoginDialog() {
       this.showDialog = !this.showDialog;

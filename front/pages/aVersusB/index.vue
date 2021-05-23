@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-navigation-drawer absolute v-model="drawer">
+    <!-- <v-navigation-drawer temporary absolute v-model="drawer">
       <nav-drawer></nav-drawer>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
     <!-- 중분류 chips -->
     <div class="post-card-box grey lighten-5">
       <v-row class="post-card-row" no-gutters>
@@ -49,14 +49,14 @@ export default {
     hasMorePost() {
       return this.$store.state.posts.hasMorePost;
     },
-    drawer: {
-      get(){
-        return this.$store.state.showNav;
-      },
-      set(){
+    // drawer: {
+    //   get(){
+    //     return this.$store.state.showNav;
+    //   },
+    //   set(){
 
-      }
-    }
+    //   }
+    // }
   },
   methods: {
     onScroll() {
