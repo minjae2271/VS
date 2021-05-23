@@ -2,7 +2,7 @@
   <v-app>
     <!-- nav bar -->
     <v-navigation-drawer temporary absolute v-model="drawer">
-      <nav-drawer></nav-drawer>
+      <nav-drawer :page="currentPage"></nav-drawer>
     </v-navigation-drawer>
     <v-app-bar app>
       <!-- title -->
@@ -144,7 +144,8 @@ export default {
   },
   data() {
     return {
-      showDialog: false
+      showDialog: false,
+      currentPage: ''
     };
   },
   computed: {
@@ -152,12 +153,10 @@ export default {
       return this.$store.state.users.me;
     },
     drawer: {
-      get(){
+      get() {
         return this.$store.state.showNav;
       },
-      set(){
-
-      }
+      set() {}
     }
   },
   middleware: 'showNav',
@@ -170,6 +169,7 @@ export default {
     },
     toggleNav() {
       this.$store.dispatch('toggleNav');
+      this.currentPage = 'aVersusB';
     }
   }
 };

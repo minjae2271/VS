@@ -2,7 +2,8 @@
   <v-list dense>
     <v-list-item v-for="(postSubject, i) in postSubjects" :key="i" link>
       <v-list-item-content>
-        <nuxt-link :to="'/aVersusB/' + postSubject.id" append>
+        {{ page }}
+        <nuxt-link :to="`/${page}/` + postSubject.id" append>
           <v-list-item-title>{{
             postSubject.postSubjectName
           }}</v-list-item-title>
@@ -14,6 +15,12 @@
 
 <script>
 export default {
+  props: {
+    page: {
+      type: String,
+      allowNull: false
+    }
+  },
   computed: {
     postTypes() {
       return this.$store.state.admins.postTypes;
@@ -24,7 +31,7 @@ export default {
     postCategories() {
       return this.$store.state.admins.postCategories;
     }
-  },
+  }
 };
 </script>
 
