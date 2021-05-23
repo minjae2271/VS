@@ -26,9 +26,6 @@ export default {
         hasMorePost() {
         return this.$store.state.posts.hasMorePost;
         },
-        drawer() {
-        return this.$store.state.showNav;
-        }
     },
     methods: {
         onScroll() {
@@ -42,7 +39,6 @@ export default {
         }
         },
     },  
-    middleware: 'showNav',
     mounted() {
         window.addEventListener('scroll', this.onScroll);
     },
