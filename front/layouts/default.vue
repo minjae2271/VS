@@ -17,7 +17,7 @@
           <v-btn
             text
             :style="{ display: 'flex', alignItems: 'center' }"
-            @click="toggleNav"
+            @click="toggleNav(1)"
           >
             밸런스
           </v-btn>
@@ -145,7 +145,7 @@ export default {
   data() {
     return {
       showDialog: false,
-      currentPage: ''
+      currentPage: 0
     };
   },
   computed: {
@@ -167,9 +167,9 @@ export default {
     logOut() {
       this.$store.dispatch('users/logOut');
     },
-    toggleNav() {
+    toggleNav(currentPage) {
       this.$store.dispatch('toggleNav');
-      this.currentPage = 'aVersusB';
+      this.currentPage = currentPage;
     }
   }
 };

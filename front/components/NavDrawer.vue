@@ -17,7 +17,7 @@
 export default {
   props: {
     page: {
-      type: String,
+      type: Number,
       allowNull: false
     }
   },
