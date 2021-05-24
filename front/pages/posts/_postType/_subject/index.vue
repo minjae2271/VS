@@ -1,5 +1,6 @@
 <template>
   <div>
+      {{postTypeId}}
       {{subjectId}}
       {{mainPosts}}
   </div>
@@ -9,13 +10,14 @@
 export default {
     asyncData({params}){
         return {
+            postTypeId: params.postType,
             subjectId: params.subject
         }
     },
     async fetch({store, params}){
         return store.dispatch('posts/loadSearchPosts', { 
             reset: true,
-            postTypeId: 1,
+            postTypeId: params.postType,
             postSubjectId: params.subject
       });
     },

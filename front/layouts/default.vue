@@ -21,6 +21,14 @@
           >
             밸런스
           </v-btn>
+          <v-btn
+            text
+            :style="{ display: 'flex', alignItems: 'center' }"
+            @click="toggleNav(2)"
+          >
+            랜덤
+          </v-btn>
+
         </v-container>
       </v-toolbar-items>
 

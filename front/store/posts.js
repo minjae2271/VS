@@ -190,7 +190,7 @@ export const actions = {
   loadPosts: throttle(async function({ commit, state }, payload) {
     try {
       if (payload && payload.reset) {
-        const res = await this.$axios.get(`/posts?limit=10`);
+        const res = await this.$axios.get(`/posts/${payload.postTypeId}?limit=10`);
         commit('loadPosts', {
           data: res.data,
           reset: true
@@ -199,7 +199,7 @@ export const actions = {
       if (state.hasMorePost) {
         const lastPost = state.mainPosts[state.mainPosts.length - 1];
         const resPosts = await this.$axios.get(
-          `/posts?lastId=${lastPost && lastPost.id}&limit=${limit}`
+          `/posts/${payload.postTypeId}?lastId=${lastPost && lastPost.id}&limit=${limit}`
         );
         commit('loadPosts', { data: resPosts.data });
       }

@@ -3,14 +3,15 @@ const db = require('../models');
 
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
+router.get('/:postTypeId', async (req, res, next) => {
   try {
-    let where = {};
+    let where = {
+      postType: parseInt(req.params.postTypeId, 10),
+    };
+    
     if (parseInt(req.query.lastId, 10)) {
-      where = {
-        id: { [db.Sequelize.Op.gt]: parseInt(req.query.lastId, 10) },
-      };
-    }
+      where[db.Sequelize.Op.gt] = parseInt(req.query.lastId, 10)
+    };
     const posts = await db.Post.findAll({
       where,
       include: [
@@ -38,11 +39,11 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/loadSearchPosts/:postType/:postSubject', async (req, res, next) => {
+router.get('/loadSearchPosts/:postTypeId/:postSubjectId', async (req, res, next) => {
   try {
     let where = {
-      postType: parseInt(req.params.postType, 10),
-      postSubject: parseInt(req.params.postSubject, 10),
+      postType: parseInt(req.params.postTypeId, 10),
+      postSubject: parseInt(req.params.postSubjectId, 10),
     };
     if (parseInt(req.query.lastId, 10)) {
       where[db.Sequelize.Op.gt] = parseInt(req.query.lastId, 10) 

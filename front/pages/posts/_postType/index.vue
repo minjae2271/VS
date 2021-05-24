@@ -27,8 +27,8 @@ export default {
   data() {
     return {};
   },
-  async fetch({ store }) {
-    return await store.dispatch('posts/loadPosts', { reset: true });
+  async fetch({ store , params}) {
+    return await store.dispatch('posts/loadPosts', { postTypeId: params.postType, reset: true });
   },
 
   computed: {

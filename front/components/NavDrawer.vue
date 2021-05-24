@@ -1,6 +1,5 @@
 <template>
   <v-list dense>
-    {{postSubjects}}
     <nuxt-link :to="`/posts/${page}/`" append>
       <v-list-item-title>
         전체보기
