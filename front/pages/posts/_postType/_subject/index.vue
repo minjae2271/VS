@@ -36,7 +36,10 @@ export default {
             document.documentElement.scrollHeight - 300
         ) {
             if (this.hasMorePost) {
-            this.$store.dispatch('posts/loadPosts');
+            this.$store.dispatch('posts/loadSearchPosts', { 
+                postTypeId: params.postType,
+                postSubjectId: params.subject
+      });
             }
         }
         },
