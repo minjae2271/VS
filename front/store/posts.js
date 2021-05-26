@@ -148,7 +148,6 @@ export const actions = {
 
   async updatePost({ commit }, payload) {
     try {
-      console.log('update~');
       const res = await this.$axios.patch(`/post/${payload.postId}/update`, {
         withCredentials: true
       });
@@ -211,7 +210,13 @@ export const actions = {
   loadSearchPosts: throttle(async function({ commit, state }, payload) {
     try {
       if (payload && payload.reset) {
-        const res = await this.$axios.get(`/posts/loadSearchPosts/${payload.postTypeId}/${payload.postSubjectId}?limit=10`);
+        const res = await this.$axios.post(`/posts/loadSearchPosts?limit=10`, {
+          postTypeId: payload.postTypeId,
+          postSubjectId: payload.postSubjectId,
+          postCategoryId: payload.postCategoryId,
+        }, {
+          withCredentials: true
+        });
         commit('loadPosts', {
           data: res.data,
           reset: true
@@ -219,8 +224,14 @@ export const actions = {
       }
       if (state.hasMorePost) {
         const lastPost = state.mainPosts[state.mainPosts.length - 1];
-        const resPosts = await this.$axios.get(
-          `/posts/loadSearchPosts/${payload.postTypeId}/${payload.postSubjectId}?lastId=${lastPost && lastPost.id}&limit=${limit}`
+        const resPosts = await this.$axios.post(
+          `/posts/loadSearchPosts?lastId=${lastPost && lastPost.id}&limit=${limit}`, {
+            postTypeId: payload.postTypeId,
+            postSubjectId: payload.postSubjectId,
+            postCategoryId: payload.postCategoryId,    
+          }, {
+            withCredentials: true
+          }
         );
         commit('loadPosts', { data: resPosts.data });
       }

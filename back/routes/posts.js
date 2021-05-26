@@ -39,11 +39,13 @@ router.get('/:postTypeId', async (req, res, next) => {
   }
 });
 
-router.get('/loadSearchPosts/:postTypeId/:postSubjectId', async (req, res, next) => {
+router.post('/loadSearchPosts', async (req, res, next) => {
   try {
     let where = {
-      postType: parseInt(req.params.postTypeId, 10),
-      postSubject: parseInt(req.params.postSubjectId, 10),
+      postType: req.body.postTypeId,
+      postSubject: req.body.postSubjectId,
+      postSubject: req.body.postSubjectId,
+      
     };
     if (parseInt(req.query.lastId, 10)) {
       where[db.Sequelize.Op.gt] = parseInt(req.query.lastId, 10) 
