@@ -15,7 +15,7 @@ export default {
         }
     },
     async fetch({store, params}){
-        return store.dispatch('posts/loadSearchPosts', { 
+        return await store.dispatch('posts/loadSearchPosts', { 
             reset: true,
             postTypeId: params.postType,
             postSubjectId: params.subject
@@ -23,10 +23,10 @@ export default {
     },
     computed: {
         mainPosts() {
-        return this.$store.state.posts.mainPosts.filter(post => post != null);
+            return this.$store.state.posts.mainPosts.filter(post => post != null);
         },
         hasMorePost() {
-        return this.$store.state.posts.hasMorePost;
+            return this.$store.state.posts.hasMorePost;
         },
     },
     methods: {

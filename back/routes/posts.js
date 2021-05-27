@@ -44,9 +44,12 @@ router.post('/loadSearchPosts', async (req, res, next) => {
     let where = {
       postType: req.body.postTypeId,
       postSubject: req.body.postSubjectId,
-      postSubject: req.body.postSubjectId,
-      
     };
+
+    if(req.body.postCategoryId !== undefined){
+      where['postCategory'] = req.body.postCategoryId
+    }
+    
     if (parseInt(req.query.lastId, 10)) {
       where[db.Sequelize.Op.gt] = parseInt(req.query.lastId, 10) 
     }

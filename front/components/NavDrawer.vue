@@ -1,6 +1,6 @@
 <template>
   <v-list dense>
-    <nuxt-link :to="`/posts/${page}/`" append>
+    <nuxt-link :to="`/posts/${page}/`">
       <v-list-item-title>
         전체보기
       </v-list-item-title>
@@ -8,7 +8,7 @@
     <v-list-item v-for="(postSubject, i) in postSubjects" :key="i" link>
       <v-list-item-content>
         {{ page }}
-        <nuxt-link :to="`/posts/${page}/` + postSubject.id" append>
+        <nuxt-link :to="`/posts/${page}/` + postSubject.id" >
           <v-list-item-title>
             {{postSubject.postSubjectName}}
           </v-list-item-title>
