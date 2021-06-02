@@ -1,21 +1,18 @@
 <template>
   <div>
-      <p>{{postTypeId}}</p>
-      <p>{{subjectId}}</p>
-      <p>{{categoryId}}</p>
       <p>{{mainPosts}}</p>
   </div>
 </template>
 
 <script>
 export default {
-    asyncData({params}){
-        return {
-            postTypeId: params.postType,
-            subjectId: params.subject,
-            categoryId: params.category
-        }
-    },
+    // asyncData({params}){
+    //     return {
+    //         postTypeId: params.postType,
+    //         subjectId: params.subject,
+    //         categoryId: params.category
+    //     }
+    // },
    async fetch({store, params}){
         return await store.dispatch('posts/loadSearchPosts', { 
             reset: true,

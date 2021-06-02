@@ -7,7 +7,6 @@
     </nuxt-link>
     <v-list-item v-for="(postSubject, i) in postSubjects" :key="i" link>
       <v-list-item-content>
-        {{ page }}
         <nuxt-link :to="`/posts/${page}/` + postSubject.id" >
           <v-list-item-title>
             {{postSubject.postSubjectName}}
