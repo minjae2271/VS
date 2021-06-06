@@ -75,5 +75,9 @@ export default {
         config.devtool = 'hidden-source-map';
       }
     }
+  },
+
+  server: {
+    port: process.env.PORT || 3000
   }
 };
