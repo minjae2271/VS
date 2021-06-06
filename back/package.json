@@ -20,6 +20,7 @@
     "passport-kakao": "^1.0.1",
     "passport-local": "^1.0.0",
     "passport-naver": "^1.0.6",
+    "pm2": "^4.5.6",
     "sequelize": "^6.5.0"
   },
   "devDependencies": {
@@ -28,7 +29,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env PORT=80 NODE_ENV=production node app.js",
+    "start": "cross-env PORT=80 NODE_ENV=production pm2 start app.js",
     "dev": "nodemon app.js"
   },
   "author": "",
