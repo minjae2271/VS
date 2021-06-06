@@ -67,5 +67,13 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {
+    analyze: true,
+    extend(config, { isClient, isServer, isDev }) {
+      console.log('webpack', config, isServer, isClient);
+      if (isServer && !isDev) {
+        config.devtool = 'hidden-source-map';
+      }
+    }
+  }
 };
