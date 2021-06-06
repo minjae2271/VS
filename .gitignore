@@ -5,6 +5,7 @@ test.vue
 TestComponent.vue
 back/uploads/*
 murpick-aws.pem
+.env
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Node template
