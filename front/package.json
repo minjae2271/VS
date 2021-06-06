@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "cross-env PORT=80 NODE_ENV=procduction node server",
     "generate": "nuxt generate"
   },
   "dependencies": {
