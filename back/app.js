@@ -65,11 +65,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/user', userRouter);
-app.use('/post', postRouter);
-app.use('/posts', postsRouter);
-app.use('/hashtags', hashtagsRouter);
-app.use('/postCharacters', postCharactersRouter);
 
-app.listen(prod ? process.env.PORT : 3005, () => {
-  console.log(`backend server ${prod ? process.env.PORT : 3005}`);
+app.listen(prod ? process.env.PORT : 80, () => {
+  console.log(`backend server ${prod ? process.env.PORT : 80}`);
 });
