@@ -74,11 +74,15 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     analyze: false,
-    extend(config, {isClient, isServer}){
-      if(isServer && config.mode === 'production'){
+    extend(config, { isClient, isServer, isDev }) {
+      console.log('webpack', config, isServer, isClient);
+      if (isServer && !isDev) {
         config.devtool = 'hidden-source-map';
       }
-      console.log(config, isClient, isServer);
     }
+  },
+
+  server: {
+    port: process.env.PORT || 3000
   }
 };

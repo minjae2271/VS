@@ -28,7 +28,6 @@
           >
             랜덤
           </v-btn>
-
         </v-container>
       </v-toolbar-items>
 
@@ -142,7 +141,7 @@
 <script>
 import LoginForm from '~/components/LoginForm';
 import VersusFooter from '~/components/VersusFooter';
-import NavDrawer from '~/components/navDrawer';
+import NavDrawer from '~/components/NavDrawer';
 
 export default {
   components: {
@@ -160,7 +159,7 @@ export default {
   computed: {
     me() {
       return this.$store.state.users.me;
-    },
+    }
   },
   methods: {
     showLoginDialog() {
