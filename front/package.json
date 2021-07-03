@@ -5,17 +5,20 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
-    "start": "cross-env PORT=80 NODE_ENV=production node server",
+    "prestart": "npm run build",
+    "start": "cross-env PORT=80 NODE_ENV=production pm2 start server.js",
     "generate": "nuxt generate"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.1",
+    "@nuxtjs/moment": "^1.6.1",
     "axios": "^0.21.1",
     "core-js": "^3.8.2",
     "cross-env": "^7.0.3",
     "express": "^4.17.1",
     "lodash.throttle": "^4.1.1",
     "nuxt": "^2.14.12",
+    "pm2": "^4.5.6",
     "swiper": "^6.5.2",
     "vue": "^2.6.12",
     "vuex": "^3.6.2"
