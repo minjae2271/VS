@@ -36,12 +36,17 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify', 
+    '@nuxtjs/moment'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['@nuxtjs/axios'],
 
+  // monent
+  moment: {
+    locales: ['ko']
+  },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
@@ -67,5 +72,13 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {
+    analyze: false,
+    extend(config, {isClient, isServer}){
+      if(isServer && config.mode === 'production'){
+        config.devtool = 'hidden-source-map';
+      }
+      console.log(config, isClient, isServer);
+    }
+  }
 };
