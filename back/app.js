@@ -64,6 +64,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get('/', (req, res) => {
+  res.status(200).send('안녕! 바보야?');
+});
+
 app.use('/user', userRouter);
 
 app.listen(prod ? process.env.PORT : 80, () => {
