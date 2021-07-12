@@ -4,14 +4,14 @@
       <v-row no-gutters v-if="post.Images.length === 2">
         <v-col cols="6">
           <v-img
-            :src="`http://localhost:3005/${post.Images[0].src}`"
+            :src="`${post.Images[0].src}`"
             height="100px"
             width="100%"
           />
         </v-col>
         <v-col cols="6">
           <v-img
-            :src="`http://localhost:3005/${post.Images[1].src}`"
+            :src="`${post.Images[1].src}`"
             height="100px"
             width="100%"
           />
@@ -20,7 +20,7 @@
       <v-row no-gutters v-else-if="post.Images.length === 1">
         <v-col cols="12">
           <v-img
-            :src="`http://localhost:3005/${post.Images[0].src}`"
+            :src="`${post.Images[0].src}`"
             height="100px"
             width="100%"
           />
@@ -33,11 +33,6 @@
           </nuxt-link>
         </h3>
       </div>
-      <!-- <v-container class="content-name">
-        <h2 class="text-center">{{ post.content1 }}</h2>
-        <p>VS</p>
-        <h2 class="text-center">{{ post.content2 }}</h2>
-      </v-container> -->
       <div class="content-desc" v-if="post.Picks">
         <div class="content-participation">
           <span>{{ post.Picks.length }}</span>
@@ -119,9 +114,5 @@ export default {
 
 .content-participation {
   margin-bottom: 10px;
-}
-
-.content-desc {
-  /* margin: 10px; */
 }
 </style>
