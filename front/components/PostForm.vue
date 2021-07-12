@@ -6,7 +6,7 @@
       <v-row>
         <v-col cols="12" sm="6" v-for="(image, i) in imagePaths" :key="image">
           <v-card>
-            <v-img class="postImg" :src="`${image}`">
+            <v-img class="postImg" :src="image">
               <v-layout fill-height align-end justify-center> </v-layout>
             </v-img>
             <button @click="onRemoveImage(i)" type="button">제거</button>
