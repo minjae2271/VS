@@ -4,24 +4,27 @@ const db = require('../models');
 const multer = require('multer');
 const path = require('path');
 const { isLoggedIn } = require('./middlewares');
+const multerS3 = requires('multer-s3');
+
+AWS.config.update({
+  region: 'us-east-2',
+  accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+});
 
 const upload = multer({
-  storage: multer.diskStorage({
-    destination(req, file, done) {
-      //서버에 저장된 위치
-      done(null, 'uploads');
-    },
-    filename(req, file, done) {
-      const ext = path.extname(file.originalname);
-      const basename = path.basename(file.originalname, ext); // 서버에 저장될 파일 이름
-      done(null, basename + Date.now() + ext);
+  storage: multerS3({
+    s3: new AWS.S3(),
+    bucket: 'murpickbucket',
+    key(req, file, cb) {
+      cb(null, `original/${Date.now()}${path.basename(file.originalname)}`);
     },
   }),
   limit: { fileSize: 20 * 1024 * 1024 },
 });
 
 router.post('/images', upload.array('image'), (req, res) => {
-  res.json(req.files.map(v => v.filename));
+  res.json(req.files.map(v => v.location));
 });
 
 router.post('/', async (req, res, next) => {
@@ -86,27 +89,30 @@ router.patch('/:id/update', async (req, res, next) => {
   try {
     const post = await db.Post.findOne({
       where: {
-        id: req.params.id
-      }
+        id: req.params.id,
+      },
     });
-    if(!post) {
+    if (!post) {
       return res.status(404).send('게시글이 존재하지 않습니다.');
     }
-    await db.Post.update({
-      // postType: req.body.postType,
-      // postCategory: req.body.postCategory,
-      title: req.body.title,
-      content1: req.body.content1,
-      content2: req.body.content2,
-      condition: req.body.condition,
-      // UserId: req.user.id,
-    }, {
-      where: {
-        id: req.params.id        
+    await db.Post.update(
+      {
+        // postType: req.body.postType,
+        // postCategory: req.body.postCategory,
+        title: req.body.title,
+        content1: req.body.content1,
+        content2: req.body.content2,
+        condition: req.body.condition,
+        // UserId: req.user.id,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
       }
-    });
-    res.send(req.body.title);    
-  } catch(err){
+    );
+    res.send(req.body.title);
+  } catch (err) {
     console.error(err);
     next(err);
   }
@@ -116,10 +122,10 @@ router.delete('/:id', async (req, res, next) => {
   try {
     const post = await db.Post.findOne({
       where: {
-        id: req.params.id
-      }
+        id: req.params.id,
+      },
     });
-    if(!post) {
+    if (!post) {
       return res.status(404).send('게시글이 존재하지 않습니다.');
     }
 
@@ -129,7 +135,7 @@ router.delete('/:id', async (req, res, next) => {
     res.send({
       postId: req.params.id,
     });
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     next(err);
   }
@@ -142,7 +148,7 @@ router.get('/:id', async (req, res, next) => {
       include: [
         { model: db.User, attributes: ['id', 'nickname'] },
         { model: db.Image },
-        { model: db.Hashtag}
+        { model: db.Hashtag },
       ],
     });
     return res.json(post);

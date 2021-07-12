@@ -21,8 +21,8 @@ const app = express();
 
 dotenv.config();
 
-db.sequelize.sync({ force: true });
-// db.sequelize.sync({ force: false });
+// db.sequelize.sync({ force: true });
+db.sequelize.sync({ force: false });
 passportConfig();
 
 if (prod) {
@@ -69,6 +69,10 @@ app.get('/', (req, res) => {
 });
 
 app.use('/user', userRouter);
+app.use('/postCharacters', postCharactersRouter);
+app.use('hashtags', hashtagsRouter);
+app.use('posts', postsRouter);
+app.use('post', postRouter);
 
 app.listen(prod ? process.env.PORT : 3005, () => {
   console.log(`backend server ${prod ? process.env.PORT : 3005}`);
