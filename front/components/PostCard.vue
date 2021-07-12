@@ -3,27 +3,15 @@
     <v-container class="post-content">
       <v-row no-gutters v-if="post.Images.length === 2">
         <v-col cols="6">
-          <v-img
-            :src="`http://localhost:3005/${post.Images[0].src}`"
-            height="100px"
-            width="100%"
-          />
+          <v-img :src="post.Images[0].src" height="100px" width="100%" />
         </v-col>
         <v-col cols="6">
-          <v-img
-            :src="`http://localhost:3005/${post.Images[1].src}`"
-            height="100px"
-            width="100%"
-          />
+          <v-img :src="post.Images[1].src" height="100px" width="100%" />
         </v-col>
       </v-row>
       <v-row no-gutters v-else-if="post.Images.length === 1">
         <v-col cols="12">
-          <v-img
-            :src="`http://localhost:3005/${post.Images[0].src}`"
-            height="100px"
-            width="100%"
-          />
+          <v-img :src="post.Images[0].src" height="100px" width="100%" />
         </v-col>
       </v-row>
       <div class="post-title">
