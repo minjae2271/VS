@@ -2,26 +2,27 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 const multer = require('multer');
+const AWS = require('aws-sdk');
+const multerS3 = require('multer-s3');
+
 const path = require('path');
 const { isLoggedIn } = require('./middlewares');
 
+AWS.config.update({
+  region: 'us-east-2',
+  accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+})
+
 const upload = multer({
-  storage: multer.diskStorage({
-    destination(req, file, done) {
-      //서버에 저장된 위치
-      done(null, 'uploads');
-    },
-    filename(req, file, done) {
-      const ext = path.extname(file.originalname);
-      const basename = path.basename(file.originalname, ext); // 서버에 저장될 파일 이름
-      done(null, basename + Date.now() + ext);
-    },
+  storage: multerS3({
+
   }),
   limit: { fileSize: 20 * 1024 * 1024 },
 });
 
 router.post('/images', upload.array('image'), (req, res) => {
-  res.json(req.files.map(v => v.filename));
+  res.json(req.files.map(v => v.location));
 });
 
 router.post('/', async (req, res, next) => {
