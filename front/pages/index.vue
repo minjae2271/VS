@@ -1,6 +1,7 @@
 <template>
   <div class="main">
-    <main-carousel></main-carousel>
+    <!-- {{mainBanner}} -->
+    <main-carousel :mainBanner='mainBanner'></main-carousel>
     <p>{{topPosts}}</p>
     <v-spacer />
   </div>
@@ -16,11 +17,15 @@ export default {
     ItemList
   },
   fetch({store}){
-    return store.dispatch('posts/loadTopPosts', {reset: true});
+    // store.dispatch('posts/loadTopPosts', {reset: true});
+    return store.dispatch('home/loadMainBanner');
   },
   computed: {
     topPosts(){
       return this.$store.state.posts.topPosts;
+    },
+    mainBanner(){
+      return this.$store.state.home.mainBanner;
     }
   }
 };

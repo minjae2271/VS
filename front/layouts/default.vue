@@ -6,7 +6,7 @@
     </v-navigation-drawer>
     <v-app-bar app>
       <!-- title -->
-      <v-app-bar-title>
+      <v-app-bar-title id="app-bar-title">
         <nuxt-link to="/">Murpik</nuxt-link>
       </v-app-bar-title>
       <!-- postTypes -->
@@ -183,8 +183,8 @@ body {
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  /* color: inherit;
+  text-decoration: none; */
   display: block;
 }
 
@@ -194,5 +194,10 @@ a {
 
 .profile-menu-avatar {
   justify-content: center;
+}
+
+a,a:visited {
+  text-decoration: none;
+  color: inherit;
 }
 </style>

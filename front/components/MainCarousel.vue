@@ -1,31 +1,32 @@
 <template>
     <div>
-        <v-carousel height="300" v-model="model" cycle show-arrows-on-hover hide-delimiter-background>
+        <v-carousel v-model="model" cycle show-arrows-on-hover hide-delimiter-background>
             <v-carousel-item
-            v-for="(color, i) in colors"
-            :key="color"
+            v-for="(item, i) in mainBanner"
+            :key="i"
             >
-            <v-sheet
-                :color="color"
-                height="100%"
-                tile
-            >
-                <v-row
-                class="fill-height"
-                align="center"
-                justify="center"
-                >
-                <div class="display-3">
-                    Slide {{ i + 1 }}
-                </div>
-                </v-row>
-            </v-sheet>
+                <v-img contain height="100%" src="https://item.kakaocdn.net/do/a1866850b14ae47d0a2fd61f409dfc057154249a3890514a43687a85e6b6cc82"></v-img>
+                    <v-row
+                    class="fill-height"
+                    align="center"
+                    justify="center"
+                    >
+                    <div class="display-3">
+                        Slide {{ i + 1 }}
+                    </div>
+                    </v-row>
             </v-carousel-item>
         </v-carousel>
     </div>
 </template>
 <script>
 export default {
+    props: {
+        mainBanner: {
+            type: Array,
+            allowNull: false,
+        }
+    },
     data: () => ({
       model: 0,
       colors: [
