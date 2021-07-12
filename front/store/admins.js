@@ -44,7 +44,7 @@ export const state = () => ({
     //postType
     async addPostType({ commit }, payload){
       try {
-        const res = await this.$axios.post('http://localhost:3005/postCharacters/postType', {
+        const res = await this.$axios.post('/postCharacters/postType', {
           postType: payload.postType
         },{
           withCredentials: true
@@ -56,7 +56,7 @@ export const state = () => ({
     },
     async loadPostTypes({ commit }){
       try {
-        const res = await this.$axios.get('http://localhost:3005/postCharacters/postType', {
+        const res = await this.$axios.get('/postCharacters/postType', {
           withCredentials: true
         });
         commit('loadPostTypes', res.data);
@@ -66,7 +66,7 @@ export const state = () => ({
     },
     async deletePostType({ commit }, payload){
       try{
-        const res = await this.$axios.delete(`http://localhost:3005/postCharacters/${payload.postTypeId}/postType`, {
+        const res = await this.$axios.delete(`/postCharacters/${payload.postTypeId}/postType`, {
           withCredentials: true
         });
         commit('deletePostType', {
@@ -79,7 +79,7 @@ export const state = () => ({
     //postSubject
     async addPostSubject({ commit }, payload){
       try{
-        const res = await this.$axios.post('http://localhost:3005/postCharacters/postSubject', {
+        const res = await this.$axios.post('/postCharacters/postSubject', {
           postTypeId: payload.postTypeId,
           postSubject: payload.postSubject
         }, {
@@ -92,7 +92,7 @@ export const state = () => ({
     },
     async loadPostSubjects({ commit }){
       try{
-        const res = await this.$axios.get('http://localhost:3005/postCharacters/postSubject', {
+        const res = await this.$axios.get('/postCharacters/postSubject', {
           withCredentials: true
         });
         commit('loadPostSubjects', res.data);
@@ -102,7 +102,7 @@ export const state = () => ({
     },
     async deletePostSubject({ commit }, payload){
       try{
-        const res = await this.$axios.delete(`http://localhost:3005/postCharacters/${payload.postSubjectId}/postSubject`, {
+        const res = await this.$axios.delete(`/postCharacters/${payload.postSubjectId}/postSubject`, {
           withCredentials: true
         });
         commit('deletePostSubject', {
@@ -115,7 +115,7 @@ export const state = () => ({
     //postCategory
     async addPostCategory({ commit }, payload){
       try{
-        const res = await this.$axios.post('http://localhost:3005/postCharacters/postCategory', {
+        const res = await this.$axios.post('/postCharacters/postCategory', {
           postCategory: payload.postCategory
         },{
           withCredentials: true
@@ -127,7 +127,7 @@ export const state = () => ({
     },
     async loadPostCategories({ commit }){
       try{
-        const res = await this.$axios.get('http://localhost:3005/postCharacters/postCategory', {
+        const res = await this.$axios.get('/postCharacters/postCategory', {
           withCredentials: true
         });
         commit('loadPostCategories', res.data);
@@ -137,7 +137,7 @@ export const state = () => ({
     },
     async deletePostCategory({ commit }, payload){
       try{
-        const res = await this.$axios.delete(`http://localhost:3005/postCharacters/${payload.postCategoryId}/postCategory`, {
+        const res = await this.$axios.delete(`/postCharacters/${payload.postCategoryId}/postCategory`, {
           withCredentials: true
         });
         commit('deletePostCategory', {

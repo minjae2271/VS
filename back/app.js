@@ -21,8 +21,8 @@ const app = express();
 
 dotenv.config();
 
-db.sequelize.sync({ force: true });
-// db.sequelize.sync({ force: false });
+//db.sequelize.sync({ force: true });
+db.sequelize.sync({ force: false });
 passportConfig();
 
 if (prod) {
