@@ -70,6 +70,6 @@ app.get('/', (req, res) => {
 
 app.use('/user', userRouter);
 
-app.listen(prod ? process.env.PORT : 80, () => {
-  console.log(`backend server ${prod ? process.env.PORT : 80}`);
+app.listen(prod ? process.env.PORT : 3005, () => {
+  console.log(`backend server ${prod ? process.env.PORT : 3005}`);
 });
