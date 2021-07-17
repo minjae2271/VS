@@ -1,4 +1,6 @@
 import colors from 'vuetify/es5/util/colors';
+import path from 'path';
+import fs from 'fs';
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -68,13 +70,13 @@ export default {
   axios: {
     browserBaseURL:
       process.env.NODE_ENV === 'production'
-        ? 'https://api.murpick.com'
+        ? 'http://api.murpick.com'
         : 'http://localhost:3005',
     baseURL:
       process.env.NODE_ENV === 'production'
-        ? 'https://api.murpick.com'
+        ? 'http://api.murpick.com'
         : 'http://localhost:3005',
-    https: true
+    https: false
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -90,5 +92,9 @@ export default {
 
   server: {
     port: process.env.PORT || 3000
+    // https: {
+    //   key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+    //   cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
+    // }
   }
 };

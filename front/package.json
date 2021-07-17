@@ -16,6 +16,7 @@
     "core-js": "^3.8.2",
     "cross-env": "^7.0.3",
     "express": "^4.17.1",
+    "greenlock-express": "^4.0.3",
     "lodash.throttle": "^4.1.1",
     "nuxt": "^2.14.12",
     "pm2": "^4.5.6",

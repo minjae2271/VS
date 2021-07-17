@@ -1,3 +1,4 @@
+// zerocho 6-6 lecture
 const { loadNuxt, build } = require('nuxt');
 
 const app = require('express')();
