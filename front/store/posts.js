@@ -88,7 +88,7 @@ export const mutations = {
     state.mainPosts[index].Comments.splice(commentIndex, 1);
   },
   removeUserComment(state, payload) {
-    state.comments.findIndex(v=> v.id===payload.id);
+    state.comments.findIndex(v => v.id === payload.id);
     state.comments.splice(index, 1);
   },
 
@@ -122,7 +122,7 @@ export const actions = {
   addPost({ commit, state }, payload) {
     this.$axios
       .post(
-        'http://localhost:3005/post',
+        '/post',
         {
           postType: payload.postType,
           postSubject: payload.postSubject,
@@ -177,7 +177,7 @@ export const actions = {
     }
   },
 
-  async loadPost({ commit}, payload) {
+  async loadPost({ commit }, payload) {
     try {
       const res = await this.$axios.get(`/post/${payload}`);
       commit('loadPost', res.data);
@@ -189,7 +189,9 @@ export const actions = {
   loadPosts: throttle(async function({ commit, state }, payload) {
     try {
       if (payload && payload.reset) {
-        const res = await this.$axios.get(`/posts/${payload.postTypeId}?limit=10`);
+        const res = await this.$axios.get(
+          `/posts/${payload.postTypeId}?limit=10`
+        );
         commit('loadPosts', {
           data: res.data,
           reset: true
@@ -198,7 +200,8 @@ export const actions = {
       if (state.hasMorePost) {
         const lastPost = state.mainPosts[state.mainPosts.length - 1];
         const resPosts = await this.$axios.get(
-          `/posts/${payload.postTypeId}?lastId=${lastPost && lastPost.id}&limit=${limit}`
+          `/posts/${payload.postTypeId}?lastId=${lastPost &&
+            lastPost.id}&limit=${limit}`
         );
         commit('loadPosts', { data: resPosts.data });
       }
@@ -210,13 +213,17 @@ export const actions = {
   loadSearchPosts: throttle(async function({ commit, state }, payload) {
     try {
       if (payload && payload.reset) {
-        const res = await this.$axios.post(`/posts/loadSearchPosts?limit=10`, {
-          postTypeId: payload.postTypeId,
-          postSubjectId: payload.postSubjectId,
-          postCategoryId: payload.postCategoryId,
-        }, {
-          withCredentials: true
-        });
+        const res = await this.$axios.post(
+          `/posts/loadSearchPosts?limit=10`,
+          {
+            postTypeId: payload.postTypeId,
+            postSubjectId: payload.postSubjectId,
+            postCategoryId: payload.postCategoryId
+          },
+          {
+            withCredentials: true
+          }
+        );
         commit('loadPosts', {
           data: res.data,
           reset: true
@@ -225,11 +232,14 @@ export const actions = {
       if (state.hasMorePost) {
         const lastPost = state.mainPosts[state.mainPosts.length - 1];
         const resPosts = await this.$axios.post(
-          `/posts/loadSearchPosts?lastId=${lastPost && lastPost.id}&limit=${limit}`, {
+          `/posts/loadSearchPosts?lastId=${lastPost &&
+            lastPost.id}&limit=${limit}`,
+          {
             postTypeId: payload.postTypeId,
             postSubjectId: payload.postSubjectId,
-            postCategoryId: payload.postCategoryId,    
-          }, {
+            postCategoryId: payload.postCategoryId
+          },
+          {
             withCredentials: true
           }
         );
