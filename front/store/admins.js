@@ -51,7 +51,7 @@ export const actions = {
   async addPostType({ commit }, payload) {
     try {
       const res = await this.$axios.post(
-        'http://localhost:3005/postCharacters/postType',
+        '/postCharacters/postType',
         {
           postType: payload.postType
         },

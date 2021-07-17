@@ -36,7 +36,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify', 
+    '@nuxtjs/vuetify',
     '@nuxtjs/moment'
   ],
 
@@ -66,8 +66,14 @@ export default {
     }
   },
   axios: {
-    browserBaseURL: 'http://localhost:3005',
-    baseURL: 'http://localhost:3005',
+    browserBaseURL:
+      process.env.NODE_ENV === 'production'
+        ? 'http://api.murpick.com'
+        : 'http://localhost:3005',
+    baseURL:
+      process.env.NODE_ENV === 'production'
+        ? 'http://api.murpick.com'
+        : 'http://localhost:3005',
     https: false
   },
 
