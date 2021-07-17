@@ -139,7 +139,7 @@ export const actions = {
   async addPostCategory({ commit }, payload) {
     try {
       const res = await this.$axios.post(
-        'http://localhost:3005/postCharacters/postCategory',
+        '/postCharacters/postCategory',
         {
           postCategory: payload.postCategory
         },
@@ -154,12 +154,9 @@ export const actions = {
   },
   async loadPostCategories({ commit }) {
     try {
-      const res = await this.$axios.get(
-        'http://localhost:3005/postCharacters/postCategory',
-        {
-          withCredentials: true
-        }
-      );
+      const res = await this.$axios.get('/postCharacters/postCategory', {
+        withCredentials: true
+      });
       commit('loadPostCategories', res.data);
     } catch (err) {
       console.error(err);
@@ -168,7 +165,7 @@ export const actions = {
   async deletePostCategory({ commit }, payload) {
     try {
       const res = await this.$axios.delete(
-        `http://localhost:3005/postCharacters/${payload.postCategoryId}/postCategory`,
+        `/postCharacters/${payload.postCategoryId}/postCategory`,
         {
           withCredentials: true
         }
