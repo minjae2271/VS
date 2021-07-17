@@ -11,7 +11,7 @@
           <v-col cols="6">
             <v-container class="wrapper">
               <v-img
-                :src="`http://localhost:3005/${post.Images[0].src}`"
+                :src="post.Images[0].src"
                 class="post-img"
                 @click="onPickContent(0)"
               />
@@ -20,7 +20,7 @@
           <v-col cols="6">
             <v-container class="wrapper">
               <v-img
-                :src="`http://localhost:3005/${post.Images[1].src}`"
+                :src="post.Images[1].src"
                 class="post-img"
                 @click="onPickContent(1)"
               />
@@ -29,19 +29,20 @@
         </v-row>
         <v-row class="post-row" no-gutters v-else-if="post.Images.length === 1">
           <v-container>
-            <v-img
-              :src="`http://localhost:3005/${post.Images[0].src}`"
-
-            />
+            <v-img contain max-height="300" :src="post.Images[0].src" />
           </v-container>
         </v-row>
       </v-container>
       <v-container class="content-name">
         <v-btn class="content-name-1" text>
-          <h2 class="text-center" @click="onPickContent(0)">{{ post.content1 }}</h2>
+          <h2 class="text-center" @click="onPickContent(0)">
+            {{ post.content1 }}
+          </h2>
         </v-btn>
         <v-btn class="content-name-2" text>
-          <h2 class="text-center" @click="onPickContent(1)">{{ post.content2 }}</h2>
+          <h2 class="text-center" @click="onPickContent(1)">
+            {{ post.content2 }}
+          </h2>
         </v-btn>
       </v-container>
       <v-container class="content-condition">
@@ -64,12 +65,7 @@
         >
           수정하기
         </v-btn>
-        <v-btn
-          v-if="canDelete"
-          color="orange"
-          text
-          @click="removePost()"
-        >
+        <v-btn v-if="canDelete" color="orange" text @click="removePost()">
           삭제하기
         </v-btn>
       </v-card-actions>
@@ -108,7 +104,7 @@ export default {
         v => v.id === parseInt(this.$route.params.id, 10)
       );
     },
-    canDelete(){
+    canDelete() {
       const me = this.$store.state.users.me;
       return !!(this.post.UserId === (me && me.id));
     }
@@ -139,7 +135,7 @@ export default {
         postId: this.$route.params.id
       });
     }
-  },
+  }
   //middleware: "authenticated",
 };
 </script>
@@ -162,25 +158,21 @@ export default {
   flex: 1;
 }
 
-.wrapper
-{
+.wrapper {
   background-color: #40739e;
 }
 
-.wrapper
-{
-  width:100%;
+.wrapper {
+  width: 100%;
   height: 100%;
   position: relative;
 }
 
-.post-row
-{
+.post-row {
   min-height: 400px;
 }
 
-.post-img
-{ 
+.post-img {
   position: absolute;
   top: 0px;
   left: 0px;

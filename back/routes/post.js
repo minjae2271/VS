@@ -6,19 +6,13 @@ const AWS = require('aws-sdk');
 
 const path = require('path');
 const { isLoggedIn } = require('./middlewares');
-const multerS3 = requires('multer-s3');
+const multerS3 = require('multer-s3');
 
 AWS.config.update({
   region: 'us-east-2',
   accessKeyId: process.env.S3_ACCESS_KEY_ID,
   secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
 });
-
-AWS.config.update({
-  region: 'us-east-2',
-  accessKeyId: process.env.S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-})
 
 const upload = multer({
   storage: multerS3({

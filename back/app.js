@@ -70,9 +70,9 @@ app.get('/', (req, res) => {
 
 app.use('/user', userRouter);
 app.use('/postCharacters', postCharactersRouter);
-app.use('hashtags', hashtagsRouter);
-app.use('posts', postsRouter);
-app.use('post', postRouter);
+app.use('/hashtags', hashtagsRouter);
+app.use('/posts', postsRouter);
+app.use('/post', postRouter);
 
 app.listen(prod ? process.env.PORT : 3005, () => {
   console.log(`backend server ${prod ? process.env.PORT : 3005}`);
