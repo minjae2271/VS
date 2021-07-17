@@ -7,7 +7,7 @@
     <v-app-bar app>
       <!-- title -->
       <v-app-bar-title id="app-bar-title">
-        <nuxt-link to="/">Murpik</nuxt-link>
+        <nuxt-link to="/">Murpick</nuxt-link>
       </v-app-bar-title>
       <!-- postTypes -->
       <v-toolbar-items>
@@ -196,7 +196,8 @@ a {
   justify-content: center;
 }
 
-a,a:visited {
+a,
+a:visited {
   text-decoration: none;
   color: inherit;
 }
