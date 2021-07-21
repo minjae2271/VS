@@ -70,13 +70,13 @@ export default {
   axios: {
     browserBaseURL:
       process.env.NODE_ENV === 'production'
-        ? 'http://api.murpick.com'
+        ? 'https://api.murpick.com'
         : 'http://localhost:3005',
     baseURL:
       process.env.NODE_ENV === 'production'
-        ? 'http://api.murpick.com'
+        ? 'https://api.murpick.com'
         : 'http://localhost:3005',
-    https: false
+    https: true
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

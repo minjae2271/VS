@@ -31,7 +31,7 @@ if (prod) {
   app.use(morgan('combined'));
   app.use(
     cors({
-      origin: 'http://murpick.com',
+      origin: 'https://murpick.com',
       credentials: true,
     })
   );
