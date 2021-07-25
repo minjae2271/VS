@@ -1,4 +1,6 @@
 import colors from 'vuetify/es5/util/colors';
+import path from 'path';
+import fs from 'fs';
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -37,7 +39,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify', 
+    '@nuxtjs/vuetify',
     '@nuxtjs/moment'
   ],
 
@@ -67,9 +69,15 @@ export default {
     }
   },
   axios: {
-    browserBaseURL: 'http://localhost:3005',
-    baseURL: 'http://localhost:3005',
-    https: false
+    browserBaseURL:
+      process.env.NODE_ENV === 'production'
+        ? 'https://api.murpick.com'
+        : 'http://localhost:3005',
+    baseURL:
+      process.env.NODE_ENV === 'production'
+        ? 'https://api.murpick.com'
+        : 'http://localhost:3005',
+    https: true
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -85,5 +93,9 @@ export default {
 
   server: {
     port: process.env.PORT || 3000
+    // https: {
+    //   key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+    //   cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
+    // }
   }
 };

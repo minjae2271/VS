@@ -15,10 +15,10 @@ export const mutations = {
 export const actions = {
   async loadUser({ commit }) {
     try {
-      const res = await this.$axios.get("/user", {
+      const res = await this.$axios.get('/user', {
         withCredentials: true
       });
-      commit("setMe", res.data);
+      commit('setMe', res.data);
     } catch (err) {
       console.error(err);
     }
@@ -39,7 +39,7 @@ export const actions = {
   signUp({ commit }, payload) {
     this.$axios
       .post(
-        "/user",
+        '/user',
         {
           email: payload.email,
           nickname: payload.nickname,
@@ -50,7 +50,7 @@ export const actions = {
         }
       )
       .then(res => {
-        commit("setMe", res.data);
+        commit('setMe', res.data);
       })
       .catch(err => {
         console.error(err);
@@ -59,7 +59,7 @@ export const actions = {
   logIn({ commit }, payload) {
     this.$axios
       .post(
-        "http://localhost:3005/user/login",
+        '/user/login',
         {
           email: payload.email,
           password: payload.password
@@ -69,7 +69,7 @@ export const actions = {
         }
       )
       .then(res => {
-        commit("setMe", res.data);
+        commit('setMe', res.data);
       })
       .catch(err => {
         console.error(err);
@@ -78,14 +78,19 @@ export const actions = {
   logOut({ commit }) {
     this.$axios
       .post(
-        "http://localhost:3005/user/logout",
+        '/user/logout',
         {},
         {
           withCredentials: true
         }
       )
       .then(res => {
+<<<<<<< HEAD
         commit("setMe", null);
+=======
+        console.log(res);
+        commit('setMe', null);
+>>>>>>> 951e1786056e2e35bd5dff6849229a096e4ff492
       })
       .catch(err => {
         console.error(err);

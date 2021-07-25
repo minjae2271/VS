@@ -6,7 +6,7 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "prestart": "npm run build",
-    "start": "cross-env PORT=80 NODE_ENV=production pm2 start server.js",
+    "start": "cross-env PORT=3000 NODE_ENV=production pm2 start server.js",
     "generate": "nuxt generate"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "core-js": "^3.8.2",
     "cross-env": "^7.0.3",
     "express": "^4.17.1",
+    "greenlock-express": "^4.0.3",
     "lodash.throttle": "^4.1.1",
     "nuxt": "^2.14.12",
     "nuxt-fontawesome": "^0.4.0",
