@@ -16,6 +16,7 @@ const postRouter = require('./routes/post');
 const postsRouter = require('./routes/posts');
 const hashtagsRouter = require('./routes/hashtags');
 const postCharactersRouter = require('./routes/postCharacters');
+const authRouter = require('./routes/auth');
 const db = require('./models');
 const app = express();
 
@@ -73,6 +74,7 @@ app.use('/postCharacters', postCharactersRouter);
 app.use('/hashtags', hashtagsRouter);
 app.use('/posts', postsRouter);
 app.use('/post', postRouter);
+app.use('/auth', authRouter);
 
 app.listen(prod ? process.env.PORT : 3005, () => {
   console.log(`backend server ${prod ? process.env.PORT : 3005}`);

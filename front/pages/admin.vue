@@ -18,11 +18,6 @@ export default {
         PostSubject,
         postCategory
     },
-    data() {
-        return {
-
-        }
-    },
     async fetch({ store }) {
         await store.dispatch('admins/loadPostCategories');
         await store.dispatch('admins/loadPostSubjects');
@@ -39,12 +34,9 @@ export default {
             return this.$store.state.admins.postCategories;
         }
     },
-    methods: {
-
-    }
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

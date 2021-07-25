@@ -16,7 +16,7 @@ export default {
                 commit('setMainBanner', res.data);
             }
             catch(err){
-
+                console.error(err);
             }
         }
     }

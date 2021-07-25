@@ -18,12 +18,11 @@ export default {
           url: "/v2/user/me",
           success(res) {
             Kakao.Auth.setAccessToken(authObj.access_token);
-            console.log(authObj.access_token);
-            console.log(that);
+            // console.log(authObj.access_token);
             let email = res.kakao_account.email;
             let nickname = res.kakao_account.profile.nickname;
             let profile_image_url = res.kakao_account.profile.profile_image_url;
-
+            console.log(res.kakao_account);
             try {
               that.$store.dispatch("users/logIn", {
                 id: email,

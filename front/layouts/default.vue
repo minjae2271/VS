@@ -11,22 +11,14 @@
       </v-app-bar-title>
       <!-- postTypes -->
       <v-toolbar-items>
-        <v-container
-          :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
-        >
+        <v-container class="app-bar-container">
           <v-btn
-            text
-            :style="{ display: 'flex', alignItems: 'center' }"
-            @click="toggleNav(1)"
+          v-for="(postType,i) in postTypes"
+          :key="i"
+          text
+          @click="toggleNav(postType.id)"
           >
-            밸런스
-          </v-btn>
-          <v-btn
-            text
-            :style="{ display: 'flex', alignItems: 'center' }"
-            @click="toggleNav(2)"
-          >
-            랜덤
+          {{postType.postTypeName}}
           </v-btn>
         </v-container>
       </v-toolbar-items>
@@ -35,31 +27,31 @@
 
       <v-toolbar-items>
         <v-container
+          class="app-bar-container"
           v-if="!me"
-          :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
         >
           <v-btn text @click="showLoginDialog">
             <div>로그인</div>
           </v-btn>
-          <v-btn
+          <!-- <v-btn
             text
             nuxt
             to="/signup"
             :style="{ display: 'flex', alignItems: 'center' }"
           >
             회원가입
-          </v-btn>
+          </v-btn> -->
         </v-container>
         <v-container
+          class="app-bar-container"
           v-else
-          :style="{ display: 'flex', alignItems: 'center', width: '200px' }"
         >
           <v-spacer></v-spacer>
           <v-btn
+            class="app-bar-container"
             text
             nuxt
             to="/createpost"
-            :style="{ display: 'flex', alignItems: 'center' }"
           >
             글쓰기
           </v-btn>
@@ -159,6 +151,9 @@ export default {
   computed: {
     me() {
       return this.$store.state.users.me;
+    },
+    postTypes(){
+      return this.$store.state.admins.postTypes;
     }
   },
   methods: {
@@ -192,6 +187,11 @@ a {
   box-sizing: border-box;
 }
 
+.app-bar-container{
+/* :style="{ display: 'flex', alignItems: 'center', width: '200px' }" */
+  display: flex;
+  align-items: center;
+}
 .profile-menu-avatar {
   justify-content: center;
 }

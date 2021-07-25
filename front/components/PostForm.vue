@@ -1,8 +1,6 @@
 <template>
   <v-container>
     <v-card>
-      <v-subheader>글작성</v-subheader>
-      <v-text-field v-model="title" label="글제목" rounded outlined />
       <v-row>
         <v-col cols="12" sm="6" v-for="(image, i) in imagePaths" :key="image">
           <v-card>
@@ -15,6 +13,8 @@
       </v-row>
       <v-form ref="form" v-model="valid" @submit.prevent="onSubmitForm">
         <v-container>
+          <v-subheader>글작성</v-subheader>
+          <v-text-field :rules="postTileRules" v-model="title" label="글제목" rounded outlined />
           <v-row>
             <v-col cols="12">
               <input
@@ -25,7 +25,7 @@
                 @change="onChangeImages"
               />
               <v-btn type="button" @click="onClickImageUpload"
-                >이미지 업로드</v-btn
+              >이미지 업로드</v-btn
               >
             </v-col>
             <v-col cols="6">
@@ -57,6 +57,17 @@
 import { mapState } from 'vuex';
 
 export default {
+  props: {
+    postTypeId: {
+      type: Number
+    },
+    postSubjectId: {
+      type: Number
+    },
+    postCategoryId: {
+      type: Number
+    },
+  },
   data() {
     return {
       valid: true,
@@ -64,7 +75,10 @@ export default {
       content1: '',
       content2: '',
       condition: '',
-      hashtag: ''
+      hashtag: '',
+      postTileRules: [
+        v => !!v || "제목을 입력해주세요"
+      ]
     };
   },
   methods: {
@@ -84,9 +98,9 @@ export default {
     async onSubmitForm() {
       this.$store
         .dispatch('posts/addPost', {
-          postType: 1,
-          postSubject: 1,
-          postCategory: 1,
+          postType: this.postTypeId,
+          postSubject: this.postSubjectId,
+          postCategory: this.postCategoryId,
           title: this.title,
           content1: this.content1,
           content2: this.content2,

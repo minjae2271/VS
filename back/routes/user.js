@@ -120,6 +120,14 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
   })(req, res, next);
 });
 
+
+router.post('/kakaoLogIn', passport.authenticate('kakao'));
+router.post('/kakao/callback',passport.authenticate('kakao',{
+  failureRedirect : '/'
+}),(req,res)=>{
+  res.redirect('/');
+});
+
 router.post('/logout', isLoggedIn, (req, res) => {
   if (req.isAuthenticated()) {
     req.logout();

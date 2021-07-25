@@ -33,11 +33,12 @@ export default {
   },
   methods: {
     kakaoLogin() {
-      Kakao.init("69b08c096cea52c0d39b7fb5fab9d569");
+      Kakao.init("5bb891c05f068896313c14f58efd8d5e");
       console.log(Kakao.isInitialized());
       Kakao.Auth.authorize({
         redirectUri: "http://localhost:3000/login_callback_kakao"
       });
+      // this.$store.dispatch("users/kakaoLogIn");
     }
   }
 };

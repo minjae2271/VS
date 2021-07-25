@@ -20,7 +20,8 @@ export default {
         src: 'https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js',
         charset: 'utf-8'
       },
-      { src: 'https://developers.kakao.com/sdk/js/kakao.min.js' }
+      { src: 'https://developers.kakao.com/sdk/js/kakao.min.js' },
+      { src: 'https://kit.fontawesome.com/a7f9b9256b.js'},
     ]
   },
 
