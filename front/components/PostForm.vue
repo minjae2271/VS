@@ -14,7 +14,7 @@
       <v-form ref="form" v-model="valid" @submit.prevent="onSubmitForm">
         <v-container>
           <v-subheader>글작성</v-subheader>
-          <v-text-field :rules="postTileRules" v-model="title" label="글제목" rounded outlined />
+          <v-text-field :rules="postTitleRules" v-model="title" label="글제목" rounded outlined />
           <v-row>
             <v-col cols="12">
               <input
@@ -76,7 +76,7 @@ export default {
       content2: '',
       condition: '',
       hashtag: '',
-      postTileRules: [
+      postTitleRules: [
         v => !!v || "제목을 입력해주세요"
       ]
     };

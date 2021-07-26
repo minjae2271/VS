@@ -66,7 +66,7 @@ export const actions = {
   },
   async loadPostTypes({ commit }) {
     try {
-      const res = await this.$axios.get('postCharacters/postType', {
+      const res = await this.$axios.get('/postCharacters/postType', {
         withCredentials: true
       });
       commit('loadPostTypes', res.data);
@@ -110,7 +110,7 @@ export const actions = {
   async loadPostSubjects({ commit }) {
     try {
       const res = await this.$axios.get(
-        'http://localhost:3005/postCharacters/postSubject',
+        '/postCharacters/postSubject',
         {
           withCredentials: true
         }
@@ -123,7 +123,7 @@ export const actions = {
   async deletePostSubject({ commit }, payload) {
     try {
       const res = await this.$axios.delete(
-        `http://localhost:3005/postCharacters/${payload.postSubjectId}/postSubject`,
+        `/postCharacters/${payload.postSubjectId}/postSubject`,
         {
           withCredentials: true
         }

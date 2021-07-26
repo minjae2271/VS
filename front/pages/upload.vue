@@ -3,9 +3,7 @@
         <div class="image-button-box" v-for="num in 2" :key="num">
             <div v-if="imagePaths[num-1]" class="image-box">
                 <!-- <img :src="imagePaths[num-1]" :alt="image"> -->
-                <v-img class="Img" :src="imagePaths[num-1]" 
-                @mouseenter="showDelete(num-1,true)"
-                @mouseleave="showDelete(num-1,false)">
+                <v-img class="Img" :src="imagePaths[num-1]">
                 </v-img>
                 <button @click="onRemoveImage(num-1)" type="button">제거</button>
             </div>
@@ -16,7 +14,7 @@
                 <input :ref="`image${num}`" id="input"
                         type="file" name="image" accept="image/*" multiple
                         hidden
-                        @change="uploadImage">
+                        @change="onChangeImages">
                 <svg class="button-image" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -27,18 +25,13 @@
 
 <script>
 export default {
-    data(){
-        return {
-            show: []
-        }
-    },
     computed:{
         imagePaths(){
             return this.$store.state.posts.imagePaths;
         },
     },
     methods:{
-        uploadImage(e){
+        onChangeImages(e){
             const imageFormData = new FormData();
             [].forEach.call(e.target.files, f => {
                 imageFormData.append('image', f); //{ image: [file1, file2]}
@@ -49,8 +42,6 @@ export default {
             this.$store.commit('posts/removeImagePath', index);
         },
         clickInputTag(num) {
-            console.log(this.$refs);
-            console.log(num);
             this.$refs[`image${num}`][0].click();
         },
         dropInputTag(e) {
@@ -60,10 +51,6 @@ export default {
             imageFormData.append('image', file);
             this.$store.dispatch('posts/uploadImages', imageFormData);
         },
-        showDelete(num,bool){
-            console.log('entered')
-            this.$set(this.show, num, bool);
-        }
     }
 }
 </script>

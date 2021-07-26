@@ -85,12 +85,7 @@ export const actions = {
         }
       )
       .then(res => {
-<<<<<<< HEAD
         commit("setMe", null);
-=======
-        console.log(res);
-        commit('setMe', null);
->>>>>>> 951e1786056e2e35bd5dff6849229a096e4ff492
       })
       .catch(err => {
         console.error(err);
