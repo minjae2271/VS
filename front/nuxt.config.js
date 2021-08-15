@@ -77,7 +77,7 @@ export default {
       process.env.NODE_ENV === 'production'
         ? 'https://api.murpick.com'
         : 'http://localhost:3005',
-    https: true
+    https: process.env.NODE_ENV === 'production' ? true : false
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
