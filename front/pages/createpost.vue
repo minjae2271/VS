@@ -40,12 +40,10 @@
 
 <script>
 import PostForm from "~/components/PostForm";
-import UpdateForm from '~/components/UpdateForm';
 
 export default {
   components: {
     PostForm,
-    UpdateForm
   },
   data(){
     return {
