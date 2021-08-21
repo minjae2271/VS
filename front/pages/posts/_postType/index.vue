@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="post-card-container">
     <div class="post-card-box grey lighten-5">
       <v-row class="post-card-row" no-gutters>
         <v-col
@@ -10,7 +10,7 @@
           sm="6"
           md="3"
         >
-          <post-card elevation="4" :post="post" />
+        <post-card elevation="4" :post="post" />
         </v-col>
       </v-row>
     </div>
@@ -61,11 +61,17 @@ export default {
 </script>
 
 <style scoped>
+.post-card-container
+{
+
+}
 .post-card-row {
   display: flex;
-  justify-content: center;
+  flex: 1 0 25%
+  /* justify-content: center; */
 }
 .post-card-col {
-  margin: 0 15px 20px 15px;
+  /* margin: 0 15px 20px 15px; */
+  margin: 0 auto
 }
 </style>

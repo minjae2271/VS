@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div class="post-card-box grey lighten-5">
       <v-row class="post-card-row" no-gutters>
         <v-col
@@ -14,7 +13,6 @@
         </v-col>
       </v-row>
     </div>
-  </div>
 </template>
 
 <script>
@@ -65,5 +63,8 @@ export default {
 </script>
 
 <style>
+.post-card-box{
+  margin: 0 1rem;
+}
 
 </style>
