@@ -47,6 +47,9 @@ export const mutations = {
   concatImagesPaths(state, payload) {
     state.imagePaths = state.imagePaths.concat(payload);
   },
+  concatCropImagesPaths(state, payload) {
+    state.imagePaths.splice(payload.index, 1, payload.result);
+  },
   concatUpdateImagesPaths(state, payload) {
     state.updateImagePaths = state.updateImagePaths.concat(payload);
   },
@@ -302,16 +305,33 @@ export const actions = {
     }
   }, 3000),
   uploadImages({ commit }, payload) {
+    //console.log("store : uploadImages => payload", payload);
     this.$axios
       .post('/post/images', payload, { withCredentials: true })
       .then(res => {
+        console.log(res);
         commit('concatImagesPaths', res.data);
       })
       .catch(err => {
         console.error(err);
       });
   },
-
+  uploadCropImages({ commit }, payload) {
+    //console.log("store : uploadCropImages => payload.imageFormData", payload.imageFormData);
+    this.$axios.post('/post/images', payload.imageFormData, {
+      withCredentials: true
+    })
+    .then(res => {
+      //console.log("res from uploadCropImages",res);
+      commit('concatCropImagesPaths', {
+        result: res.data[0],
+        index: payload.index,
+      });
+    })
+    .catch(err => {
+      console.error(err);
+    })
+  },
   updateImages({ commit }, payload) {
     this.$axios
       .post('/post/images', payload, {

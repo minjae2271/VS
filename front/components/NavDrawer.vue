@@ -1,5 +1,6 @@
 <template>
   <v-list dense>
+    <!-- <button @click="gogo">gogo</button> -->
     <nuxt-link :to="`/posts/${page}/`">
       <v-list-item-title>
         전체보기
@@ -26,16 +27,23 @@ export default {
     }
   },
   computed: {
-    // postTypes() {
-    //   return this.$store.state.admins.postTypes;
-    // },
     postSubjects() {
       return this.$store.state.admins.postSubjects.filter(v => v.PostTypeId === this.page);
     },
     postCategories() {
       return this.$store.state.admins.postCategories;
     }
-  }
+  },
+  // methods: {
+  //    gogo(){
+  //   console.log($nuxt.$route.name)
+  //   //return location.reload();
+  //    //if you want to send any data into server before redirection then you can do it here
+  //   return this.$router.push("/search?q=");
+  //   //
+  //   //this.$forceUpdate();
+  // },
+  // }
 };
 </script>
 

@@ -19,6 +19,7 @@ const upload = multer({
     s3: new AWS.S3(),
     bucket: 'murpickbucket',
     key(req, file, cb) {
+      console.log("multer -> file", file)
       cb(null, `original/${Date.now()}${path.basename(file.originalname)}`);
     },
   }),
@@ -26,6 +27,7 @@ const upload = multer({
 });
 
 router.post('/images', upload.array('image'), (req, res) => {
+  console.log("req.files",req.files);
   res.json(req.files.map(v => v.location));
 });
 

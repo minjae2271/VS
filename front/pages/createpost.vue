@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="select-box">
     <v-select
       v-model='postTypeIdSelect'
       :hint='`${postTypeIdSelect}`'
@@ -20,7 +21,8 @@
       solo
     >
     </v-select>
-    <div class='post-category-list-box'>
+    </div>
+    <!-- <div class='post-category-list-box'>
       <div class="post-type-chip-box" v-for='(postCategory, i) in postCategories' :key='i'>
           <v-chip
           class="chip"
@@ -31,7 +33,7 @@
           {{postCategory.postCategoryName}}
           </v-chip>
       </div>
-    </div>
+    </div> -->
     <post-form v-if="postTypeIdSelect === 1 && postSubjectIdSelect == 1" :postTypeId="postTypeIdSelect" :postSubjectId="postSubjectIdSelect" :postCategoryId="postCategoryIdSelect"></post-form>
   </div>
 </template>
@@ -75,6 +77,12 @@ export default {
 </script>
 
 <style scoped>
+.select-box
+{ 
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+}
 .post-category-form-box
 {
     margin-top: 20px;     

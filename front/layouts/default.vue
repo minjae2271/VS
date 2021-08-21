@@ -4,13 +4,13 @@
     <v-navigation-drawer app temporary absolute v-model="drawer">
       <nav-drawer :page="currentPage"></nav-drawer>
     </v-navigation-drawer>
-    <v-app-bar app>
+    <v-app-bar class="app-bar" app>
       <!-- title -->
       <v-app-bar-title id="app-bar-title">
         <nuxt-link to="/">Murpick</nuxt-link>
       </v-app-bar-title>
       <!-- postTypes -->
-      <v-toolbar-items>
+      <v-toolbar-items class="app-bar-types">
         <v-container class="app-bar-container">
           <v-btn
           v-for="(postType,i) in postTypes"
@@ -22,10 +22,8 @@
           </v-btn>
         </v-container>
       </v-toolbar-items>
-
       <v-spacer></v-spacer>
-
-      <v-toolbar-items>
+      <v-toolbar-items class="app-bar-btns">
         <v-container
           class="app-bar-container"
           v-if="!me"
@@ -33,20 +31,11 @@
           <v-btn text @click="showLoginDialog">
             <div>로그인</div>
           </v-btn>
-          <!-- <v-btn
-            text
-            nuxt
-            to="/signup"
-            :style="{ display: 'flex', alignItems: 'center' }"
-          >
-            회원가입
-          </v-btn> -->
         </v-container>
         <v-container
           class="app-bar-container"
           v-else
         >
-          <v-spacer></v-spacer>
           <v-btn
             class="app-bar-container"
             text
@@ -136,6 +125,7 @@ import VersusFooter from '~/components/VersusFooter';
 import NavDrawer from '~/components/NavDrawer';
 
 export default {
+  name: "default",
   components: {
     LoginForm,
     VersusFooter,
@@ -186,14 +176,20 @@ a {
 * {
   box-sizing: border-box;
 }
+.app-bar{
 
+}
 .app-bar-container{
-/* :style="{ display: 'flex', alignItems: 'center', width: '200px' }" */
   display: flex;
-  align-items: center;
+}
+.app-bar-types{
+
+}
+.app-bar-btns{
+
 }
 .profile-menu-avatar {
-  justify-content: center;
+
 }
 
 a,

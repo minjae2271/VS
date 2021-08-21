@@ -10,7 +10,7 @@
           <v-card>
             <v-img
               class="postImg"
-              :src="`http://localhost:3005/${image}`"
+              :src="`${image}`"
             >
               <v-layout fill-height align-end justify-center>
               </v-layout>
