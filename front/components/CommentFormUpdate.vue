@@ -1,6 +1,5 @@
 <template>
   <div>
-    <p>{{ comment }}</p>
     <v-form
       ref="form"
       v-model="valid"
