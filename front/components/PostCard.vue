@@ -1,5 +1,6 @@
 <template>
   <v-card class="post-card" >
+    <nuxt-link :to="'/post/' + post.id" class="post-link">
     <div class="post-content">
       <v-row no-gutters v-if="post.Images.length === 2">
         <v-col cols="6">
@@ -16,21 +17,20 @@
       </v-row>
       <div class="post-title">
         <h3>
-          <nuxt-link :to="'/post/' + post.id" class="post-link">
             {{ post.title }}
-          </nuxt-link>
         </h3>
       </div>
-      <div class="content-desc" v-if="post.Picks">
-        <div class="content-participation">
-          <span>{{ post.Picks.length }}</span>
-          <span>명 참여중</span>
-        </div>
-        <div class="content-hashtags">
-          <v-chip class="hashtags" v-for="(hashtag, i) in post.Hashtags" :key="i">
-            {{ hashtag.name }}
-          </v-chip>
-        </div>
+    </div>
+     </nuxt-link>
+    <div class="content-desc" v-if="post.Picks">
+      <div class="content-participation">
+        <span>{{ post.Picks.length }}</span>
+        <span>명 참여중</span>
+      </div>
+      <div class="content-hashtags">
+        <v-chip class="hashtags" v-for="(hashtag, i) in post.Hashtags" :key="i">
+          {{ hashtag.name }}
+        </v-chip>
       </div>
     </div>
     <v-card-actions>

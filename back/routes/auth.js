@@ -44,6 +44,7 @@ router.post('/mail', async (req, res, next) => {
             console.log("Finish sending email : " + info.response);
             transporter.close()
         });
+        return res.json(authNum);
     } catch(err){
         console.error(err);
         next(err);

@@ -67,10 +67,10 @@
         </v-form>
         <div class="sign-up">
           <p>
-            아직 회원이 아니세요?
+            아직 회원이 아니세요? 
           </p>
           <div @click="toSignUp">
-            <nuxt-link to="/signup">계정생성</nuxt-link>
+            <nuxt-link to="/signup"><p> 계정생성</p></nuxt-link>
           </div>
         </div>
       </v-card>

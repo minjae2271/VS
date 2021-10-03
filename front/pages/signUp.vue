@@ -18,9 +18,9 @@
                         type="nickname"
                         required
                     /> 
-                    <v-btn type="button" @click="checkNickname">
+                    <!-- <v-btn type="button" @click="checkNickname">
                         중복확인
-                    </v-btn>
+                    </v-btn> -->
                 </div>
               </div>
               <div class="signup-input-box">

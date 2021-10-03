@@ -7,13 +7,13 @@
       width="100%"
     >
       <v-card-text>
-        <v-btn v-for="icon in icons" :key="icon" class="mx-4 white--text" icon>
+        <!-- <v-btn v-for="icon in icons" :key="icon" class="mx-4 white--text" icon>
           <v-icon size="24px">
             {{ icon }}
           </v-icon>
-        </v-btn>
+        </v-btn> -->
       <v-spacer></v-spacer>
-      {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+      {{ new Date().getFullYear() }} — <strong>Murpick</strong>
       </v-card-text>
     </v-card>
   </v-footer>

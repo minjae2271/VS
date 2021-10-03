@@ -2,9 +2,9 @@
   <v-container v-if="post">
     <v-card class="mx-auto" max-width="100%">
       <v-container class="post-title">
-        <h3>
+        <h2>
           {{ post.title }}
-        </h3>
+        </h2>
       </v-container>
       <v-container class="post-container">
         <v-row class="post-row" no-gutters v-if="post.Images.length === 2">
@@ -53,9 +53,9 @@
           공유하기
         </v-btn>
 
-        <v-btn color="orange" text>
+        <!-- <v-btn color="orange" text>
           결과보기
-        </v-btn>
+        </v-btn> -->
         <v-spacer></v-spacer>
         <v-btn
           color="orange"
@@ -141,6 +141,9 @@ export default {
 </script>
 
 <style scoped>
+.post-title h2{
+  text-align: center;
+}
 .content-name {
   display: flex;
   padding-top: 0;

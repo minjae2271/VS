@@ -66,12 +66,12 @@ export default {
 
 }
 .post-card-row {
-  display: flex;
-  flex: 1 0 25%
+  /* display: flex;
+  flex: 1 0 25% */
   /* justify-content: center; */
 }
 .post-card-col {
   /* margin: 0 15px 20px 15px; */
-  margin: 0 auto
+  /* margin: 0 auto */
 }
 </style>
