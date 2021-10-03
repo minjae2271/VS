@@ -3,8 +3,27 @@
     <v-card class="mx-auto" max-width="100%">
       <v-container class="post-title">
         <h2>
+          <!-- 게시글 제못 -->
           {{ post.title }}
         </h2>
+        <!-- 작성자 정보 -->
+        <div class="post-info d-flex pa-1 mt-2">
+          <!-- 닉네임 -->
+          <div class="post-info-nickname d-felx align-center">
+            <i class="fas fa-user ml-2"></i>
+            <small v-if="post.User">{{ post.User.nickname}}</small>
+            <small v-else>사라진 사용자</small>
+          </div>
+          <!-- 조회수 -->
+          <div class="post-info-view d-flex align-center">
+            <i class="fas fa-search ml-4"></i>
+            <small class="ml-1">1,222</small>
+          </div>
+        </div>
+        <div class="post-info-view d-flex mt-2 align-center justify-end">
+          <i class="far fa-clock ml-2 mr-1"></i>
+          <small>{{post.createdAt}}</small>
+        </div>
       </v-container>
       <v-container class="post-container">
         <v-row class="post-row" no-gutters v-if="post.Images.length === 2">
@@ -146,8 +165,14 @@ export default {
 
 <style scoped>
 .post-title h2 {
-  text-align: center;
+  text-align: left;
 }
+
+.post-info
+{
+  background-color: cornflowerblue;
+}
+
 .content-name {
   display: flex;
   padding-top: 0;
