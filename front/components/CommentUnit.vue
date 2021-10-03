@@ -1,5 +1,5 @@
 <template>
-  <div class="comment-box">
+  <v-container>
     <!-- {{ comment }} -->
     <v-card
       flat
@@ -57,7 +57,7 @@
       </v-container>
       <v-divider></v-divider>
     </v-card>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -98,8 +98,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.comment-box{
-  display: flex;
-}
-</style>
+<style></style>
