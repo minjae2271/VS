@@ -34,12 +34,12 @@
         </v-row>
       </v-container>
       <v-container class="content-name">
-        <v-btn class="content-name-1" text>
+        <v-btn class="content-name-1" depressed color="red lighten-4">
           <h2 class="text-center" @click="onPickContent(0)">
             {{ post.content1 }}
           </h2>
         </v-btn>
-        <v-btn class="content-name-2" text>
+        <v-btn class="content-name-2" depressed color="blue lighten-4">
           <h2 class="text-center" @click="onPickContent(1)">
             {{ post.content2 }}
           </h2>
