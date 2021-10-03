@@ -55,6 +55,13 @@
           </v-card-text>
         </template>
       </v-container>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn text>
+          답글 펼치기
+          <v-icon>mdi-chevron-down</v-icon>
+        </v-btn>
+      </v-card-actions>
       <v-divider></v-divider>
     </v-card>
   </v-container>

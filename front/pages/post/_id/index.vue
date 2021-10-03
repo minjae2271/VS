@@ -71,6 +71,10 @@
       </v-card-actions>
     </v-card>
     <comment-form :post-id="post.id" />
+    <v-card class="mt-5" flat>
+      <v-icon>mdi-message-text</v-icon>
+      {{ post.Comments.length }}개의 댓글
+    </v-card>
     <v-container>
       <v-row>
         <v-col>
@@ -141,7 +145,7 @@ export default {
 </script>
 
 <style scoped>
-.post-title h2{
+.post-title h2 {
   text-align: center;
 }
 .content-name {
