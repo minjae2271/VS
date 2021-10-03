@@ -16,7 +16,6 @@
             <v-list-item-content>
               <v-list-item-title>{{ comment.User.nickname }}</v-list-item-title>
               <span>{{ contents[comment.commentType] }}</span>
-              <p>{{ comment.commentType }}</p>
             </v-list-item-content>
           </v-col>
           <v-spacer></v-spacer>
@@ -43,19 +42,21 @@
             </v-container>
           </v-col>
         </v-row>
-        <v-card-text class="pt-3">
-          <pre>{{ comment.content }}</pre>
-        </v-card-text>
+        <template v-if="editForm">
+          <comment-form-update
+            :comment="comment"
+            :type="'edit'"
+            @toggleEditForm="toggleEditForm"
+          />
+        </template>
+        <template v-else>
+          <v-card-text class="pt-3">
+            <pre>{{ comment.content }}</pre>
+          </v-card-text>
+        </template>
       </v-container>
       <v-divider></v-divider>
     </v-card>
-
-    <comment-form-update
-      v-if="editForm"
-      :comment="comment"
-      :type="'edit'"
-      @toggleEditForm="toggleEditForm"
-    />
   </v-container>
 </template>
 

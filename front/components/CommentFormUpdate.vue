@@ -10,7 +10,7 @@
         v-model="content"
         filled
         auto-grow
-        label="댓글 달기"
+        label="댓글 수정"
         :hide-details="hideDetails"
         :success="success"
         :success-messages="successMessages"
