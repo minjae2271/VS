@@ -26,21 +26,23 @@
         </div>
       </v-container>
       <v-container class="post-container">
-        <v-row class="post-row" no-gutters v-if="post.Images.length === 2">
+        <div class="test">test</div>
+        <v-row class="post-row fill-height" fluid no-gutters v-if="post.Images.length === 2">
           <v-col cols="6">
-            <v-container class="wrapper">
+            <v-container class="wrapper rounded">
               <v-img
                 :src="post.Images[0].src"
-                class="post-img"
+                class="post-img rounded"
                 @click="onPickContent(0)"
               />
             </v-container>
           </v-col>
           <v-col cols="6">
-            <v-container class="wrapper">
+            <v-container class="wrapper rounded">
               <v-img
+                aspect-ratio="16/9"
                 :src="post.Images[1].src"
-                class="post-img"
+                class="post-img rounded"
                 @click="onPickContent(1)"
               />
             </v-container>
@@ -53,12 +55,12 @@
         </v-row>
       </v-container>
       <v-container class="content-name">
-        <v-btn class="content-name-1" depressed color="red lighten-4">
+        <v-btn class="content-name-1 py-3" depressed color="red lighten-4">
           <h2 class="text-center" @click="onPickContent(0)">
             {{ post.content1 }}
           </h2>
         </v-btn>
-        <v-btn class="content-name-2" depressed color="blue lighten-4">
+        <v-btn class="content-name-2 py-3" depressed color="blue lighten-4">
           <h2 class="text-center" @click="onPickContent(1)">
             {{ post.content2 }}
           </h2>
@@ -173,6 +175,11 @@ export default {
   background-color: cornflowerblue;
 }
 
+.post-container
+{
+  height: 40vh;
+}
+
 .content-name {
   display: flex;
   padding-top: 0;
@@ -191,17 +198,15 @@ export default {
 }
 
 .wrapper {
-  background-color: #40739e;
-}
-
-.wrapper {
   width: 100%;
   height: 100%;
   position: relative;
+  background-color: cornflowerblue;
 }
 
 .post-row {
-  min-height: 400px;
+  max-height: 400px;
+  min-height: 200px;
 }
 
 .post-img {
@@ -210,7 +215,21 @@ export default {
   left: 0px;
   width: 100%;
   height: 100%;
-  display: block;
-  object-fit: cover;
+  /* display: block; */
+  object-fit: fill;
+  
+}
+
+.test
+{
+  width: 10vw;
+  height: 10vh;
+  border: 1px solid gray;
+  background-color: aquamarine;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 }
 </style>
