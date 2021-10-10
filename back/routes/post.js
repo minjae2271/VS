@@ -19,7 +19,7 @@ const upload = multer({
     s3: new AWS.S3(),
     bucket: 'murpickbucket',
     key(req, file, cb) {
-      console.log("multer -> file", file)
+      console.log('multer -> file', file);
       cb(null, `original/${Date.now()}${path.basename(file.originalname)}`);
     },
   }),
@@ -27,7 +27,7 @@ const upload = multer({
 });
 
 router.post('/images', upload.array('image'), (req, res) => {
-  console.log("req.files",req.files);
+  console.log('req.files', req.files);
   res.json(req.files.map(v => v.location));
 });
 
@@ -255,6 +255,16 @@ router.get('/:id/comments', async (req, res, next) => {
         {
           model: db.User,
           attributes: ['id', 'nickname'],
+        },
+        {
+          model: db.User,
+          as: 'Likers',
+          attributes: ['id'],
+        },
+        {
+          model: db.User,
+          as: 'Dislikers',
+          attributes: ['id'],
         },
       ],
       order: [['createdAt', 'DESC']],
