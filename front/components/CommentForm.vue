@@ -25,6 +25,10 @@ export default {
     postId: {
       type: Number,
       required: true
+    },
+    page: {
+      type: Number,
+      required: true
     }
   },
   data() {
@@ -63,6 +67,9 @@ export default {
           }되었습니다.`;
           this.hideDetails = false;
         }
+        console.log(this.postId, this.page);
+        await this.$store.dispatch('posts/loadComments', { postId: this.postId, page: this.page});
+        await this.$store.dispatch('posts/countComments', {postId: this.postId});
       } catch (err) {
         console.error(err);
       }

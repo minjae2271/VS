@@ -92,7 +92,8 @@
         </v-btn>
       </v-card-actions>
     </v-card>
-    <comment-form :post-id="post.id" />
+    <!-- 댓글 입력 form -->
+    <comment-form :post-id="post.id" :page="page"/>
     <v-card class="mt-5" flat>
       <v-icon>mdi-message-text</v-icon>
       {{ post.countComments }}개의 댓글
@@ -100,13 +101,13 @@
     <v-container>
       <v-row>
         <v-col>
-          <comments-list :post="post" />
+          <comments-list :post="post"/>
         </v-col>
       </v-row>
       <div class="text-center">
       <v-pagination
         v-model="page"
-        :length="pageLength" 
+        :length="pageLength || 0" 
         :total-visible="5"
         @input="loadComments()"
       >

@@ -27,7 +27,7 @@ export default {
     comments: {
       type: Array,
       required: false
-    }
+    },
   },
   data() {
     return {};
