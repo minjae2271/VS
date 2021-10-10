@@ -116,10 +116,10 @@ export default {
             nicknameRules: [
                 v => !!v || '닉네임을 입력해주세요 ㅠㅠ'
             ],
-            emailCheckRules: [
-                v => !!v || '이메일 인증은 필수사항이에요.',
-                v => this.authNum === v || '인증번호가 불일치합니다.'
-            ]
+            // emailCheckRules: [
+            //     v => !!v || '이메일 인증은 필수사항이에요.',
+            //     v => this.authNum === v || '인증번호가 불일치합니다.'
+            // ]
         }
     },
     computed: {
