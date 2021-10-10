@@ -356,7 +356,6 @@ export const actions = {
     }
   }, 3000),
   uploadImages({ commit }, payload) {
-    //console.log("store : uploadImages => payload", payload);
     this.$axios
       .post('/post/images', payload, { withCredentials: true })
       .then(res => {
@@ -474,7 +473,6 @@ export const actions = {
   // Comment like
   async likeComment({ commit }, payload) {
     try {
-      console.log(payload);
       const res = await this.$axios.post(
         `/comment/${payload.commentId}/like`,
         {},
@@ -509,6 +507,19 @@ export const actions = {
       console.error(err);
     }
   },
+
+  // async countLikers({ commit }, payload) {
+  //   try {
+  //     const res = await this.$axios.get(
+  //       `/comment/${payload.commentId}/countLikers`,
+  //       {
+  //         withCredentials: true
+  //       }
+  //     );
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // },
 
   async dislikeComment({ commit }, payload) {
     try {

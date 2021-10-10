@@ -58,6 +58,7 @@
         <v-spacer></v-spacer>
         <v-btn text @click="onClickThumbup">
           <v-icon dense>{{ thumbupIcon }}</v-icon>
+          {{ comment.Likers.length }}
         </v-btn>
         <v-btn text @click="onClickThumbdown">
           <v-icon dense>{{ thumbdownIcon }}</v-icon>
@@ -112,6 +113,9 @@ export default {
     thumbdownIcon() {
       return this.disliked ? 'mdi-thumb-down' : 'mdi-thumb-down-outline';
     }
+  },
+  created() {
+    this.$store.dispatch('posts/countLikers', { commentId: this.comment.id });
   },
   methods: {
     toggleEditForm() {

@@ -42,27 +42,27 @@ router.delete('/:id/like', isLoggedIn, async (req, res, next) => {
   }
 });
 // liker count
-router.get('/:id/countLikers', async (req, res, next) => {
-  try {
-    const comment = await db.Comment.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
-    if (!comment) {
-      return res.status(404).send('댓글이 존재하지 않습니다.');
-    }
-    const likers = await db.Like.findAndCountAll({
-      where: {
-        CommentId: req.params.id,
-      },
-    });
-    return res.json(likers.count);
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
+// router.get('/:id/countLikers', async (req, res, next) => {
+//   try {
+//     const comment = await db.Comment.findOne({
+//       where: {
+//         id: req.params.id,
+//       },
+//     });
+//     if (!comment) {
+//       return res.status(404).send('댓글이 존재하지 않습니다.');
+//     }
+//     const likers = await db.Like.findAndCountAll({
+//       where: {
+//         CommentId: req.params.id,
+//       },
+//     });
+//     return res.json(likers.count);
+//   } catch (err) {
+//     console.error(err);
+//     next(err);
+//   }
+// });
 
 // Disliker add
 router.post('/:id/dislike', isLoggedIn, async (req, res, next) => {
@@ -95,26 +95,26 @@ router.delete('/:id/dislike', isLoggedIn, async (req, res, next) => {
 });
 
 // disliker count
-router.get('/:id/countDislikers', async (req, res, next) => {
-  try {
-    const comment = await db.Comment.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
-    if (!comment) {
-      return res.status(404).send('댓글이 존재하지 않습니다.');
-    }
-    const dislikers = await db.Dislike.findAndCountAll({
-      where: {
-        CommentId: req.params.id,
-      },
-    });
-    return res.json(dislikers.count);
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
+// router.get('/:id/countDislikers', async (req, res, next) => {
+//   try {
+//     const comment = await db.Comment.findOne({
+//       where: {
+//         id: req.params.id,
+//       },
+//     });
+//     if (!comment) {
+//       return res.status(404).send('댓글이 존재하지 않습니다.');
+//     }
+//     const dislikers = await db.Dislikers.findAndCountAll({
+//       where: {
+//         CommentId: req.params.id,
+//       },
+//     });
+//     return res.json(dislikers.count);
+//   } catch (err) {
+//     console.error(err);
+//     next(err);
+//   }
+// });
 
-router.module.exports = router;
+module.exports = router;
