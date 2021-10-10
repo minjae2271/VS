@@ -27,7 +27,8 @@
       </v-container>
       <v-container class="post-container">
         <div class="test">test</div>
-        <v-row class="post-row fill-height" fluid no-gutters v-if="post.Images.length === 2">
+        <!-- <v-row class="post-row fill-height" fluid no-gutters v-if="post.Images.length === 2"> -->
+        <v-row class="post-row fill-height" fluid no-gutters>  
           <v-col cols="6">
             <v-container class="wrapper rounded">
               <v-img
@@ -48,11 +49,11 @@
             </v-container>
           </v-col>
         </v-row>
-        <v-row class="post-row" no-gutters v-else-if="post.Images.length === 1">
+        <!-- <v-row class="post-row" no-gutters v-else-if="post.Images.length === 1">
           <v-container>
             <v-img contain max-height="300" :src="post.Images[0].src" />
           </v-container>
-        </v-row>
+        </v-row> -->
       </v-container>
       <v-container class="content-name">
         <v-btn class="content-name-1 py-3" depressed color="red lighten-4">
@@ -94,7 +95,7 @@
     <comment-form :post-id="post.id" />
     <v-card class="mt-5" flat>
       <v-icon>mdi-message-text</v-icon>
-      {{ post.Comments.length }}개의 댓글
+      {{ post.countComments }}개의 댓글
     </v-card>
     <v-container>
       <v-row>
@@ -102,6 +103,15 @@
           <comments-list :post="post" />
         </v-col>
       </v-row>
+      <div class="text-center">
+      <v-pagination
+        v-model="page"
+        :length="pageLength" 
+        :total-visible="5"
+        @input="loadComments()"
+      >
+      </v-pagination>
+  </div>
     </v-container>
   </v-container>
   <div v-else>
@@ -132,15 +142,27 @@ export default {
     canDelete() {
       const me = this.$store.state.users.me;
       return !!(this.post.UserId === (me && me.id));
-    }
+    },
+    pageLength() { //pagination에 표시되는 숫자들
+      const post = this.$store.state.posts.mainPosts.find(
+        v => v.id === parseInt(this.$route.params.id, 10)
+      );
+      const commentsLen = post.countComments; //comment의 총 길이
+      const pageLen = parseInt(commentsLen % 10) === 0 ? parseInt(commentsLen / 10) : parseInt(commentsLen / 10 + 1);
+      // 10 => 한번에 불러오는 댓글의 갯수 (limit), 10으로 나누었을 때 나머지가 있으면 페이지 ++1
+      return pageLen;
+    },
   },
   async fetch({ store, params }) {
     await store.dispatch('posts/loadPost', params.id);
     await store.dispatch('posts/loadPicks', { postId: params.id });
-    return await store.dispatch('posts/loadComments', { postId: params.id });
+    await store.dispatch('posts/countComments', {postId: params.id});
+    return await store.dispatch('posts/loadComments', { postId: params.id, page: 1});
   },
   data() {
-    return {};
+    return {
+      page: 1
+    };
   },
   methods: {
     async onPickContent(contentNum) {
@@ -159,6 +181,9 @@ export default {
       await this.$store.dispatch('posts/removePost', {
         postId: this.$route.params.id
       });
+    },
+    async loadComments() {
+      await this.$store.dispatch('posts/loadComments', { postId: this.$route.params.id, page: this.page });
     }
   }
   //middleware: "authenticated",

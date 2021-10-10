@@ -4,7 +4,7 @@ import throttle from 'lodash.throttle';
 export const state = () => ({
   topPosts: [],
   mainPosts: [],
-  comments: [],
+  userComments: [],
   updatePost: [],
   mainHashtags: [],
   hasMorePost: true, //쓸데없는 요청을 막는 것.
@@ -73,8 +73,12 @@ export const mutations = {
     const index = state.mainPosts.findIndex(v => v.id === payload.postId);
     Vue.set(state.mainPosts[index], 'Comments', payload.data);
   },
+  countComments(state, payload) {
+    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
+    Vue.set(state.mainPosts[index], 'countComments', payload.data);
+  },
   loadUserComments(state, payload) {
-    state.comments = payload;
+    state.userComments = payload;
   },
   editComment(state, payload) {
     const index = state.mainPosts.findIndex(v => v.id === payload.postId);
@@ -362,12 +366,24 @@ export const actions = {
 
   async loadComments({ commit }, payload) {
     try {
-      const res = await this.$axios.get(`/post/${payload.postId}/comments`);
+      const res = await this.$axios.get(`/post/${payload.postId}/comments?limit=10&page=${payload.page}`);
       commit('loadComments', {
         postId: Number(payload.postId),
         data: res.data
       });
     } catch (err) {
+      console.error(err);
+    }
+  },
+
+  async countComments({ commit}, payload) {
+    try {
+      const res = await this.$axios.get(`/post/${payload.postId}/countComments`);
+      commit('countComments', {
+        postId: Number(payload.postId),
+        data: res.data
+      });
+    } catch(err) {
       console.error(err);
     }
   },

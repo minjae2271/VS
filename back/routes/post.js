@@ -257,10 +257,34 @@ router.get('/:id/comments', async (req, res, next) => {
           attributes: ['id', 'nickname'],
         },
       ],
-      order: [['createdAt', 'DESC']],
+      order: [['createdAt', 'Asc']],
+      offset: (parseInt(req.query.page, 10) -1) * 10,
+      limit: parseInt(req.query.limit, 10),
     });
     return res.json(comments);
   } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.get('/:id/countComments', async (req, res, next) => {
+  try {
+    const post = await db.Post.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!post) {
+      return res.status(404).send('게시글이 존재하지 않습니다.');
+    }
+    const comments = await db.Comment.findAndCountAll({
+      where: {
+        PostId: req.params.id,
+      },
+    });
+    return res.json(comments.count);  
+  } catch(err){
     console.error(err);
     next(err);
   }
