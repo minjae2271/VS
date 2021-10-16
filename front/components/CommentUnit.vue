@@ -57,21 +57,25 @@
       </v-container>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text>
-          답글 펼치기
-          <v-icon>mdi-chevron-down</v-icon>
-        </v-btn>
       </v-card-actions>
       <v-divider></v-divider>
     </v-card>
+    <!-- 답글달기 버튼 -->
+    <template>
+      <sub-comment-form
+      />
+    </template>
   </v-container>
 </template>
 
 <script>
 import CommentFormUpdate from './CommentFormUpdate.vue';
+import SubCommentForm from './SubCommentForm.vue';
+
 export default {
   components: {
-    CommentFormUpdate
+    CommentFormUpdate,
+    SubCommentForm
   },
   props: {
     post: {

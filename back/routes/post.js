@@ -306,12 +306,12 @@ router.post('/:id/comment', isLoggedIn, async (req, res, next) => {
     if (!pick) {
       return res.status(403).send('컨텐츠 중 하나를 선택하세요.');
     }
-
     const newComment = await db.Comment.create({
       PostId: post.id,
       UserId: req.user.id,
       content: req.body.content,
       commentType: pick.contentNum,
+      parentComment: req.body.parentComment,
     });
     const comment = await db.Comment.findOne({
       where: {

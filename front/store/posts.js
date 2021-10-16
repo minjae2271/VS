@@ -355,7 +355,8 @@ export const actions = {
     try {
       const res = await this.$axios.post(
         `/post/${payload.postId}/comment`,
-        { content: payload.content },
+        { content: payload.content,
+          parentComment: payload.parentComment },
         { withCredentials: true }
       );
       commit('addComment', res.data);

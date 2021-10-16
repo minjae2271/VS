@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      parentComment: {
+        type: DataTypes.INTEGER,
+      }
     },
     {
       charset: "utf8mb4",

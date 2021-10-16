@@ -58,7 +58,8 @@ export default {
         if (this.$refs.form.validate()) {
           await this.$store.dispatch('posts/addComment', {
             postId: this.postId,
-            content: this.content
+            content: this.content,
+            parentComment: 0,
           });
           this.content = '';
           this.success = true;
