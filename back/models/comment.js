@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Comment = sequelize.define(
-    "Comment",
+    'Comment',
     {
       content: {
         type: DataTypes.TEXT,
@@ -15,13 +15,15 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     {
-      charset: "utf8mb4",
-      collate: "utf8mb4_general_ci",
+      charset: 'utf8mb4',
+      collate: 'utf8mb4_general_ci',
     }
   );
-  Comment.associate = (db) => {
+  Comment.associate = db => {
     db.Comment.belongsTo(db.User);
     db.Comment.belongsTo(db.Post);
+    db.Comment.belongsToMany(db.User, { through: 'Like', as: 'Likers' });
+    db.Comment.belongsToMany(db.User, { through: 'Dislike', as: 'Dislikers' });
   };
   return Comment;
 };

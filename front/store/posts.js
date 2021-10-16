@@ -94,8 +94,55 @@ export const mutations = {
     );
     state.mainPosts[index].Comments.splice(commentIndex, 1);
   },
+
+  // Comment like, dislike
+  likeComment(state, payload) {
+    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
+    const commentIndex = state.mainPosts[index].Comments.findIndex(
+      v => v.id === payload.commentId
+    );
+    state.mainPosts[index].Comments[commentIndex].Likers.push({
+      id: payload.userId
+    });
+  },
+  unlikeComment(state, payload) {
+    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
+    const thePost = state.mainPosts[index];
+    const commentIndex = thePost.Comments.findIndex(
+      v => v.id === payload.commentId
+    );
+    const userIndex = thePost.Comments[commentIndex].Likers.findIndex(
+      v => v.id === payload.userId
+    );
+    thePost.Comments[commentIndex].Likers.splice(userIndex, 1);
+  },
+  dislikeComment(state, payload) {
+    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
+    const commentIndex = state.mainPosts[index].Comments.findIndex(
+      v => v.id === payload.commentId
+    );
+    state.mainPosts[index].Comments[commentIndex].Dislikers.push({
+      id: payload.userId
+    });
+  },
+  undislikeComment(state, payload) {
+    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
+    const thePost = state.mainPosts[index];
+    const commentIndex = thePost.Comments.findIndex(
+      v => v.id === payload.commentId
+    );
+    const userIndex = thePost.Comments[commentIndex].Dislikers.findIndex(
+      v => v.id === payload.userId
+    );
+    thePost.Comments[commentIndex].Dislikers.splice(userIndex, 1);
+  },
+
+  // 사용자 페이지 comment load
+  loadUserComments(state, payload) {
+    state.comments = payload;
+  },
   removeUserComment(state, payload) {
-    state.comments.findIndex(v => v.id === payload.id);
+    const index = state.comments.findIndex(v => v.id === payload.id);
     state.comments.splice(index, 1);
   },
 
@@ -309,7 +356,6 @@ export const actions = {
     }
   }, 3000),
   uploadImages({ commit }, payload) {
-    //console.log("store : uploadImages => payload", payload);
     this.$axios
       .post('/post/images', payload, { withCredentials: true })
       .then(res => {
@@ -322,19 +368,20 @@ export const actions = {
   },
   uploadCropImages({ commit }, payload) {
     //console.log("store : uploadCropImages => payload.imageFormData", payload.imageFormData);
-    this.$axios.post('/post/images', payload.imageFormData, {
-      withCredentials: true
-    })
-    .then(res => {
-      //console.log("res from uploadCropImages",res);
-      commit('concatCropImagesPaths', {
-        result: res.data[0],
-        index: payload.index,
+    this.$axios
+      .post('/post/images', payload.imageFormData, {
+        withCredentials: true
+      })
+      .then(res => {
+        //console.log("res from uploadCropImages",res);
+        commit('concatCropImagesPaths', {
+          result: res.data[0],
+          index: payload.index
+        });
+      })
+      .catch(err => {
+        console.error(err);
       });
-    })
-    .catch(err => {
-      console.error(err);
-    })
   },
   updateImages({ commit }, payload) {
     this.$axios
@@ -367,7 +414,9 @@ export const actions = {
 
   async loadComments({ commit }, payload) {
     try {
-      const res = await this.$axios.get(`/post/${payload.postId}/comments?limit=10&page=${payload.page}`);
+      const res = await this.$axios.get(
+        `/post/${payload.postId}/comments?limit=10&page=${payload.page}`
+      );
       commit('loadComments', {
         postId: Number(payload.postId),
         data: res.data
@@ -377,26 +426,17 @@ export const actions = {
     }
   },
 
-  async countComments({ commit}, payload) {
+  async countComments({ commit }, payload) {
     try {
-      const res = await this.$axios.get(`/post/${payload.postId}/countComments`);
+      const res = await this.$axios.get(
+        `/post/${payload.postId}/countComments`
+      );
       commit('countComments', {
         postId: Number(payload.postId),
         data: res.data
       });
-    } catch(err) {
+    } catch (err) {
       console.error(err);
-    }
-  },
-
-  async loadUserComments({ commit }, payload) {
-    try {
-      if (payload && payload.reset) {
-        const res = await this.$axios.get(`user/${payload.userId}/comments`);
-        commit('loadUserComments', res.data);
-      }
-    } catch (e) {
-      console.error(e);
     }
   },
 
@@ -422,13 +462,111 @@ export const actions = {
       await this.$axios.delete(`/post/comment/${payload.commentId}`, {
         withCredentials: true
       });
-      console.log('store/posts.js > actions > removeComment', payload);
       commit('removeComment', {
         postId: payload.postId,
         commentId: payload.commentId
       });
     } catch (err) {
       console.error(err);
+    }
+  },
+
+  // Comment like
+  async likeComment({ commit }, payload) {
+    try {
+      const res = await this.$axios.post(
+        `/comment/${payload.commentId}/like`,
+        {},
+        {
+          withCredentials: true
+        }
+      );
+      commit('likeComment', {
+        userId: res.data.userId,
+        commentId: payload.commentId,
+        postId: payload.postId
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  },
+
+  async unlikeComment({ commit }, payload) {
+    try {
+      const res = await this.$axios.delete(
+        `/comment/${payload.commentId}/like`,
+        {
+          withCredentials: true
+        }
+      );
+      commit('unlikeComment', {
+        userId: res.data.userId,
+        commentId: payload.commentId,
+        postId: payload.postId
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  },
+
+  // async countLikers({ commit }, payload) {
+  //   try {
+  //     const res = await this.$axios.get(
+  //       `/comment/${payload.commentId}/countLikers`,
+  //       {
+  //         withCredentials: true
+  //       }
+  //     );
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // },
+
+  async dislikeComment({ commit }, payload) {
+    try {
+      const res = await this.$axios.post(
+        `/comment/${payload.commentId}/dislike`,
+        {},
+        {
+          withCredentials: true
+        }
+      );
+      commit('dislikeComment', {
+        userId: res.data.userId,
+        commentId: payload.commentId,
+        postId: payload.postId
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  },
+
+  async undislikeComment({ commit }, payload) {
+    try {
+      const res = await this.$axios.delete(
+        `/comment/${payload.commentId}/dislike`,
+        {
+          withCredentials: true
+        }
+      );
+      commit('undislikeComment', {
+        userId: res.data.userId,
+        commentId: payload.commentId,
+        postId: payload.postId
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  },
+
+  async loadUserComments({ commit }, payload) {
+    try {
+      if (payload && payload.reset) {
+        const res = await this.$axios.get(`user/${payload.userId}/comments`);
+        commit('loadUserComments', res.data);
+      }
+    } catch (e) {
+      console.error(e);
     }
   },
 

@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <!-- {{ comment }} -->
     <v-card
       flat
       :color="comment.commentType == 0 ? 'red lighten-4' : 'blue lighten-4'"
@@ -57,6 +56,17 @@
       </v-container>
       <v-card-actions>
         <v-spacer></v-spacer>
+        <v-btn text @click="onClickThumbup">
+          <v-icon dense>{{ thumbupIcon }}</v-icon>
+          {{ comment.Likers.length }}
+        </v-btn>
+        <v-btn text @click="onClickThumbdown">
+          <v-icon dense>{{ thumbdownIcon }}</v-icon>
+        </v-btn>
+        <v-btn text>
+          답글 펼치기
+          <v-icon>mdi-chevron-down</v-icon>
+        </v-btn>
       </v-card-actions>
       <v-divider></v-divider>
     </v-card>
@@ -96,7 +106,24 @@ export default {
   computed: {
     me() {
       return this.$store.state.users.me;
+    },
+    liked() {
+      const me = this.$store.state.users.me;
+      return (this.comment.Likers || []).find(v => v.id === (me && me.id));
+    },
+    disliked() {
+      const me = this.$store.state.users.me;
+      return (this.comment.Dislikers || []).find(v => v.id === (me && me.id));
+    },
+    thumbupIcon() {
+      return this.liked ? 'mdi-thumb-up' : 'mdi-thumb-up-outline';
+    },
+    thumbdownIcon() {
+      return this.disliked ? 'mdi-thumb-down' : 'mdi-thumb-down-outline';
     }
+  },
+  created() {
+    this.$store.dispatch('posts/countLikers', { commentId: this.comment.id });
   },
   methods: {
     toggleEditForm() {
@@ -104,6 +131,48 @@ export default {
     },
     async removeComment(postId, commentId) {
       await this.$store.dispatch('posts/removeComment', { postId, commentId });
+    },
+    onClickThumbup() {
+      if (!this.me) {
+        return alert('need login');
+      }
+      if (this.liked) {
+        return this.$store.dispatch('posts/unlikeComment', {
+          commentId: this.comment.id,
+          postId: this.comment.PostId
+        });
+      }
+      if (this.disliked) {
+        this.$store.dispatch('posts/undislikeComment', {
+          commentId: this.comment.id,
+          postId: this.comment.PostId
+        });
+      }
+      return this.$store.dispatch('posts/likeComment', {
+        commentId: this.comment.id,
+        postId: this.comment.PostId
+      });
+    },
+    onClickThumbdown() {
+      if (!this.me) {
+        return alert('need login');
+      }
+      if (this.disliked) {
+        return this.$store.dispatch('posts/undislikeComment', {
+          commentId: this.comment.id,
+          postId: this.comment.PostId
+        });
+      }
+      if (this.liked) {
+        this.$store.dispatch('posts/unlikeComment', {
+          commentId: this.comment.id,
+          postId: this.comment.PostId
+        });
+      }
+      return this.$store.dispatch('posts/dislikeComment', {
+        commentId: this.comment.id,
+        postId: this.comment.PostId
+      });
     }
   }
 };
