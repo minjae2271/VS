@@ -45,6 +45,9 @@ module.exports = (sequelize, DataTypes) => {
       condition3: {
         type: DataTypes.TEXT,
         allowNull: true
+      },
+      view_cnt: {
+        type: DataTypes.INTEGER,
       }
     },
     {

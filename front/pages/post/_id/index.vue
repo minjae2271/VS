@@ -155,6 +155,7 @@ export default {
     },
   },
   async fetch({ store, params }) {
+    await store.dispatch('posts/viewCnt', { postId: params.id });
     await store.dispatch('posts/loadPost', params.id);
     await store.dispatch('posts/loadPicks', { postId: params.id });
     await store.dispatch('posts/countComments', {postId: params.id});
@@ -185,7 +186,7 @@ export default {
     },
     async loadComments() {
       await this.$store.dispatch('posts/loadComments', { postId: this.$route.params.id, page: this.page });
-    }
+    },
   }
   //middleware: "authenticated",
 };

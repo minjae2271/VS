@@ -378,4 +378,23 @@ router.delete('/comment/:id', isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.post('/:id/viewCnt', async (req, res, next) => {
+  try {
+    const post = await db.Post.findOne({
+      where: {
+        id: req.params.id
+      }
+    });
+    if (!post) {
+      return res.status(404).send('게시물이 존자하지 않습니다.');
+    }
+    console.log("===========viewCnt")
+    console.log(post)
+    return res.json()
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+})
+
 module.exports = router;

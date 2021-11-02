@@ -594,5 +594,14 @@ export const actions = {
     } catch (err) {
       console.error(err);
     }
+  },
+
+  //view count
+  async viewCnt({ commit }, payload) {
+    try {
+      const res = await this.$axios.post(`/post/${payload.postId}/viewCnt`);
+    } catch (err) {
+      console.error(err);
+    }
   }
 };
