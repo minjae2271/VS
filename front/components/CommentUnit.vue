@@ -5,6 +5,7 @@
       :color="comment.commentType == 0 ? 'red lighten-4' : 'blue lighten-4'"
     >
       <v-container>
+        {{ comment }}
         <v-row class="d-flex">
           <v-col cols="1">
             <v-list-item-avatar color="teal">

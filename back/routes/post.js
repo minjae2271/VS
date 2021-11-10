@@ -152,7 +152,7 @@ router.get('/:id', async (req, res, next) => {
       include: [
         { model: db.User, attributes: ['id', 'nickname'] },
         { model: db.Image },
-        { model: db.Hashtag },
+        { model: db.Pick },
       ],
     });
     return res.json(post);
