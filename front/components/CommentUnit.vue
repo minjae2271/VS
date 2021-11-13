@@ -124,7 +124,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('posts/countLikers', { commentId: this.comment.id });
+    // this.$store.dispatch('posts/countLikers', { commentId: this.comment.id });
   },
   methods: {
     toggleEditForm() {
