@@ -321,7 +321,7 @@ router.post('/:id/comment', isLoggedIn, async (req, res, next) => {
       UserId: req.user.id,
       content: req.body.content,
       commentType: pick.contentNum,
-      parentComment: req.body.parentComment,
+      // grout_id: ,
     });
     const comment = await db.Comment.findOne({
       where: {

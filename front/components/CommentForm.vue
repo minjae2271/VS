@@ -59,8 +59,9 @@ export default {
           await this.$store.dispatch('posts/addComment', {
             postId: this.postId,
             content: this.content,
-            // group_id: 0,
-            // parent_id: 0,
+            commentType: this.type, //0 => main, 1 => sub
+            // group_id: Date().now + ,
+            parent_id: 0,
           });
           this.content = '';
           this.success = true;
