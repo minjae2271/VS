@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      parentComment: {
+      group_id: {
+        type: DataTypes.INTEGER
+      },
+      parent_id: {
         type: DataTypes.INTEGER,
       }
     },

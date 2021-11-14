@@ -152,7 +152,7 @@ router.get('/:id', async (req, res, next) => {
       include: [
         { model: db.User, attributes: ['id', 'nickname'] },
         { model: db.Image },
-        { model: db.Hashtag },
+        { model: db.Pick },
       ],
     });
     return res.json(post);
@@ -321,7 +321,7 @@ router.post('/:id/comment', isLoggedIn, async (req, res, next) => {
       UserId: req.user.id,
       content: req.body.content,
       commentType: pick.contentNum,
-      parentComment: req.body.parentComment,
+      // grout_id: ,
     });
     const comment = await db.Comment.findOne({
       where: {
@@ -385,12 +385,21 @@ router.post('/:id/viewCnt', async (req, res, next) => {
         id: req.params.id
       }
     });
+
     if (!post) {
       return res.status(404).send('게시물이 존자하지 않습니다.');
     }
-    console.log("===========viewCnt")
-    console.log(post)
-    return res.json()
+    // console.log("before:" ,post)
+    await db.Post.update({
+      view_cnt : post.view_cnt + 1
+    },
+    {
+      where: {
+        id: req.params.id
+      }
+    });
+    // console.log("after:",post)
+    return res.json();
   } catch (err) {
     console.error(err);
     next(err);

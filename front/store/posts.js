@@ -154,7 +154,7 @@ export const mutations = {
     Vue.set(state.mainPosts[index], 'Picks', payload.data);
   },
   pickContent(state, payload) {
-    console.log(payload);
+    // console.log(payload);
     const index = state.mainPosts.findIndex(v => v.id === payload.PostId);
     state.mainPosts[index].Picks.unshift(payload);
   }
@@ -403,7 +403,7 @@ export const actions = {
       const res = await this.$axios.post(
         `/post/${payload.postId}/comment`,
         { content: payload.content,
-          parentComment: payload.parentComment },
+          type: payload.type },
         { withCredentials: true }
       );
       commit('addComment', res.data);

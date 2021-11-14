@@ -17,7 +17,7 @@
           <!-- 조회수 -->
           <div class="post-info-view d-flex align-center">
             <i class="fas fa-search ml-4"></i>
-            <small class="ml-1">1,222</small>
+            <small class="ml-1">{{post.view_cnt}}</small>
           </div>
         </div>
         <div class="post-info-view d-flex mt-2 align-center justify-end">
@@ -157,7 +157,7 @@ export default {
   async fetch({ store, params }) {
     await store.dispatch('posts/viewCnt', { postId: params.id });
     await store.dispatch('posts/loadPost', params.id);
-    await store.dispatch('posts/loadPicks', { postId: params.id });
+    // await store.dispatch('posts/loadPicks', { postId: params.id });
     await store.dispatch('posts/countComments', {postId: params.id});
     return await store.dispatch('posts/loadComments', { postId: params.id, page: 1});
   },
