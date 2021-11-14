@@ -68,7 +68,7 @@ export default {
           await this.$store.dispatch('posts/addComment', {
             postId: this.postId,
             content: this.content,
-            // group_id: Date().now + ,
+            group_id: this.co,
             parent_id: this.commentId
           });
           this.content = '';

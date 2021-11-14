@@ -3,6 +3,7 @@
     <v-card
       flat
       :color="comment.commentType == 0 ? 'red lighten-4' : 'blue lighten-4'"
+      :width= "comment.parent_id !== 0 ? '90%' : '100%'"
     >
       {{ comment }}
       {{ page }}
