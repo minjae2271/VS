@@ -3,7 +3,7 @@
     <v-card
       flat
       :color="comment.commentType == 0 ? 'red lighten-4' : 'blue lighten-4'"
-      :width= "comment.parent_id !== 0 ? '90%' : '100%'"
+      :class="comment.parent_id !== 0 ? 'ml-15' : ''"
     >
       {{ comment }}
       {{ page }}
@@ -80,6 +80,7 @@
       <sub-comment-form
         :commentId="comment.id"
         :postId="post.id"
+        :groupId="comment.group_id"
         :page="page"
       />
     </template>
