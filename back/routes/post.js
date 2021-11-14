@@ -268,7 +268,7 @@ router.get('/:id/comments', async (req, res, next) => {
         },
       ],
       order: [['createdAt', 'Asc']],
-      offset: (parseInt(req.query.page, 10) -1) * 10,
+      offset: (parseInt(req.query.page, 10) - 1) * 10,
       limit: parseInt(req.query.limit, 10),
     });
     return res.json(comments);
@@ -293,8 +293,8 @@ router.get('/:id/countComments', async (req, res, next) => {
         PostId: req.params.id,
       },
     });
-    return res.json(comments.count);  
-  } catch(err){
+    return res.json(comments.count);
+  } catch (err) {
     console.error(err);
     next(err);
   }
@@ -321,7 +321,8 @@ router.post('/:id/comment', isLoggedIn, async (req, res, next) => {
       UserId: req.user.id,
       content: req.body.content,
       commentType: pick.contentNum,
-      // grout_id: ,
+      group_id: req.body.group_id,
+      parent_id: req.body.parent_id,
     });
     const comment = await db.Comment.findOne({
       where: {
@@ -382,28 +383,30 @@ router.post('/:id/viewCnt', async (req, res, next) => {
   try {
     const post = await db.Post.findOne({
       where: {
-        id: req.params.id
-      }
+        id: req.params.id,
+      },
     });
 
     if (!post) {
       return res.status(404).send('게시물이 존자하지 않습니다.');
     }
     // console.log("before:" ,post)
-    await db.Post.update({
-      view_cnt : post.view_cnt + 1
-    },
-    {
-      where: {
-        id: req.params.id
+    await db.Post.update(
+      {
+        view_cnt: post.view_cnt + 1,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
       }
-    });
+    );
     // console.log("after:",post)
     return res.json();
   } catch (err) {
     console.error(err);
     next(err);
   }
-})
+});
 
 module.exports = router;

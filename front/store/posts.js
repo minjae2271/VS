@@ -402,8 +402,11 @@ export const actions = {
     try {
       const res = await this.$axios.post(
         `/post/${payload.postId}/comment`,
-        { content: payload.content,
-          type: payload.type },
+        {
+          type: payload.type,
+          content: payload.content,
+          parent_id: payload.parent_id
+        },
         { withCredentials: true }
       );
       commit('addComment', res.data);
