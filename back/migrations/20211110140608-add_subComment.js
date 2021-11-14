@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.addColumn("Comments", "group_id", {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
     });
     await queryInterface.addColumn("Comments", "parent_id", {
       type: Sequelize.INTEGER,

@@ -58,8 +58,8 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn text @click="onClickThumbup">
-          <v-icon dense>{{ thumbupIcon }}</v-icon>
-          {{ comment.Likers.length }}
+          <v-icon dense>{{ thumbupIcon}}</v-icon>
+          <!-- {{ comment.Likers.length || 0}} -->
         </v-btn>
         <v-btn text @click="onClickThumbdown">
           <v-icon dense>{{ thumbdownIcon }}</v-icon>
@@ -125,7 +125,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('posts/countLikers', { commentId: this.comment.id });
+    // this.$store.dispatch('posts/countLikers', { commentId: this.comment.id });
   },
   methods: {
     toggleEditForm() {

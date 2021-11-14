@@ -54,13 +54,15 @@ export default {
       }
     },
     async onSubmitForm() {
+      if(!this.me.id){
+        return alert("로그인이 필요합니다.");
+      }
       try {
         if (this.$refs.form.validate()) {
           await this.$store.dispatch('posts/addComment', {
             postId: this.postId,
             content: this.content,
-            commentType: this.type, //0 => main, 1 => sub
-            // group_id: Date().now + ,
+            group_id: Date().toLocaleString() + this.me.id.toString(),
             parent_id: 0,
           });
           this.content = '';
@@ -70,7 +72,7 @@ export default {
           }되었습니다.`;
           this.hideDetails = false;
         }
-        console.log(this.postId, this.page);
+        // console.log(this.postId, this.page);
         await this.$store.dispatch('posts/loadComments', { postId: this.postId, page: this.page});
         await this.$store.dispatch('posts/countComments', {postId: this.postId});
       } catch (err) {

@@ -267,7 +267,7 @@ router.get('/:id/comments', async (req, res, next) => {
           attributes: ['id'],
         },
       ],
-      order: [['createdAt', 'Asc']],
+      order: [['group_id', 'Asc'],['createdAt', 'Asc']],
       offset: (parseInt(req.query.page, 10) -1) * 10,
       limit: parseInt(req.query.limit, 10),
     });
@@ -321,7 +321,8 @@ router.post('/:id/comment', isLoggedIn, async (req, res, next) => {
       UserId: req.user.id,
       content: req.body.content,
       commentType: pick.contentNum,
-      // grout_id: ,
+      group_id: req.body.group_id,
+      parent_id: req.body.parent_id
     });
     const comment = await db.Comment.findOne({
       where: {
