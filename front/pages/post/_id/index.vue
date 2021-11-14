@@ -101,7 +101,7 @@
     <v-container>
       <v-row>
         <v-col>
-          <comments-list :post="post"/>
+          <comments-list :post="post" :page="page"/>
         </v-col>
       </v-row>
       <div class="text-center">

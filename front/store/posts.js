@@ -405,8 +405,7 @@ export const actions = {
         { content: payload.content,
           type: payload.type,
           group_id: payload.group_id,
-          parent_id: payload.parent_id,
-        },
+          parent_id: payload.parent_id,        },
         { withCredentials: true }
       );
       commit('addComment', res.data);

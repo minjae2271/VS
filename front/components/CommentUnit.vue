@@ -4,8 +4,9 @@
       flat
       :color="comment.commentType == 0 ? 'red lighten-4' : 'blue lighten-4'"
     >
+      {{ comment }}
+      {{ page }}
       <v-container>
-        {{ comment }}
         <v-row class="d-flex">
           <v-col cols="1">
             <v-list-item-avatar color="teal">
@@ -58,8 +59,8 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn text @click="onClickThumbup">
-          <v-icon dense>{{ thumbupIcon}}</v-icon>
-          <!-- {{ comment.Likers.length || 0}} -->
+          <v-icon dense>{{ thumbupIcon }}</v-icon>
+          <!-- {{ comment.Likers.length || 0 }} -->
         </v-btn>
         <v-btn text @click="onClickThumbdown">
           <v-icon dense>{{ thumbdownIcon }}</v-icon>
@@ -73,8 +74,13 @@
       <template> </template>
     </v-card>
     <!-- 답글달기 버튼 -->
-    <template>
-      <sub-comment-form />
+    <v-btn @click="displaySubCommentForm">{{ comment.id }} 답글달기</v-btn>
+    <template v-if="subCommentForm">
+      <sub-comment-form
+        :commentId="comment.id"
+        :postId="post.id"
+        :page="page"
+      />
     </template>
   </v-container>
 </template>
@@ -92,6 +98,10 @@ export default {
     post: {
       type: Object,
       required: false
+    },
+    page: {
+      type: Number,
+      required: true
     },
     comment: {
       type: Object,
@@ -175,6 +185,9 @@ export default {
         commentId: this.comment.id,
         postId: this.comment.PostId
       });
+    },
+    displaySubCommentForm() {
+      this.subCommentForm = !this.subCommentForm;
     }
   }
 };
