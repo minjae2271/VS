@@ -37,6 +37,10 @@ export default {
     commentId: {
       type: Number,
       required: true
+    },
+    groupId: {
+      type: String,
+      required: false
     }
   },
   data() {
@@ -68,7 +72,7 @@ export default {
           await this.$store.dispatch('posts/addComment', {
             postId: this.postId,
             content: this.content,
-            // group_id: Date().now + ,
+            group_id: this.groupId,
             parent_id: this.commentId
           });
           this.content = '';
