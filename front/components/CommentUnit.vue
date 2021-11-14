@@ -70,11 +70,11 @@
         </v-btn>
       </v-card-actions>
       <v-divider></v-divider>
+      <template> </template>
     </v-card>
     <!-- 답글달기 버튼 -->
     <template>
-      <sub-comment-form
-      />
+      <sub-comment-form />
     </template>
   </v-container>
 </template>
@@ -101,7 +101,8 @@ export default {
   data() {
     return {
       contents: [this.post.content1, this.post.content2, this.post.content3],
-      editForm: false
+      editForm: false,
+      subCommentForm: false
     };
   },
   computed: {
