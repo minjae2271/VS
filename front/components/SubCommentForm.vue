@@ -1,7 +1,5 @@
 <template>
   <div>
-    <v-card>{{ commentId }}</v-card>
-
     <v-form
       ref="form"
       v-model="valid"
