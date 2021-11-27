@@ -2,80 +2,85 @@
   <v-container>
     <v-card
       flat
-      :color="comment.commentType == 0 ? 'red lighten-4' : 'blue lighten-4'"
       :class="comment.parent_id !== 0 ? 'ml-15' : ''"
     >
-      {{ comment }}
-      {{ page }}
       <v-container>
-        <v-row class="d-flex">
-          <v-col cols="1">
-            <v-list-item-avatar color="teal">
-              <span>{{ comment.User.nickname[0] }}</span>
-            </v-list-item-avatar>
+        <v-row>
+          <v-col class="pa-0" cols="1">
+            <v-card
+              :class="comment.commentType === 0 ? 'red lighten-4' : 'blue lighten-4'"
+              width="100%"
+              height="100%"
+              flat
+            >
+            </v-card>
           </v-col>
-          <v-col>
-            <v-list-item-content>
-              <v-list-item-title>{{ comment.User.nickname }}</v-list-item-title>
-              <span>{{ contents[comment.commentType] }}</span>
-            </v-list-item-content>
-          </v-col>
-          <v-spacer></v-spacer>
-          <v-col class="ml-auto" cols="3" align-self="center">
-            <v-container>
-              <v-row align="center" justify="end">
-                <v-col class="pa-0" cols="2">
-                  <v-icon
-                    v-if="me != null && me.id === comment.User.id"
-                    @click="removeComment(post.id, comment.id)"
-                  >
-                    mdi-delete
-                  </v-icon>
-                </v-col>
-                <v-col class="pa-0" cols="2">
-                  <v-icon
-                    v-if="me != null && me.id === comment.User.id"
-                    @click="toggleEditForm"
-                  >
-                    mdi-square-edit-outline
-                  </v-icon>
-                </v-col>
-              </v-row>
-            </v-container>
+          <v-col class="ml-1" cols="10">
+            <v-row>
+              <v-col class="pa-0">
+                <v-list-item-avatar class="ma-0" color="teal">
+                  <span>{{ comment.User.nickname[0] }}</span>
+                </v-list-item-avatar>
+              </v-col>
+              <v-col class="pa-0">
+                <v-list-item-content class="pa-0">
+                  <v-list-item-title>{{ comment.User.nickname }}</v-list-item-title>
+                </v-list-item-content>
+              </v-col>
+              <v-spacer></v-spacer>
+              <v-col class="ml-auto" cols="3" align-self="center">
+                <v-container>
+                  <v-row align="center" justify="end">
+                    <v-col class="pa-0" cols="2">
+                      <v-icon
+                        v-if="me != null && me.id === comment.User.id"
+                        @click="removeComment(post.id, comment.id)"
+                      >
+                        mdi-delete
+                      </v-icon>
+                    </v-col>
+                    <v-col class="pt-3" cols="2">
+                      <v-icon
+                        v-if="me != null && me.id === comment.User.id"
+                        @click="toggleEditForm"
+                      >
+                        mdi-square-edit-outline
+                      </v-icon>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-col>
+            </v-row>
+            <template v-if="editForm">
+              <comment-form-update
+                :comment="comment"
+                :type="'edit'"
+                @toggleEditForm="toggleEditForm"
+              />
+            </template>
+            <template v-else>
+              <v-card-text class="pa-0 mt-3">
+                <pre>{{ comment.content }}</pre>
+              </v-card-text>
+            </template>
+            <v-card-actions class="pa-0">
+              <v-spacer></v-spacer>
+              <v-btn text @click="onClickThumbup">
+                <v-icon dense>{{ thumbupIcon }}</v-icon>
+              </v-btn>
+              <!-- <v-btn text @click="onClickThumbdown">
+                <v-icon dense>{{ thumbdownIcon }}</v-icon>
+              </v-btn> -->
+              <!-- 답글달기 버튼 -->
+              <v-btn @click="displaySubCommentForm">
+                답글달기
+              </v-btn>
+            </v-card-actions>
           </v-col>
         </v-row>
-        <template v-if="editForm">
-          <comment-form-update
-            :comment="comment"
-            :type="'edit'"
-            @toggleEditForm="toggleEditForm"
-          />
-        </template>
-        <template v-else>
-          <v-card-text class="pt-3">
-            <pre>{{ comment.content }}</pre>
-          </v-card-text>
-        </template>
       </v-container>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn text @click="onClickThumbup">
-          <v-icon dense>{{ thumbupIcon }}</v-icon>
-          <!-- {{ comment.Likers.length || 0 }} -->
-        </v-btn>
-        <v-btn text @click="onClickThumbdown">
-          <v-icon dense>{{ thumbdownIcon }}</v-icon>
-        </v-btn>
-        <v-btn text>
-          답글 펼치기
-          <v-icon>mdi-chevron-down</v-icon>
-        </v-btn>
-      </v-card-actions>
       <v-divider></v-divider>
-      <template> </template>
     </v-card>
-    <!-- 답글달기 버튼 -->
-    <v-btn @click="displaySubCommentForm">{{ comment.id }} 답글달기</v-btn>
     <template v-if="subCommentForm">
       <sub-comment-form
         :commentId="comment.id"
