@@ -5,8 +5,6 @@
       :color="comment.commentType == 0 ? 'red lighten-4' : 'blue lighten-4'"
       :class="comment.parent_id !== 0 ? 'ml-15' : ''"
     >
-      {{ comment }}
-      {{ page }}
       <v-container>
         <v-row class="d-flex">
           <v-col cols="1">
@@ -70,12 +68,12 @@
           답글 펼치기
           <v-icon>mdi-chevron-down</v-icon>
         </v-btn>
+        <v-btn @click="displaySubCommentForm">{{ comment.id }} 답글달기</v-btn>
       </v-card-actions>
       <v-divider></v-divider>
       <template> </template>
     </v-card>
     <!-- 답글달기 버튼 -->
-    <v-btn @click="displaySubCommentForm">{{ comment.id }} 답글달기</v-btn>
     <template v-if="subCommentForm">
       <sub-comment-form
         :commentId="comment.id"
