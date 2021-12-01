@@ -6,8 +6,10 @@
     @submit.prevent="onSubmitForm"
   >
     <v-textarea
+      class="mt-1"
       v-model="content"
-      filled
+      solo
+      dense
       auto-grow
       label="댓글 달기"
       :hide-details="hideDetails"
@@ -15,7 +17,10 @@
       :success-messages="successMessages"
       @input="onChangeTextarea"
     />
+    <div>
+
     <v-btn dark absolute top right type="submit">등록</v-btn>
+    </div>
   </v-form>
 </template>
 

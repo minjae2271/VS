@@ -8,7 +8,8 @@
     >
       <v-textarea
         v-model="content"
-        filled
+        solo
+        dense
         auto-grow
         label="답글 달기"
         :hide-details="hideDetails"
@@ -16,7 +17,7 @@
         :success-messages="successMessages"
         @input="onChangeTextarea"
       />
-      <v-btn dark absolute top right type="submit">답글 등록</v-btn>
+      <v-btn absolute bottom right type="submit">답글 등록</v-btn>
     </v-form>
   </div>
 </template>

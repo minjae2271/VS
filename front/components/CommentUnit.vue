@@ -1,55 +1,30 @@
 <template>
   <v-container>
     <v-card
-      flat
       :class="comment.parent_id !== 0 ? 'ml-15' : ''"
+      flat
     >
-      <v-container>
+      <v-container style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25)">
         <v-row>
-          <v-col class="pa-0" cols="1">
+          <div>
             <v-card
               :class="comment.commentType === 0 ? 'red lighten-4' : 'blue lighten-4'"
-              width="100%"
+              style="border-bottom-left-radius: 10px;"
+              width="36px"
               height="100%"
               flat
             >
             </v-card>
-          </v-col>
-          <v-col class="ml-1" cols="10">
+          </div>
+          <v-col class="ml-0">
             <v-row>
-              <v-col class="pa-0">
-                <v-list-item-avatar class="ma-0" color="teal">
+              <v-col class="pl-0">
+                <v-list-item-avatar color="teal" class="mr-1">
                   <span>{{ comment.User.nickname[0] }}</span>
                 </v-list-item-avatar>
-              </v-col>
-              <v-col class="pa-0">
-                <v-list-item-content class="pa-0">
-                  <v-list-item-title>{{ comment.User.nickname }}</v-list-item-title>
-                </v-list-item-content>
+                <span>{{ comment.User.nickname }}</span>
               </v-col>
               <v-spacer></v-spacer>
-              <v-col class="ml-auto" cols="3" align-self="center">
-                <v-container>
-                  <v-row align="center" justify="end">
-                    <v-col class="pa-0" cols="2">
-                      <v-icon
-                        v-if="me != null && me.id === comment.User.id"
-                        @click="removeComment(post.id, comment.id)"
-                      >
-                        mdi-delete
-                      </v-icon>
-                    </v-col>
-                    <v-col class="pt-3" cols="2">
-                      <v-icon
-                        v-if="me != null && me.id === comment.User.id"
-                        @click="toggleEditForm"
-                      >
-                        mdi-square-edit-outline
-                      </v-icon>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-col>
             </v-row>
             <template v-if="editForm">
               <comment-form-update
@@ -59,27 +34,40 @@
               />
             </template>
             <template v-else>
-              <v-card-text class="pa-0 mt-3">
-                <pre>{{ comment.content }}</pre>
-              </v-card-text>
+              <span class="pl-3">{{ comment.content }}</span>
             </template>
             <v-card-actions class="pa-0">
               <v-spacer></v-spacer>
               <v-btn text @click="onClickThumbup">
                 <v-icon dense>{{ thumbupIcon }}</v-icon>
               </v-btn>
-              <!-- <v-btn text @click="onClickThumbdown">
-                <v-icon dense>{{ thumbdownIcon }}</v-icon>
-              </v-btn> -->
-              <!-- 답글달기 버튼 -->
-              <v-btn @click="displaySubCommentForm">
+              <v-btn @click="displaySubCommentForm" plain>
                 답글달기
               </v-btn>
+              <!-- 댓글메뉴 버튼 -->
+              <v-menu offset-y bottom center>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn icon x-large v-bind="attrs" v-on="on">
+                    <v-icon>mdi-dots-vertical</v-icon>
+                  </v-btn>
+                </template>
+                <v-icon
+                  v-if="me != null && me.id === comment.User.id"
+                  @click="removeComment(post.id, comment.id)"
+                >
+                  mdi-delete
+                </v-icon>
+                <v-icon
+                  v-if="me != null && me.id === comment.User.id"
+                  @click="toggleEditForm"
+                >
+                  mdi-square-edit-outline
+                </v-icon>
+              </v-menu>
             </v-card-actions>
           </v-col>
         </v-row>
       </v-container>
-      <v-divider></v-divider>
     </v-card>
     <template v-if="subCommentForm">
       <sub-comment-form
