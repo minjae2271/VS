@@ -15,10 +15,6 @@ export const state = () => ({
 const limit = 9;
 
 export const mutations = {
-  loadTopPosts(state, payload) {
-    state.topPosts = payload;
-  },
-
   addMainPost(state, payload) {
     state.mainPosts.unshift(payload);
     state.imagePaths = [];
@@ -161,18 +157,6 @@ export const mutations = {
 };
 
 export const actions = {
-  async loadTopPosts({ commit }, payload) {
-    try {
-      const res = await this.$axios.get('posts/loadTopPosts', {
-        withCredentials: true
-      });
-      console.log(res.data);
-      commit('loadTopPosts', res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  },
-
   addPost({ commit, state }, payload) {
     this.$axios
       .post(

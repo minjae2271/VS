@@ -1,5 +1,5 @@
 <template>
-  <v-list dense>
+  <v-list>
     <!-- <button @click="gogo">gogo</button> -->
     <nuxt-link :to="`/posts/${page}/`">
       <v-list-item-title>

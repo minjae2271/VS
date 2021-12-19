@@ -2,7 +2,7 @@
   <v-card class="post-card" >
     <nuxt-link :to="'/post/' + post.id" class="post-link">
     <div class="post-content">
-      <v-row no-gutters v-if="post.Images.length === 2">
+      <v-row no-gutters v-if="post.Images && post.Images.length === 2">
         <v-col cols="6">
           <v-img :src="post.Images[0].src" height="200px" width="100%" />
         </v-col>
@@ -10,7 +10,7 @@
           <v-img :src="post.Images[1].src" height="200px" width="100%" />
         </v-col>
       </v-row>
-      <v-row no-gutters v-else-if="post.Images.length === 1">
+      <v-row no-gutters v-else-if="post.Images && post.Images.length === 1">
         <v-col cols="12">
           <v-img :src="post.Images[0].src" height="200px" width="100%" />
         </v-col>
@@ -34,9 +34,9 @@
       </div>
     </div>
     <v-card-actions>
-      <v-btn color="orange" text>
+      <!-- <v-btn color="orange" text>
         공유하기
-      </v-btn>
+      </v-btn> -->
       <v-spacer></v-spacer>
       <v-btn icon color="pink" v-if="isPicked">
         <v-icon>mdi-heart</v-icon>

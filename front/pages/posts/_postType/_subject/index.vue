@@ -17,12 +17,6 @@
 
 <script>
 export default {
-    // asyncData({params}){
-    //     return {
-    //         postTypeId: params.postType,
-    //         subjectId: params.subject
-    //     }
-    // },
     async fetch({store, params}){
         return await store.dispatch('posts/loadSearchPosts', { 
             reset: true,

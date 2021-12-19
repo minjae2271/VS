@@ -49,11 +49,6 @@
             </v-container>
           </v-col>
         </v-row>
-        <!-- <v-row class="post-row" no-gutters v-else-if="post.Images.length === 1">
-          <v-container>
-            <v-img contain max-height="300" :src="post.Images[0].src" />
-          </v-container>
-        </v-row> -->
       </v-container>
       <v-container class="content-name">
         <v-btn class="content-name-1 py-3" depressed color="red lighten-4">
@@ -175,6 +170,7 @@ export default {
         postId: this.$route.params.id,
         contentNum
       });
+      console.log("pick")
     },
     async removeComment(postId, commentId) {
       await this.$store.dispatch('posts/removeComment', { postId, commentId });

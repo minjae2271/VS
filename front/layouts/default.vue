@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <!-- nav bar -->
-    <v-navigation-drawer app temporary absolute v-model="drawer">
+    <v-navigation-drawer app temporary v-model="drawer">
       <nav-drawer :page="currentPage"></nav-drawer>
     </v-navigation-drawer>
     <v-app-bar class="app-bar" app>

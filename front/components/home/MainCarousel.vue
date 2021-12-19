@@ -1,13 +1,11 @@
 <template>
-    <div>
-        <v-carousel v-model="model" cycle show-arrows-on-hover hide-delimiter-background>
+        <v-carousel v-model="model" cycle show-arrows-on-hover hide-delimiter-background height="auto">
             <v-carousel-item
             v-for="(item, i) in mainBanner"
             :key="i"
             >
-                <v-img contain height="100%" src="https://item.kakaocdn.net/do/a1866850b14ae47d0a2fd61f409dfc057154249a3890514a43687a85e6b6cc82"></v-img>
+                <v-img contain height="240px" src="https://item.kakaocdn.net/do/a1866850b14ae47d0a2fd61f409dfc057154249a3890514a43687a85e6b6cc82"></v-img>
                     <v-row
-                    class="fill-height"
                     align="center"
                     justify="center"
                     >
@@ -17,7 +15,6 @@
                     </v-row>
             </v-carousel-item>
         </v-carousel>
-    </div>
 </template>
 <script>
 export default {
@@ -41,8 +38,5 @@ export default {
 </script>
 
 <style scoped>
-.carousel-box
-{
-    height: 100px;
-}
+
 </style>
