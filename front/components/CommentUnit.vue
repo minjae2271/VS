@@ -68,6 +68,25 @@
           </v-col>
         </v-row>
       </v-container>
+<<<<<<< HEAD
+=======
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn text @click="onClickThumbup">
+          <v-icon dense>{{ thumbupIcon }}</v-icon>
+          <!-- {{ comment.Likers.length || 0 }} -->
+        </v-btn>
+        <v-btn text @click="onClickThumbdown">
+          <v-icon dense>{{ thumbdownIcon }}</v-icon>
+        </v-btn>
+        <v-btn text>
+          답글 펼치기
+          <v-icon>mdi-chevron-down</v-icon>
+        </v-btn>
+        <v-btn @click="displaySubCommentForm">{{ comment.id }} 답글달기</v-btn>
+      </v-card-actions>
+      <v-divider></v-divider>
+>>>>>>> 2f6e47122b072b1346a90100f7a7274bdb6ca7ea
     </v-card>
     <template v-if="subCommentForm">
       <sub-comment-form
