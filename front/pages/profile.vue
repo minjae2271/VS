@@ -13,25 +13,24 @@
       </v-tabs>
 
       <v-tabs-items v-model="tabs">
+        <!-- User Info -->
         <v-tab-item>
-          <v-container class="post-card-box grey lighten-5">
-            <v-row class="post-card-row" no-gutters>
-              <v-col
-                class="post-card-col"
-                v-for="(post, i) in mainPosts"
-                :key="i"
-                cols="12"
-                sm="6"
-                md="3"
-              >
-                <post-card elevation="4" :post="post" />
-              </v-col>
-            </v-row>
-          </v-container>
+          <profile-info></profile-info>
         </v-tab-item>
+        <!-- User Pick Post List -->
         <v-tab-item>
-          <user-comments-list :comments="comments" />
+          <v-list dense>
+            <v-list-item-group v-model="selectedItem" color="primary">
+              <v-list-item v-for="(item, i) in mainPosts" :key="i">
+                <v-list-item-content>
+                  <v-list-item-title v-text="item.title"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
         </v-tab-item>
+        <!-- Comment List -->
+        <v-tab-item> </v-tab-item>
       </v-tabs-items>
     </template>
   </v-container>
@@ -47,8 +46,14 @@ export default {
     return {
       tabs: null,
       items: [
-        { tab: '참여 글', content: 'post' },
-        { tab: '작성 댓글', content: 'comment' }
+        { tab: '회원 정보', content: 'post' },
+        { tab: '작성 글', content: 'comment' }
+      ],
+      selectedItem: 1,
+      post_items: [
+        { text: 'Real-Time', icon: 'mdi-clock' },
+        { text: 'Audience', icon: 'mdi-account' },
+        { text: 'Conversions', icon: 'mdi-flag' }
       ]
     };
   },
@@ -63,6 +68,9 @@ export default {
     },
     comments() {
       return this.$store.state.posts.comments;
+    },
+    profile() {
+      return this.$store.state.profile.myProfile;
     }
   },
   async fetch({ store }) {
@@ -76,6 +84,10 @@ export default {
       userId: store.state.users.me.id,
       reset: true
     });
+    await store.dispatch('profile/loadProfile', {
+      myId: store.state.users.me.id,
+      reset: true
+    });
     console.log('profile.vue - fetch');
     return;
   },
@@ -84,4 +96,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style></style>

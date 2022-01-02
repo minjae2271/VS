@@ -7,7 +7,7 @@ export const mutations = {
   setMe(state, payload) {
     state.me = payload;
   },
-  authNum(state, payload){
+  authNum(state, payload) {
     state.authNum = payload;
   }
 };
@@ -18,23 +18,29 @@ export const actions = {
       const res = await this.$axios.get('/user', {
         withCredentials: true
       });
+      console.log('setMe', res.data);
       commit('setMe', res.data);
     } catch (err) {
       console.error(err);
     }
   },
-  sendEmail({commit}, payload){
-    this.$axios.post("/auth/mail",{
-      email: payload.email,
-    }, {
-      withCredentials: true
-    })
-    .then(res => {
-      commit("authNum", res.data);
-    })
-    .catch(err => {
-      console.error(err);
-    })
+  sendEmail({ commit }, payload) {
+    this.$axios
+      .post(
+        '/auth/mail',
+        {
+          email: payload.email
+        },
+        {
+          withCredentials: true
+        }
+      )
+      .then(res => {
+        commit('authNum', res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   },
   signUp({ commit }, payload) {
     this.$axios
@@ -85,7 +91,7 @@ export const actions = {
         }
       )
       .then(res => {
-        commit("setMe", null);
+        commit('setMe', null);
       })
       .catch(err => {
         console.error(err);
@@ -93,18 +99,22 @@ export const actions = {
   },
   kakaoLogIn({ commit }, payload) {
     this.$axios
-    .post("http://localhost:3005/user/kakaoLogIn", {
-      email: payload.email,
-      nickname: payload.nickname,
-      profile_image_url: payload.profile_image_url,
-    },{
-      withCredentials: true
-    })
-    .then(res => {
-      commit("setMe", res.data);
-    })
-    .catch(err => {
-      console.error(err);
-    })
+      .post(
+        'http://localhost:3005/user/kakaoLogIn',
+        {
+          email: payload.email,
+          nickname: payload.nickname,
+          profile_image_url: payload.profile_image_url
+        },
+        {
+          withCredentials: true
+        }
+      )
+      .then(res => {
+        commit('setMe', res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 };
