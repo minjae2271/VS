@@ -162,7 +162,7 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.post('/:id/pick', async (req, res, next) => {
+router.post('/:id/pick', isLoggedIn, async (req, res, next) => {
   try {
     const post = await db.Post.findOne({
       where: { id: req.params.id },
@@ -178,7 +178,10 @@ router.post('/:id/pick', async (req, res, next) => {
       },
     });
     if (checkPick) {
-      return res.status(403).send('이미 선택된 게시글입니다.');
+      return res.status(403).json({
+        msg: '이미 선택된 게시글입니다.',
+        code: '2'
+      });
     }
 
     const newPick = await db.Pick.create({

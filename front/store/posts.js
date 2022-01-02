@@ -9,12 +9,16 @@ export const state = () => ({
   mainHashtags: [],
   hasMorePost: true, //쓸데없는 요청을 막는 것.
   imagePaths: [],
-  updateImagePaths: []
+  updateImagePaths: [],
+  errorMessage: null
 });
 
 const limit = 9;
 
 export const mutations = {
+  resetError(state, payload){
+    state.errorMessage = null;
+  },
   addMainPost(state, payload) {
     state.mainPosts.unshift(payload);
     state.imagePaths = [];
@@ -153,6 +157,9 @@ export const mutations = {
     // console.log(payload);
     const index = state.mainPosts.findIndex(v => v.id === payload.PostId);
     state.mainPosts[index].Picks.unshift(payload);
+  },
+  setErrorMessage(state, payload) {
+    state.errorMessage = payload;
   }
 };
 
@@ -567,6 +574,7 @@ export const actions = {
       commit('pickContent', res.data);
     } catch (err) {
       console.error(err);
+      commit('setErrorMessage', err.response.data)
     }
   },
 

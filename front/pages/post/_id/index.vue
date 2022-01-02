@@ -22,11 +22,11 @@
         </div>
         <div class="post-info-view d-flex mt-2 align-center justify-end">
           <i class="far fa-clock ml-2 mr-1"></i>
-          <small>{{post.createdAt}}</small>
+          <small>{{post.createdAt | changeDate}}</small>
         </div>
       </v-container>
       <v-container class="post-container">
-        <div class="test">test</div>
+        <!-- <div class="test">test</div> -->
         <!-- <v-row class="post-row fill-height" fluid no-gutters v-if="post.Images.length === 2"> -->
         <v-row class="post-row fill-height" fluid no-gutters>  
           <v-col cols="6">
@@ -41,7 +41,6 @@
           <v-col cols="6">
             <v-container class="wrapper rounded">
               <v-img
-                aspect-ratio="16/9"
                 :src="post.Images[1].src"
                 class="post-img rounded"
                 @click="onPickContent(1)"
@@ -50,6 +49,7 @@
           </v-col>
         </v-row>
       </v-container>
+      <!-- 컨텐츠 (제목) 영역 -->
       <v-container class="content-name">
         <v-btn class="content-name-1 py-3" depressed color="red lighten-4">
           <h2 class="text-center" @click="onPickContent(0)">
@@ -66,10 +66,6 @@
         <p>{{ post.condition }}</p>
       </v-container>
       <v-card-actions>
-        <v-btn color="orange" text>
-          공유하기
-        </v-btn>
-
         <!-- <v-btn color="orange" text>
           결과보기
         </v-btn> -->
@@ -89,26 +85,58 @@
     </v-card>
     <!-- 댓글 입력 form -->
     <comment-form :post-id="post.id" :page="page"/>
+    <!-- 총 댓글 정보 -->
     <v-card class="mt-5" flat>
       <v-icon>mdi-message-text</v-icon>
       {{ post.countComments }}개의 댓글
     </v-card>
+    <!-- 댓글창 -->
     <v-container>
       <v-row>
         <v-col>
           <comments-list :post="post" :page="page"/>
         </v-col>
       </v-row>
+      <!-- 페이징 -->
       <div class="text-center">
-      <v-pagination
-        v-model="page"
-        :length="pageLength || 0" 
-        :total-visible="5"
-        @input="loadComments()"
-      >
-      </v-pagination>
-  </div>
+        <v-pagination
+          v-model="page"
+          :length="pageLength || 0" 
+          :total-visible="5"
+          @input="loadComments()"
+        >
+        </v-pagination>
+      </div>
     </v-container>
+    
+    <!-- 에러 모달 시작 -->
+    <v-dialog
+      v-model="errorModal"
+      width="300"
+      persistent
+    >
+      <v-card v-if="this.isError">
+        <v-card-title class="text-h5 grey lighten-2">
+          {{ this.isError.msg }}
+        </v-card-title>
+
+        <!-- <v-card-text v-if="this.isError && this.isError.code === '1'">
+          <nuxt-link to="/signup"><p> 로그인하기 </p></nuxt-link>
+        </v-card-text> -->
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="resetError()"
+          >
+            확인
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- 에러 모달 끝-->
   </v-container>
   <div v-else>
     해당 아이디의 게시글이 존재하지 않습니다.
@@ -118,8 +146,8 @@
 <script>
 // post/_id.vue
 // po  /1   post/2    post
-import CommentForm from '~/components/CommentForm';
-import CommentsList from '~/components/CommentsList';
+import CommentForm from '~/components/comments/CommentForm.vue';
+import CommentsList from '~/components/comments/CommentsList';
 
 export default {
   components: {
@@ -129,6 +157,9 @@ export default {
   computed: {
     me() {
       return this.$store.state.users.me;
+    },
+    isError() {
+      return this.$store.state.posts.errorMessage;
     },
     post() {
       return this.$store.state.posts.mainPosts.find(
@@ -149,6 +180,11 @@ export default {
       return pageLen;
     },
   },
+  watch: {
+    isError(){
+      this.errorModal = !this.errorModal
+    }
+  },
   async fetch({ store, params }) {
     await store.dispatch('posts/viewCnt', { postId: params.id });
     await store.dispatch('posts/loadPost', params.id);
@@ -158,19 +194,19 @@ export default {
   },
   data() {
     return {
+      errorModal: false,
       page: 1
     };
   },
   methods: {
     async onPickContent(contentNum) {
-      if (!this.me) {
-        return alert('로그인이 필요합니다.');
-      }
+      // if (!this.me) {
+      //   await this.$store.commit('posts/setErrorMessage', '로그인이 필요합니다.')
+      // }
       await this.$store.dispatch('posts/pickContent', {
         postId: this.$route.params.id,
         contentNum
       });
-      console.log("pick")
     },
     async removeComment(postId, commentId) {
       await this.$store.dispatch('posts/removeComment', { postId, commentId });
@@ -183,6 +219,15 @@ export default {
     async loadComments() {
       await this.$store.dispatch('posts/loadComments', { postId: this.$route.params.id, page: this.page });
     },
+    async resetError() {
+      await this.$store.commit('posts/resetError')
+    }
+  },
+  filters: {
+    changeDate : function(date) {
+      let dateChunk = date.split("T")[0];
+      return dateChunk;
+    }
   }
   //middleware: "authenticated",
 };
@@ -239,7 +284,7 @@ export default {
   width: 100%;
   height: 100%;
   /* display: block; */
-  object-fit: fill;
+  /* object-fit: contain; */
   
 }
 

@@ -38,11 +38,10 @@
 </template>
 
 <script>
-import CommentsList from '~/components/CommentsList';
 import UserCommentsList from '~/components/UserCommentsList';
 
 export default {
-  components: { CommentsList, UserCommentsList },
+  components: { UserCommentsList },
   data() {
     return {
       tabs: null,

@@ -41,6 +41,15 @@ router.get('/loadTopPosts', async (req, res, next) => {
       console.error(err);
       next(err);
     }
+  });
+
+  router.get('/balanced', async (req, res, next) => {
+    try{
+      
+    }catch(err){
+      console.error(err);
+      next(err);
+    }
   })
 
 module.exports = router;
