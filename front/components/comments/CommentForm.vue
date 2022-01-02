@@ -19,7 +19,7 @@
     />
     <div>
 
-    <v-btn dark absolute top right type="submit">등록</v-btn>
+    <v-btn dark absolute bottom right type="submit">등록</v-btn>
     </div>
   </v-form>
 </template>

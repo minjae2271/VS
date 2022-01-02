@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import CommentForm from '~/components/CommentForm';
 
 export default {
   props: {
@@ -57,9 +56,6 @@ export default {
       type: Object,
       required: true
     }
-  },
-  components: {
-    CommentForm
   },
   data() {
     return {};
